@@ -1,0 +1,14 @@
+build/**
+bin/**
+src/main/resources/**
+.DS_STORE
+.settings
+.project
+.gradle/**
+.classpath
+.idea
+.gradle
+*.iml
+*.iws
+*.ipr
+*.git
