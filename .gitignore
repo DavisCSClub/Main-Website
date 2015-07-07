@@ -1,6 +1,5 @@
 build/**
 bin/**
-src/main/resources/**
 .DS_STORE
 .settings
 .project
