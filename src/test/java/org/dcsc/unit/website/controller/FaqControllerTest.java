@@ -1,4 +1,4 @@
-package org.dcsc.unit.faq;
+package org.dcsc.unit.website.controller;
 
 import org.dcsc.faq.QuestionAnswer;
 import org.dcsc.faq.QuestionAnswerService;
