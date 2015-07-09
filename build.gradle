@@ -40,6 +40,7 @@ dependencies {
 	testCompile 'org.springframework.boot:spring-boot-starter-test:1.2.5.RELEASE'
 	testCompile 'junit:junit:4.12'
 	testCompile 'org.mockito:mockito-all:2.0.2-beta'
+	testCompile 'org.powermock:powermock-mockito-release-full:1.6.2'
 	testCompile 'org.springframework:spring-test:4.0.5.RELEASE'
 }
 
