@@ -1,7 +1,8 @@
-package org.dcsc.website.controller;
+package org.dcsc.unit.website.controller;
 
 import org.dcsc.event.Event;
 import org.dcsc.event.ReadOnlyEventService;
+import org.dcsc.website.controller.HomeController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

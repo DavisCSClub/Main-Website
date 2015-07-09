@@ -1,5 +1,8 @@
-package org.dcsc.event;
+package org.dcsc.unit.event;
 
+import org.dcsc.event.Event;
+import org.dcsc.event.EventRepository;
+import org.dcsc.event.ReadOnlyEventService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
