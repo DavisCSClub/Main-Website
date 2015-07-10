@@ -2,10 +2,12 @@ package org.dcsc.website.controller;
 
 import org.dcsc.event.Event;
 import org.dcsc.event.ReadOnlyEventService;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -26,5 +28,10 @@ public class TimelineController {
         model.addAttribute("page", page);
 
         return "main/timeline";
+    }
+
+    @ExceptionHandler(TypeMismatchException.class)
+    public String handleTypeMismatchException(TypeMismatchException e) {
+        return "redirect:/timeline";
     }
 }
