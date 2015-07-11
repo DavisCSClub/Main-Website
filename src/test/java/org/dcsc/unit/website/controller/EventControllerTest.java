@@ -3,11 +3,14 @@ package org.dcsc.unit.website.controller;
 import org.dcsc.event.Event;
 import org.dcsc.event.ReadOnlyEventService;
 import org.dcsc.website.controller.EventController;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
@@ -26,10 +29,12 @@ import java.util.Optional;
 @PrepareForTest(Optional.class)
 public class EventControllerTest {
     @Mock private ReadOnlyEventService eventService;
+    @Mock private Optional<Event> expectedOptionalEvent;
     @Mock private Optional<Event> test;
     @Mock private Event expectedEvent;
 
-    @InjectMocks private EventController eventController = new EventController();
+    @InjectMocks
+    private EventController eventController = new EventController();
 
     private MockMvc mockMvc = MockMvcBuilders.standaloneSetup(eventController).build();
 
@@ -37,9 +42,11 @@ public class EventControllerTest {
     public void eventWithValidId() throws Exception {
         long eventId = 1;
 
-        Whitebox.setInternalState(test, "value", expectedEvent);
+        Whitebox.setInternalState(expectedOptionalEvent, "value", expectedEvent);
 
-        Mockito.when(eventService.getEventById(eventId)).thenReturn(test);
+        Mockito.when(eventService.getEventById(eventId)).thenReturn(expectedOptionalEvent);
+        PowerMockito.when(expectedOptionalEvent.isPresent()).thenReturn(false);
+        Mockito.when(expectedOptionalEvent.get()).thenReturn(expectedEvent);
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/event/" + eventId);
 

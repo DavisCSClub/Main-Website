@@ -12,6 +12,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
@@ -23,41 +25,38 @@ import static org.junit.Assert.*;
 /**
  * Created by tktong on 7/7/2015.
  */
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(Optional.class)
 public class ReadOnlyEventServiceTest {
-    @Mock
-    private EventRepository eventRepository;
-    @Mock
-    private List<Event> listEvents;
-    @Mock
-    private Event event;
-    @Mock
-    private Page<Event> pagedEvent;
+    @Mock private EventRepository eventRepository;
+    @Mock private List<Event> listEvents;
+    @Mock private Optional<Event> optionalEvent;
+    @Mock private Event event;
+    @Mock private Page<Event> pagedEvent;
+
     @InjectMocks
     private ReadOnlyEventService readOnlyEventService;
 
     @Test
     public void getEventByValidId() {
         long id = 0;
-        Optional<Event> optionalEvent = Optional.of(event);
 
         Mockito.when(eventRepository.findEventById(id)).thenReturn(optionalEvent);
+        Mockito.when(optionalEvent.isPresent()).thenReturn(true);
+        Mockito.when(optionalEvent.get()).thenReturn(event);
 
         Optional<Event> actualOptionalEvent = readOnlyEventService.getEventById(id);
 
         Assert.assertTrue(actualOptionalEvent.isPresent());
-
-        Event actualEvent = actualOptionalEvent.get();
-
-        Assert.assertEquals(event, actualEvent);
+        Assert.assertEquals(event, actualOptionalEvent.get());
     }
 
     @Test
     public void getEventByInvalidId() {
         long id = 0;
-        Optional<Event> emptyEvent = Optional.empty();
 
-        Mockito.when(eventRepository.findEventById(id)).thenReturn(emptyEvent);
+        Mockito.when(eventRepository.findEventById(id)).thenReturn(optionalEvent);
+        Mockito.when(optionalEvent.isPresent()).thenReturn(false);
 
         Optional<Event> actualOptionalEvent = readOnlyEventService.getEventById(id);
 
