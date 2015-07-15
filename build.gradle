@@ -34,7 +34,7 @@ dependencies {
 	compile "org.postgresql:postgresql:9.4-1201-jdbc41"
 
 	// Security
-	//compile "org.springframework.boot:spring-boot-starter-security"
+	compile "org.springframework.boot:spring-boot-starter-security"
 
 	// Testing
 	testCompile 'org.springframework.boot:spring-boot-starter-test:1.2.5.RELEASE'
