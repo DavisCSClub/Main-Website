@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by tktong on 7/15/15.
  */
 @Controller
-public class LoginController {
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
-        return "admin/login";
+public class DashboardController {
+
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String dashboard() {
+        return "admin/dashboard";
     }
+
 }

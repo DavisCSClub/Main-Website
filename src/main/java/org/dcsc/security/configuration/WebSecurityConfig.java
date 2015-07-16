@@ -1,4 +1,4 @@
-package org.dcsc.security;
+package org.dcsc.security.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * Created by tktong on 7/15/15.
  */
 @Configuration
-@EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class configuration extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsService userDetailsService;
 
@@ -30,6 +28,8 @@ public class configuration extends WebSecurityConfigurerAdapter {
                 .formLogin()
                     .loginPage("/login")
                     .failureUrl("/login?error")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
                     .permitAll()
                     .and()
                 .logout()
