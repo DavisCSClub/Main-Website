@@ -19,10 +19,8 @@ import java.util.List;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class QuestionAnswerServiceTest {
-    @Mock
-    private QuestionAnswerRepository questionAnswerRepository;
-    @Mock
-    private List<QuestionAnswer> expectedQuestionAnswers;
+    @Mock private QuestionAnswerRepository questionAnswerRepository;
+    @Mock private List<QuestionAnswer> expectedQuestionAnswers;
 
     @InjectMocks
     private QuestionAnswerService questionAnswerService;

@@ -24,40 +24,28 @@ public class ErrorHandlingControllerTest {
     private static final String TEMPLATE_VAR_ERROR_CODE = "errorCode";
     private static final String TEMPLATE_VAR_PRIMARY_MESSAGE = "primaryMessage";
     private static final String TEMPLATE_VAR_SECONDARY_MESSAGE = "secondaryMessage";
-
     private static final String EXPECTED_ERROR_PATH = "/error";
     private static final String EXPECTED_404_VIEW_NAME = "main/error";
 
-    @Mock
-    Model model;
+    @Mock Model model;
 
     private ErrorHandlingController errorController = new ErrorHandlingController();
 
-    private MockMvc mockMvc = MockMvcBuilders.standaloneSetup(errorController).build();
-
-    @Test
-    public void error404StatusOk() throws Exception {
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/error/404");
-
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
     @Test
     public void error404() {
-        Mockito.when(model.addAttribute(Mockito.any(), Mockito.any())).thenReturn(model);
+        String actualView = errorController.error404(model);
 
-        String view = errorController.error404(model);
+        Mockito.verify(model).addAttribute(TEMPLATE_VAR_ERROR_CODE, HttpStatus.NOT_FOUND.value());
+        Mockito.verify(model).addAttribute(Mockito.eq(TEMPLATE_VAR_PRIMARY_MESSAGE), Mockito.anyString());
+        Mockito.verify(model).addAttribute(Mockito.eq(TEMPLATE_VAR_SECONDARY_MESSAGE), Mockito.anyString());
 
-        Mockito.verify(model).addAttribute("errorCode", HttpStatus.NOT_FOUND.value());
-        Mockito.verify(model).addAttribute(Mockito.eq("primaryMessage"), Mockito.anyString());
-        Mockito.verify(model).addAttribute(Mockito.eq("secondaryMessage"), Mockito.anyString());
-
-        Assert.assertEquals(EXPECTED_404_VIEW_NAME, view);
+        Assert.assertEquals(EXPECTED_404_VIEW_NAME, actualView);
     }
 
     @Test
     public void getErrorPath() {
-        Assert.assertEquals(EXPECTED_ERROR_PATH, errorController.getErrorPath());
+        String actualErrorPath = errorController.getErrorPath();
+
+        Assert.assertEquals(EXPECTED_ERROR_PATH, actualErrorPath);
     }
 }

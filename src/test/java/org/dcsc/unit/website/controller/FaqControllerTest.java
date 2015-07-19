@@ -3,46 +3,36 @@ package org.dcsc.unit.website.controller;
 import org.dcsc.faq.QuestionAnswer;
 import org.dcsc.faq.QuestionAnswerService;
 import org.dcsc.website.controller.FaqController;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.ui.Model;
 
 import java.util.List;
-
-import static org.junit.Assert.*;
-
 /**
  * Created by tktong on 7/8/2015.
  */
 @RunWith(MockitoJUnitRunner.class)
 public class FaqControllerTest {
-    @Mock
-    private QuestionAnswerService questionAnswerService;
-    @Mock
-    private List<QuestionAnswer> expectedQuestionAnswers;
+    @Mock private QuestionAnswerService questionAnswerService;
+    @Mock private List<QuestionAnswer> expectedQuestionAnswers;
+    @Mock private Model model;
 
     @InjectMocks
-    private FaqController faqController = new FaqController();
-
-    private MockMvc mockMvc = MockMvcBuilders.standaloneSetup(faqController).build();
+    private FaqController faqController;
 
     @Test
-    public void faq() throws Exception {
+    public void faq() {
         Mockito.when(questionAnswerService.getAllQuestionAnswers()).thenReturn(expectedQuestionAnswers);
 
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/faq");
+        String actualView = faqController.faq(model);
 
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.model().attribute("questionAnswers", expectedQuestionAnswers))
-                .andExpect(MockMvcResultMatchers.view().name("main/faq"));
+        Mockito.verify(model).addAttribute("questionAnswers", expectedQuestionAnswers);
+
+        Assert.assertEquals("main/faq", actualView);
     }
 }

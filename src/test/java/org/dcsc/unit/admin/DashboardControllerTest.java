@@ -1,11 +1,7 @@
 package org.dcsc.unit.admin;
 
 import org.dcsc.admin.DashboardController;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.junit.Assert;
 import org.testng.annotations.Test;
 
 /**
@@ -14,13 +10,10 @@ import org.testng.annotations.Test;
 public class DashboardControllerTest {
     private DashboardController dashboardController = new DashboardController();
 
-    private MockMvc mockMvc = MockMvcBuilders.standaloneSetup(dashboardController).build();
-
     @Test
-    public void dashboard() throws Exception {
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/admin");
+    public void dashboard() {
+        String view = dashboardController.dashboard();
 
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.view().name("admin/dashboard"));
+        Assert.assertEquals("admin/dashboard", view);
     }
 }

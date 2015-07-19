@@ -3,6 +3,7 @@ package org.dcsc.unit.website.controller;
 import org.dcsc.event.Event;
 import org.dcsc.event.ReadOnlyEventService;
 import org.dcsc.website.controller.TimelineController;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,6 +16,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.ui.Model;
 
 import static org.junit.Assert.*;
 
@@ -23,39 +25,23 @@ import static org.junit.Assert.*;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TimelineControllerTest {
-    @Mock
-    private ReadOnlyEventService eventService;
-    @Mock
-    private Page<Event> expectedPage;
+    @Mock private ReadOnlyEventService eventService;
+    @Mock private Page<Event> expectedPage;
+    @Mock private Model model;
 
     @InjectMocks
-    private TimelineController timelineController = new TimelineController();
-
-    private MockMvc mockMvc = MockMvcBuilders.standaloneSetup(timelineController).build();
+    private TimelineController timelineController;
 
     @Test
-    public void timelineDefaultPage() throws Exception {
-        Mockito.when(eventService.getPagedEvents(Mockito.eq(0), Mockito.anyInt())).thenReturn(expectedPage);
-
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/timeline");
-
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.model().attribute("page", expectedPage))
-                .andExpect(MockMvcResultMatchers.view().name("main/timeline"));
-    }
-
-    @Test
-    public void timelinePageWithId() throws Exception {
-        int pageId = 3;
+    public void timeline() {
+        int pageId = 0;
 
         Mockito.when(eventService.getPagedEvents(Mockito.eq(pageId), Mockito.anyInt())).thenReturn(expectedPage);
 
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/timeline?p=" + pageId);
+        String view = timelineController.timeline(pageId, model);
 
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.model().attribute("page",expectedPage))
-                .andExpect(MockMvcResultMatchers.view().name("main/timeline"));
+        Mockito.verify(model).addAttribute("page", expectedPage);
+
+        Assert.assertEquals("main/timeline", view);
     }
 }
