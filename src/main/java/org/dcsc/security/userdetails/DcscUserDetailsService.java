@@ -19,8 +19,6 @@ public class DcscUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<DcscUser> user = userService.getUserByUsername(username);
 
-		System.out.println(user.isPresent());
-
 		if(!user.isPresent()) {
 			throw new UsernameNotFoundException(String.format("Username %s was not found.", username));
 		}
