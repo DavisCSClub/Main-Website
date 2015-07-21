@@ -1,7 +1,7 @@
 package org.dcsc.unit.website.controller;
 
 import org.dcsc.event.Event;
-import org.dcsc.event.ReadOnlyEventService;
+import org.dcsc.event.EventService;
 import org.dcsc.website.controller.TimelineController;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,21 +11,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.domain.Page;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by tktong on 7/9/2015.
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TimelineControllerTest {
-    @Mock private ReadOnlyEventService eventService;
+    @Mock private EventService eventService;
     @Mock private Page<Event> expectedPage;
     @Mock private Model model;
 

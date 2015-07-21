@@ -1,7 +1,7 @@
 package org.dcsc.unit.website.controller;
 
 import org.dcsc.event.Event;
-import org.dcsc.event.ReadOnlyEventService;
+import org.dcsc.event.EventService;
 import org.dcsc.website.controller.EventController;
 import org.junit.Assert;
 import org.junit.Test;
@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -25,7 +24,7 @@ import java.util.Optional;
 public class EventControllerTest {
     private static final long EVENT_ID = 0;
 
-    @Mock private ReadOnlyEventService eventService;
+    @Mock private EventService eventService;
     @Mock private Optional<Event> expectedOptional;
     @Mock private Event expectedEvent;
     @Mock private Model model;

@@ -14,12 +14,17 @@ import java.util.Optional;
  * Created by tktong on 7/7/2015.
  */
 @Service
-public class ReadOnlyEventService {
+public class EventService {
     private static final String EVENT_DATE_COLUMN_LABEL = "date";
     private static final String EVENT_START_TIME_COLUMN_LABEL = "startTime";
 
     @Autowired
     private EventRepository eventRepository;
+
+    @Transactional(readOnly = true)
+    public List<Event> getAllEvents() {
+        return eventRepository.findAll();
+    }
 
     @Transactional(readOnly = true)
     public Optional<Event> getEventById(long id) {

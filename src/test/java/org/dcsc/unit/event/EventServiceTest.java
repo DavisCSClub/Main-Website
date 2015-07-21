@@ -2,16 +2,13 @@ package org.dcsc.unit.event;
 
 import org.dcsc.event.Event;
 import org.dcsc.event.EventRepository;
-import org.dcsc.event.ReadOnlyEventService;
+import org.dcsc.event.EventService;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.data.domain.Page;
@@ -20,14 +17,12 @@ import org.springframework.data.domain.PageRequest;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by tktong on 7/7/2015.
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Optional.class)
-public class ReadOnlyEventServiceTest {
+public class EventServiceTest {
     @Mock private EventRepository eventRepository;
     @Mock private List<Event> listEvents;
     @Mock private Optional<Event> optionalEvent;
@@ -35,7 +30,7 @@ public class ReadOnlyEventServiceTest {
     @Mock private Page<Event> pagedEvent;
 
     @InjectMocks
-    private ReadOnlyEventService readOnlyEventService;
+    private EventService eventService;
 
     @Test
     public void getEventByValidId() {
@@ -45,7 +40,7 @@ public class ReadOnlyEventServiceTest {
         Mockito.when(optionalEvent.isPresent()).thenReturn(true);
         Mockito.when(optionalEvent.get()).thenReturn(event);
 
-        Optional<Event> actualOptionalEvent = readOnlyEventService.getEventById(id);
+        Optional<Event> actualOptionalEvent = eventService.getEventById(id);
 
         Assert.assertTrue(actualOptionalEvent.isPresent());
         Assert.assertEquals(event, actualOptionalEvent.get());
@@ -58,7 +53,7 @@ public class ReadOnlyEventServiceTest {
         Mockito.when(eventRepository.findEventById(id)).thenReturn(optionalEvent);
         Mockito.when(optionalEvent.isPresent()).thenReturn(false);
 
-        Optional<Event> actualOptionalEvent = readOnlyEventService.getEventById(id);
+        Optional<Event> actualOptionalEvent = eventService.getEventById(id);
 
         Assert.assertFalse(actualOptionalEvent.isPresent());
     }
@@ -70,7 +65,7 @@ public class ReadOnlyEventServiceTest {
 
         Mockito.when(eventRepository.findEventsByTag(tag)).thenReturn(listEvents);
 
-        List<Event> actualListEvents = readOnlyEventService.getEventsByTag(tag);
+        List<Event> actualListEvents = eventService.getEventsByTag(tag);
 
         Assert.assertEquals(listEvents, actualListEvents);
     }
@@ -82,7 +77,7 @@ public class ReadOnlyEventServiceTest {
 
         Mockito.when(eventRepository.findAll(Mockito.any(PageRequest.class))).thenReturn(pagedEvent);
 
-        Page<Event> actualPagedEvent = readOnlyEventService.getPagedEvents(index, size);
+        Page<Event> actualPagedEvent = eventService.getPagedEvents(index, size);
 
         Assert.assertEquals(pagedEvent, actualPagedEvent);
     }

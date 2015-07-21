@@ -1,7 +1,7 @@
 package org.dcsc.admin;
 
-import org.dcsc.event.EventPlanner;
-import org.dcsc.event.EventPlannerService;
+import org.dcsc.event.Event;
+import org.dcsc.event.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,13 +15,13 @@ import java.util.List;
 @Controller
 public class AdminEventController {
     @Autowired
-    private EventPlannerService eventPlannerService;
+    private EventService eventService;
 
     @RequestMapping(value = "/admin/events")
     public String events(Model model) {
-        List<EventPlanner> plannedEvents = eventPlannerService.getAllEventPlanners();
+        List<Event> events = eventService.getAllEvents();
 
-        model.addAttribute("events", plannedEvents);
+        model.addAttribute("events", events);
 
         return "admin/events";
     }

@@ -1,7 +1,7 @@
 package org.dcsc.unit.website.controller;
 
 import org.dcsc.event.Event;
-import org.dcsc.event.ReadOnlyEventService;
+import org.dcsc.event.EventService;
 import org.dcsc.website.controller.HomeController;
 import org.junit.Assert;
 import org.junit.Test;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class HomeControllerTest {
-    @Mock private ReadOnlyEventService eventService;
+    @Mock private EventService eventService;
     @Mock private Page<Event> page;
     @Mock private List<Event> eventList;
     @Mock private Model model;
