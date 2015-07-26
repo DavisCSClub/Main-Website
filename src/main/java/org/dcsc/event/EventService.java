@@ -7,6 +7,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +23,39 @@ public class EventService {
 
     @Autowired
     private EventRepository eventRepository;
+
+    public void saveEvent(long id, EventForm eventForm) {
+        Optional<Event> event = eventRepository.findEventById(id);
+
+        if(event.isPresent()) {
+            saveEvent(event.get(), eventForm);
+        }
+    }
+
+    public void saveEvent(EventForm eventForm) {
+        saveEvent(new Event(), eventForm);
+    }
+
+    private void saveEvent(Event event, EventForm eventForm) {
+        String name = eventForm.getName();
+        String description = eventForm.getDescription();
+        Date date = Date.valueOf(eventForm.getDate());
+        Time startTime = Time.valueOf(eventForm.getStartTime());
+        Time endTime = Time.valueOf(eventForm.getEndTime());
+        String location = eventForm.getLocation();
+        boolean isPublished = eventForm.isPublished();
+
+        event.setName(name);
+        event.setDescription(description);
+        event.setDate(date);
+        event.setStartTime(startTime);
+        event.setEndTime(endTime);
+        event.setLocation(location);
+        event.setPublished(isPublished);
+
+        System.out.println("Event Saved");
+        //eventRepository.save(event);
+    }
 
     @Transactional(readOnly = true)
     public List<Event> getAllEvents() {

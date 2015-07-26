@@ -25,6 +25,15 @@ public class ErrorHandlingController implements ErrorController {
         return "main/error";
     }
 
+    @RequestMapping(value = "/error/405")
+    public String error405(Model model) {
+        model.addAttribute(TEMPLATE_VAR_ERROR_CODE, HttpStatus.METHOD_NOT_ALLOWED.value());
+        model.addAttribute(TEMPLATE_VAR_PRIMARY_MESSAGE, "Your request method is not supported.");
+        model.addAttribute(TEMPLATE_VAR_SECONDARY_MESSAGE, "If this is not an error and the issue persists, contact an administrator");
+
+        return "main/error";
+    }
+
     @Override
     public String getErrorPath() {
         return ERROR_PATH;

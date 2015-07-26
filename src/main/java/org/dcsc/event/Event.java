@@ -134,4 +134,12 @@ public class Event {
     public void setPublished(boolean published) {
         this.published = published;
     }
+
+    public List<DcscUser> getCoordinators() {
+        return coordinators;
+    }
+
+    public void setCoordinators(List<DcscUser> coordinators) {
+        this.coordinators = coordinators;
+    }
 }
