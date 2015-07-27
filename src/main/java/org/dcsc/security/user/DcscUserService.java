@@ -55,6 +55,6 @@ public class DcscUserService {
 
 	@Transactional(readOnly = true)
 	public Optional<DcscUser> getUserByUsername(String username) {
-		return userRepository.getUserByUsername(username);
+		return userRepository.findUserByUsername(username);
 	}
 }

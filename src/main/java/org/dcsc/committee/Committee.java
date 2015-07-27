@@ -46,23 +46,6 @@ public class Committee {
     @Column(name = "banner")
     private String bannerImagePath;
 
-    public Committee() {
-    }
-
-    public Committee(long id, String name, String tag, String chair, String viceChair, boolean viceIsCoChair, String description, DayOfWeek meetingDay, Time startTime, Time endTime, String bannerImagePath) {
-        this.id = id;
-        this.name = name;
-        this.tag = tag;
-        this.chair = chair;
-        this.viceChair = viceChair;
-        this.viceIsCoChair = viceIsCoChair;
-        this.description = description;
-        this.meetingDay = meetingDay;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.bannerImagePath = bannerImagePath;
-    }
-
     public long getId() {
         return id;
     }
