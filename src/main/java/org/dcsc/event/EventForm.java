@@ -4,6 +4,7 @@ package org.dcsc.event;
  * Created by tktong on 7/22/2015.
  */
 public class EventForm {
+    private long id = -1;
     private String name;
     private String description;
     private String date;
@@ -14,10 +15,10 @@ public class EventForm {
     private boolean published;
 
     public EventForm() {
-
     }
 
     public EventForm(Event event) {
+        id = event.getId();
         name = event.getName();
         description = event.getDescription();
         date = event.getDate().toString();
@@ -25,6 +26,14 @@ public class EventForm {
         endTime = event.getEndTime().toString();
         location = event.getLocation();
         published = event.isPublished();
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

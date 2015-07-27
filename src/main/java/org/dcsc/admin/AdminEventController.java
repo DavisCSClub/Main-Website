@@ -4,21 +4,17 @@ import org.dcsc.event.Event;
 import org.dcsc.event.EventForm;
 import org.dcsc.event.EventFormValidator;
 import org.dcsc.event.EventService;
+import org.dcsc.template.Template;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.sql.Date;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,11 +39,34 @@ public class AdminEventController {
 
         model.addAttribute("events", events);
 
-        return "admin/events";
+        return Template.ADMIN_EVENT_LIST;
+    }
+
+    @RequestMapping(value = "/admin/events/event/create", method = RequestMethod.GET)
+    public String createEvent(Model model) {
+        EventForm eventForm = new EventForm();
+
+        eventForm.setName("New Event");
+        model.addAttribute("eventForm", eventForm);
+
+        return Template.ADMIN_EVENT_FORM;
+    }
+
+    @RequestMapping(value = "/admin/events/event/create", method = RequestMethod.POST)
+    public String saveEvent(@Valid @ModelAttribute EventForm eventForm, BindingResult result, RedirectAttributes redirectAttributes) {
+        if(result.hasErrors()) {
+            redirectAttributes.addFlashAttribute("errors", result.getAllErrors());
+
+            return "redirect:/admin/events/event/create?error";
+        }
+
+        Event event = eventService.saveEvent(eventForm);
+
+        return String.format("redirect:/admin/events/event/%d?success", event.getId());
     }
 
     @RequestMapping(value = "/admin/events/event/{eventId}", method = RequestMethod.GET)
-    public String event(@PathVariable("eventId") long eventId, Model model) {
+    public String editEvent(@PathVariable("eventId") long eventId, Model model) {
         Optional<Event> event = eventService.getEventById(eventId);
 
         if(!event.isPresent()) {
@@ -60,22 +79,25 @@ public class AdminEventController {
         model.addAttribute("event", e);
         model.addAttribute("eventForm", eventForm);
 
-        return "admin/event";
+        return Template.ADMIN_EVENT_FORM;
     }
 
     @RequestMapping(value = "/admin/events/event/{eventId}", method = RequestMethod.POST)
-    public String saveEvent(@PathVariable("eventId") long eventId,
-                            @Valid @ModelAttribute EventForm eventForm, BindingResult result,
-                            RedirectAttributes redirectAttributes) {
+    public String saveEvent(@PathVariable("eventId") long eventId, @Valid @ModelAttribute EventForm eventForm,
+                            BindingResult result, RedirectAttributes redirectAttributes) {
         if(result.hasErrors()) {
             redirectAttributes.addFlashAttribute("errors", result.getAllErrors());
 
-            return "redirect:/admin/events/event/" + eventId + "?error";
+            return String.format("redirect:/admin/events/event/%d?error", eventId);
         }
 
-        eventService.saveEvent(eventId, eventForm);
+        try {
+            eventService.saveEvent(eventId, eventForm);
+        } catch(Exception e) {
+            return "redirect:/admin/events";
+        }
 
-        return "redirect:/admin/events/event/" + eventId + "?success";
+        return String.format("redirect:/admin/events/event/%d?success", eventId);
     }
 
     @ExceptionHandler(TypeMismatchException.class)

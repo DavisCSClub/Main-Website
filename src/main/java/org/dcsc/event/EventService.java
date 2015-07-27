@@ -24,19 +24,22 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
-    public void saveEvent(long id, EventForm eventForm) {
+    public Event saveEvent(long id, EventForm eventForm) throws SavingUndefinedEventException {
         Optional<Event> event = eventRepository.findEventById(id);
 
         if(event.isPresent()) {
-            saveEvent(event.get(), eventForm);
+            return saveEvent(event.get(), eventForm);
+        }
+        else {
+            throw new SavingUndefinedEventException("Attempted to save an event with id that does not exists.");
         }
     }
 
-    public void saveEvent(EventForm eventForm) {
-        saveEvent(new Event(), eventForm);
+    public Event saveEvent(EventForm eventForm) {
+        return saveEvent(new Event(), eventForm);
     }
 
-    private void saveEvent(Event event, EventForm eventForm) {
+    private Event saveEvent(Event event, EventForm eventForm) {
         String name = eventForm.getName();
         String description = eventForm.getDescription();
         Date date = Date.valueOf(eventForm.getDate());
@@ -53,8 +56,7 @@ public class EventService {
         event.setLocation(location);
         event.setPublished(isPublished);
 
-        System.out.println("Event Saved");
-        //eventRepository.save(event);
+        return eventRepository.save(event);
     }
 
     @Transactional(readOnly = true)
