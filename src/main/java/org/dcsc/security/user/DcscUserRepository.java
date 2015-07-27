@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DcscUserRepository extends JpaRepository<DcscUser, Long> {
+	Optional<DcscUser> findUserById(long id);
 	Optional<DcscUser> getUserByUsername(String username);
 }
