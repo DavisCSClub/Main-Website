@@ -1,4 +1,8 @@
+Preview:
 [![Build Status](https://travis-ci.org/DavisCSClub/Main-Website.svg)](https://travis-ci.org/DavisCSClub/Main-Website)
+
+Integration:
+[![Build Status](https://travis-ci.org/DavisCSClub/Main-Website.svg?branch=integration)](https://travis-ci.org/DavisCSClub/Main-Website)
 
 # IMPORTANT
 
