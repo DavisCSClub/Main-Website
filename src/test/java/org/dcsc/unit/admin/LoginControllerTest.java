@@ -2,7 +2,7 @@ package org.dcsc.unit.admin;
 
 import org.dcsc.admin.LoginController;
 import org.junit.Assert;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 /**
  * Created by tktong on 7/16/15.

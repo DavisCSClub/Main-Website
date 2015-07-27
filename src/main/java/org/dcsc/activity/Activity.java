@@ -37,20 +37,6 @@ public class Activity {
     @Column(name = "time", nullable = false)
     private Time time;
 
-    public Activity() {
-
-    }
-
-    public Activity(long id, DcscUser user, Actions action, String target, String description, Date date, Time time) {
-        this.id = id;
-        this.user = user;
-        this.action = action;
-        this.target = target;
-        this.description = description;
-        this.date = date;
-        this.time = time;
-    }
-
     public long getId() {
         return id;
     }

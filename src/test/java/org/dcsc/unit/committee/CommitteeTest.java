@@ -1,13 +1,12 @@
 package org.dcsc.unit.committee;
 
 import org.dcsc.committee.Committee;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.testng.Assert;
-
 import java.sql.Time;
 import java.time.DayOfWeek;
 
