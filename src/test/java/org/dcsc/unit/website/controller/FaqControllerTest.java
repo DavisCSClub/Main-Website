@@ -18,9 +18,12 @@ import java.util.List;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class FaqControllerTest {
-    @Mock private QuestionAnswerService questionAnswerService;
-    @Mock private List<QuestionAnswer> expectedQuestionAnswers;
-    @Mock private Model model;
+    @Mock
+    private QuestionAnswerService questionAnswerService;
+    @Mock
+    private List<QuestionAnswer> expectedQuestionAnswers;
+    @Mock
+    private Model model;
 
     @InjectMocks
     private FaqController faqController;

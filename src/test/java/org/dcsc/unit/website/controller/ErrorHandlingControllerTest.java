@@ -27,7 +27,8 @@ public class ErrorHandlingControllerTest {
     private static final String EXPECTED_ERROR_PATH = "/error";
     private static final String EXPECTED_ERROR_VIEW_NAME = "main/error";
 
-    @Mock Model model;
+    @Mock
+    Model model;
 
     private ErrorHandlingController errorController = new ErrorHandlingController();
 

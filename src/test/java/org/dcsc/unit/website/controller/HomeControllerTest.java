@@ -20,10 +20,14 @@ import java.util.List;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class HomeControllerTest {
-    @Mock private EventService eventService;
-    @Mock private Page<Event> page;
-    @Mock private List<Event> eventList;
-    @Mock private Model model;
+    @Mock
+    private EventService eventService;
+    @Mock
+    private Page<Event> page;
+    @Mock
+    private List<Event> eventList;
+    @Mock
+    private Model model;
 
     @InjectMocks
     private HomeController homeController;

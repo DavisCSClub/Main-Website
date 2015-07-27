@@ -44,6 +44,12 @@ dependencies {
 	testCompile 'org.springframework:spring-test:4.0.5.RELEASE'
 }
 
+test {
+	testLogging {
+		events "passed", "skipped", "failed"
+	}
+}
+
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.4'
 }

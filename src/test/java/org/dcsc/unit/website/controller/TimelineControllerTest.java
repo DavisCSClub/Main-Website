@@ -19,10 +19,14 @@ import org.springframework.ui.Model;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class TimelineControllerTest {
-    @Mock private EventService eventService;
-    @Mock private Page<Event> expectedPage;
-    @Mock private Model model;
-    @Mock private TypeMismatchException exception;
+    @Mock
+    private EventService eventService;
+    @Mock
+    private Page<Event> expectedPage;
+    @Mock
+    private Model model;
+    @Mock
+    private TypeMismatchException exception;
 
     @InjectMocks
     private TimelineController timelineController;

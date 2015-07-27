@@ -12,7 +12,6 @@ import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.beans.TypeMismatchException;
-import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.ui.Model;
 
 import java.util.Optional;
@@ -21,15 +20,20 @@ import java.util.Optional;
  * Created by tktong on 7/9/2015.
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(Optional.class)
+@PrepareForTest(EventController.class)
 public class EventControllerTest {
     private static final long EVENT_ID = 0;
 
-    @Mock private EventService eventService;
-    @Mock private Optional<Event> expectedOptional;
-    @Mock private Event expectedEvent;
-    @Mock private Model model;
-    @Mock private TypeMismatchException exception;
+    @Mock
+    private EventService eventService;
+    @Mock
+    private Optional<Event> expectedOptional;
+    @Mock
+    private Event expectedEvent;
+    @Mock
+    private Model model;
+    @Mock
+    private TypeMismatchException exception;
 
     @InjectMocks
     private EventController eventController;
@@ -37,7 +41,8 @@ public class EventControllerTest {
     @Test
     public void eventWithValidId() {
         Mockito.when(eventService.getEventById(EVENT_ID)).thenReturn(expectedOptional);
-        ReflectionTestUtils.setField(expectedOptional, "value", expectedEvent);
+        Mockito.when(expectedOptional.isPresent()).thenReturn(true);
+        Mockito.when(expectedOptional.get()).thenReturn(expectedEvent);
 
         String actualView = eventController.event(EVENT_ID, model);
 
@@ -49,7 +54,7 @@ public class EventControllerTest {
     @Test
     public void eventWithIdNotFound() {
         Mockito.when(eventService.getEventById(EVENT_ID)).thenReturn(expectedOptional);
-        ReflectionTestUtils.setField(expectedOptional, "value", null);
+        Mockito.when(expectedOptional.isPresent()).thenReturn(false);
 
         String actualView = eventController.event(EVENT_ID, model);
 
