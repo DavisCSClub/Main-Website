@@ -14,7 +14,9 @@ public class ServletCustomizer implements EmbeddedServletContainerCustomizer {
     @Override
     public void customize(ConfigurableEmbeddedServletContainer container) {
         ErrorPage notFound = new ErrorPage(HttpStatus.NOT_FOUND, "/error/404");
+        ErrorPage methodNotAllowed = new ErrorPage(HttpStatus.METHOD_NOT_ALLOWED, "/error/405");
 
         container.addErrorPages(notFound);
+        container.addErrorPages(methodNotAllowed);
     }
 }

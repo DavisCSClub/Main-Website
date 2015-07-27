@@ -19,16 +19,6 @@ public class QuestionAnswer {
     @Column(name = "answer", nullable = false)
     private String answer;
 
-    public QuestionAnswer() {
-
-    }
-
-    public QuestionAnswer(long id, String question, String answer) {
-        this.id = id;
-        this.question = question;
-        this.answer = answer;
-    }
-
     public long getId() {
         return id;
     }

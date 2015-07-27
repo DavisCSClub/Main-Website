@@ -1,7 +1,7 @@
 package org.dcsc.website.controller;
 
 import org.dcsc.event.Event;
-import org.dcsc.event.ReadOnlyEventService;
+import org.dcsc.event.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
     @Autowired
-    private ReadOnlyEventService eventService;
+    private EventService eventService;
 
     @RequestMapping(value = "/")
     public String home(Model model) {
