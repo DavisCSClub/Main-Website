@@ -1,8 +1,11 @@
 package org.dcsc.event;
 
+import org.dcsc.security.user.DcscUser;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 /**
  * Created by tktong on 7/7/2015.
@@ -39,21 +42,18 @@ public class Event {
     @Column(name = "tag")
     private String tag;
 
-    public Event() {
+    @Column(name = "published")
+    private boolean published;
 
-    }
-
-    public Event(long id, String name, String description, Date date, Time startTime, Time endTime, String location, String imagePath, String tag) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.date = date;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.location = location;
-        this.imagePath = imagePath;
-        this.tag = tag;
-    }
+    @ManyToMany
+    @JoinTable(name = "event_coordinators", schema = "administration",
+            joinColumns = {
+                    @JoinColumn(name = "event_id", referencedColumnName = "id")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "user_id", referencedColumnName = "id")
+            })
+    private List<DcscUser> coordinators;
 
     public long getId() {
         return id;
@@ -125,5 +125,21 @@ public class Event {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public boolean isPublished() {
+        return published;
+    }
+
+    public void setPublished(boolean published) {
+        this.published = published;
+    }
+
+    public List<DcscUser> getCoordinators() {
+        return coordinators;
+    }
+
+    public void setCoordinators(List<DcscUser> coordinators) {
+        this.coordinators = coordinators;
     }
 }

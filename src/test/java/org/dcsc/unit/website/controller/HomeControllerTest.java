@@ -1,8 +1,9 @@
 package org.dcsc.unit.website.controller;
 
 import org.dcsc.event.Event;
-import org.dcsc.event.ReadOnlyEventService;
+import org.dcsc.event.EventService;
 import org.dcsc.website.controller.HomeController;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -10,11 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.data.domain.Page;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
@@ -24,27 +21,26 @@ import java.util.List;
 @RunWith(MockitoJUnitRunner.class)
 public class HomeControllerTest {
     @Mock
-    private ReadOnlyEventService eventService;
+    private EventService eventService;
     @Mock
     private Page<Event> page;
     @Mock
     private List<Event> eventList;
+    @Mock
+    private Model model;
 
     @InjectMocks
-    private HomeController homeController = new HomeController();
-
-    private MockMvc mockMvc = MockMvcBuilders.standaloneSetup(homeController).build();
+    private HomeController homeController;
 
     @Test
-    public void home() throws Exception {
+    public void home() {
         Mockito.when(eventService.getPagedEvents(Mockito.anyInt(), Mockito.anyInt())).thenReturn(page);
         Mockito.when(page.getContent()).thenReturn(eventList);
 
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/");
+        String view = homeController.home(model);
 
-        mockMvc.perform(request)
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.model().attribute("events", eventList))
-                .andExpect(MockMvcResultMatchers.view().name("main/home"));
+        Mockito.verify(model).addAttribute("events",eventList);
+
+        Assert.assertEquals("main/home", view);
     }
 }
