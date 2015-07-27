@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.ui.Model;
 
@@ -28,6 +29,7 @@ public class EventControllerTest {
     @Mock private Optional<Event> expectedOptional;
     @Mock private Event expectedEvent;
     @Mock private Model model;
+    @Mock private TypeMismatchException exception;
 
     @InjectMocks
     private EventController eventController;
@@ -52,6 +54,12 @@ public class EventControllerTest {
         String actualView = eventController.event(EVENT_ID, model);
 
         Assert.assertEquals("redirect:/error/404", actualView);
+    }
 
+    @Test
+    public void invalidEventId() {
+        String redirect = eventController.handleTypeMismatchException(exception);
+
+        Assert.assertEquals("redirect:/timeline", redirect);
     }
 }

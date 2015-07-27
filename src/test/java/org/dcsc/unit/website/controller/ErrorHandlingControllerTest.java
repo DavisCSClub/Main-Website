@@ -25,7 +25,7 @@ public class ErrorHandlingControllerTest {
     private static final String TEMPLATE_VAR_PRIMARY_MESSAGE = "primaryMessage";
     private static final String TEMPLATE_VAR_SECONDARY_MESSAGE = "secondaryMessage";
     private static final String EXPECTED_ERROR_PATH = "/error";
-    private static final String EXPECTED_404_VIEW_NAME = "main/error";
+    private static final String EXPECTED_ERROR_VIEW_NAME = "main/error";
 
     @Mock Model model;
 
@@ -39,7 +39,18 @@ public class ErrorHandlingControllerTest {
         Mockito.verify(model).addAttribute(Mockito.eq(TEMPLATE_VAR_PRIMARY_MESSAGE), Mockito.anyString());
         Mockito.verify(model).addAttribute(Mockito.eq(TEMPLATE_VAR_SECONDARY_MESSAGE), Mockito.anyString());
 
-        Assert.assertEquals(EXPECTED_404_VIEW_NAME, actualView);
+        Assert.assertEquals(EXPECTED_ERROR_VIEW_NAME, actualView);
+    }
+
+    @Test
+    public void error405() {
+        String actualView = errorController.error405(model);
+
+        Mockito.verify(model).addAttribute(TEMPLATE_VAR_ERROR_CODE, HttpStatus.METHOD_NOT_ALLOWED.value());
+        Mockito.verify(model).addAttribute(Mockito.eq(TEMPLATE_VAR_PRIMARY_MESSAGE), Mockito.anyString());
+        Mockito.verify(model).addAttribute(Mockito.eq(TEMPLATE_VAR_SECONDARY_MESSAGE), Mockito.anyString());
+
+        Assert.assertEquals(EXPECTED_ERROR_VIEW_NAME, actualView);
     }
 
     @Test

@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.data.domain.Page;
 import org.springframework.ui.Model;
 
@@ -21,6 +22,7 @@ public class TimelineControllerTest {
     @Mock private EventService eventService;
     @Mock private Page<Event> expectedPage;
     @Mock private Model model;
+    @Mock private TypeMismatchException exception;
 
     @InjectMocks
     private TimelineController timelineController;
@@ -36,5 +38,12 @@ public class TimelineControllerTest {
         Mockito.verify(model).addAttribute("page", expectedPage);
 
         Assert.assertEquals("main/timeline", view);
+    }
+
+    @Test
+    public void invalidPageIndex() {
+        String redirect = timelineController.handleTypeMismatchException(exception);
+
+        Assert.assertEquals("redirect:/timeline", redirect);
     }
 }
