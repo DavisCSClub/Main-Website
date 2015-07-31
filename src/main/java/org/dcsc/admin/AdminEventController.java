@@ -73,10 +73,8 @@ public class AdminEventController {
             return "redirect:/error/404";
         }
 
-        Event e = event.get();
-        EventForm eventForm = new EventForm(e);
+        EventForm eventForm = new EventForm(event.get());
 
-        model.addAttribute("event", e);
         model.addAttribute("eventForm", eventForm);
 
         return Template.ADMIN_EVENT_FORM;

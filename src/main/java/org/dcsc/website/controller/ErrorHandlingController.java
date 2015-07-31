@@ -14,22 +14,21 @@ public class ErrorHandlingController implements ErrorController {
     private static final String ERROR_PATH = "/error";
     private static final String TEMPLATE_VAR_ERROR_CODE = "errorCode";
     private static final String TEMPLATE_VAR_PRIMARY_MESSAGE = "primaryMessage";
-    private static final String TEMPLATE_VAR_SECONDARY_MESSAGE = "secondaryMessage";
 
     @RequestMapping(value = "/error/404")
     public String error404(Model model) {
+        model.addAttribute("error", "Not Found");
         model.addAttribute(TEMPLATE_VAR_ERROR_CODE, HttpStatus.NOT_FOUND.value());
-        model.addAttribute(TEMPLATE_VAR_PRIMARY_MESSAGE, "Looks like the page you're looking for was moved or never existed.");
-        model.addAttribute(TEMPLATE_VAR_SECONDARY_MESSAGE, "Make sure you typed the correct URL or followed a valid link.");
+        model.addAttribute(TEMPLATE_VAR_PRIMARY_MESSAGE, "OOOPPS.! THE PAGE YOU WERE LOOKING FOR, COULDN'T BE FOUND.");
 
         return "main/error";
     }
 
     @RequestMapping(value = "/error/405")
     public String error405(Model model) {
+        model.addAttribute("error", "Method Not Allowed");
         model.addAttribute(TEMPLATE_VAR_ERROR_CODE, HttpStatus.METHOD_NOT_ALLOWED.value());
         model.addAttribute(TEMPLATE_VAR_PRIMARY_MESSAGE, "Your request method is not supported.");
-        model.addAttribute(TEMPLATE_VAR_SECONDARY_MESSAGE, "If this is not an error and the issue persists, contact an administrator");
 
         return "main/error";
     }

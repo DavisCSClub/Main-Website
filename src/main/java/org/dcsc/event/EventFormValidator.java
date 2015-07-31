@@ -66,7 +66,6 @@ public class EventFormValidator implements Validator {
         startTime = standardizeTimeFormat(startTime);
         endTime = standardizeTimeFormat(endTime);
 
-        // Check if it matches our standard format
         if( !(startTime.matches(REGEX_TIME_FORMAT) && endTime.matches(REGEX_TIME_FORMAT)) ) {
             errors.reject("event.invalid_time", "Event start or end time has invalid string format.");
         }

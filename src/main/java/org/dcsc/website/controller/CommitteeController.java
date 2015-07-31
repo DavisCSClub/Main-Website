@@ -27,7 +27,13 @@ public class CommitteeController {
             return "redirect:/error/404";
         }
 
-        model.addAttribute("committee",committee.get());
+        Committee c = committee.get();
+
+        if(c.getBannerImagePath() == null) {
+            c.setBannerImagePath("/img/placeholder/placeholder-1920-700.jpg");
+        }
+
+        model.addAttribute("committee",c);
 
         return "main/committee";
     }

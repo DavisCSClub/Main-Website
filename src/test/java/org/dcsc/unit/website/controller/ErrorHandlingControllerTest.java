@@ -36,9 +36,10 @@ public class ErrorHandlingControllerTest {
     public void error404() {
         String actualView = errorController.error404(model);
 
+
+        Mockito.verify(model).addAttribute(Mockito.eq("error"), Mockito.anyString());
         Mockito.verify(model).addAttribute(TEMPLATE_VAR_ERROR_CODE, HttpStatus.NOT_FOUND.value());
         Mockito.verify(model).addAttribute(Mockito.eq(TEMPLATE_VAR_PRIMARY_MESSAGE), Mockito.anyString());
-        Mockito.verify(model).addAttribute(Mockito.eq(TEMPLATE_VAR_SECONDARY_MESSAGE), Mockito.anyString());
 
         Assert.assertEquals(EXPECTED_ERROR_VIEW_NAME, actualView);
     }
@@ -47,9 +48,9 @@ public class ErrorHandlingControllerTest {
     public void error405() {
         String actualView = errorController.error405(model);
 
+        Mockito.verify(model).addAttribute(Mockito.eq("error"), Mockito.anyString());
         Mockito.verify(model).addAttribute(TEMPLATE_VAR_ERROR_CODE, HttpStatus.METHOD_NOT_ALLOWED.value());
         Mockito.verify(model).addAttribute(Mockito.eq(TEMPLATE_VAR_PRIMARY_MESSAGE), Mockito.anyString());
-        Mockito.verify(model).addAttribute(Mockito.eq(TEMPLATE_VAR_SECONDARY_MESSAGE), Mockito.anyString());
 
         Assert.assertEquals(EXPECTED_ERROR_VIEW_NAME, actualView);
     }

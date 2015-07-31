@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +19,7 @@ import java.util.Optional;
 public class EventService {
     private static final String EVENT_DATE_COLUMN_LABEL = "date";
     private static final String EVENT_START_TIME_COLUMN_LABEL = "startTime";
+    private static final String REGEX_TIME_FORMAT = "([0-9]{2}):([0-9]{2}):([0-9]{2})";
 
     @Autowired
     private EventRepository eventRepository;
@@ -43,8 +43,9 @@ public class EventService {
         String name = eventForm.getName();
         String description = eventForm.getDescription();
         Date date = Date.valueOf(eventForm.getDate());
-        Time startTime = Time.valueOf(eventForm.getStartTime());
-        Time endTime = Time.valueOf(eventForm.getEndTime());
+
+        Time startTime = Time.valueOf(standardTimeFormat(eventForm.getStartTime()));
+        Time endTime = Time.valueOf(standardTimeFormat(eventForm.getEndTime()));
         String location = eventForm.getLocation();
         boolean isPublished = eventForm.isPublished();
 
@@ -79,6 +80,10 @@ public class EventService {
         PageRequest request = new PageRequest(index, size, Sort.Direction.DESC, EVENT_DATE_COLUMN_LABEL, EVENT_START_TIME_COLUMN_LABEL);
 
         return eventRepository.findAll(request);
+    }
+
+    private String standardTimeFormat(String time) {
+        return time.matches(REGEX_TIME_FORMAT) ? time : time + ":00";
     }
 }
 
