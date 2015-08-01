@@ -1,5 +1,7 @@
 package org.dcsc.unit.event;
 
+import org.dcsc.activity.Actions;
+import org.dcsc.activity.ActivityService;
 import org.dcsc.event.*;
 import org.junit.Assert;
 import org.junit.Test;
@@ -37,6 +39,8 @@ public class EventServiceTest {
 
     @Mock
     private EventRepository eventRepository;
+    @Mock
+    private ActivityService activityService;
 
     @InjectMocks
     private EventService eventService;
@@ -97,10 +101,12 @@ public class EventServiceTest {
         Mockito.verify(event).setName(NAME);
         Mockito.verify(event).setDescription(DESCRIPTION);
         Mockito.verify(event).setDate(date);
-        //Mockito.verify(event).setStartTime(startTime);
-        //Mockito.verify(event).setEndTime(endTime);
+        Mockito.verify(event).setStartTime(Mockito.any(Time.class));
+        Mockito.verify(event).setEndTime(Mockito.any(Time.class));
         Mockito.verify(event).setLocation(LOCATION);
         Mockito.verify(event).setPublished(IS_PUBLISHED);
+
+        Mockito.verify(activityService).save(Mockito.anyString(), Mockito.anyString(), Mockito.eq(Actions.UPDATE));
 
         Assert.assertEquals(event, actualEvent);
     }
@@ -129,8 +135,8 @@ public class EventServiceTest {
         Mockito.verify(event).setName(NAME);
         Mockito.verify(event).setDescription(DESCRIPTION);
         Mockito.verify(event).setDate(date);
-        //Mockito.verify(event).setStartTime(startTime);
-        //Mockito.verify(event).setEndTime(endTime);
+        Mockito.verify(event).setStartTime(Mockito.any(Time.class));
+        Mockito.verify(event).setEndTime(Mockito.any(Time.class));
         Mockito.verify(event).setLocation(LOCATION);
         Mockito.verify(event).setPublished(IS_PUBLISHED);
 
