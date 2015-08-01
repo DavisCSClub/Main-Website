@@ -21,7 +21,7 @@ public class ImageFileUploader implements FileUploader {
         UploadResult uploadResult = null;
 
         if(file.isEmpty()) {
-            return new UploadResult(null, false);
+            uploadResult =  UploadResult.fail();
         }
         else {
             try {
@@ -40,10 +40,11 @@ public class ImageFileUploader implements FileUploader {
                 stream.write(bytes);
                 stream.close();
 
-                uploadResult = new UploadResult(uploadPath, true);
+                uploadResult = UploadResult.success(uploadPath);
             } catch(Exception e) {
                 e.printStackTrace();
-                uploadResult = new UploadResult(null, false);
+
+                uploadResult = UploadResult.fail();
             }
         }
 
