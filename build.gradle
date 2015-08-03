@@ -24,6 +24,9 @@ repositories {
 dependencies {
 	compile "org.springframework.boot:spring-boot-starter-web"
 
+	// Google Utilities Library for Java
+	compile "com.google.guava:guava:18.0"
+
 	// Thymeleaf
 	compile "org.thymeleaf:thymeleaf-spring4"
 	compile "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:1.2.8"
