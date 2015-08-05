@@ -21,7 +21,8 @@ import java.util.Optional;
  * Created by tktong on 7/26/2015.
  */
 @Controller
-public class AdminUsersController {
+@RequestMapping(value = "/admin/super/users/user/edit/{userId}")
+public class AdminUserEditController {
     @Autowired
     private DcscUserService dcscUserService;
     @Autowired
@@ -41,28 +42,7 @@ public class AdminUsersController {
         return "admin/users";
     }
 
-    @RequestMapping(value = "/admin/super/users/create", method = RequestMethod.GET)
-    public String createUser(Model model) {
-        DcscUserForm dcscUserForm = new DcscUserForm();
-
-        model.addAttribute("form", dcscUserForm);
-
-        return "admin/user";
-    }
-
-    @RequestMapping(value = "/admin/super/users/create", method = RequestMethod.POST)
-    public String createUser(@Valid @ModelAttribute DcscUserForm dcscUserForm, BindingResult result, RedirectAttributes redirectAttributes) {
-        if(result.hasErrors()) {
-            redirectAttributes.addFlashAttribute("errors", result.getAllErrors());
-            return "redirect:/admin/super/users/create?error";
-        }
-
-        dcscUserService.saveDcscUser(dcscUserForm);
-
-        return "redirect:/admin/super/users";
-    }
-
-    @RequestMapping(value = "/admin/super/users/user/edit/{userId}", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String editUser(@PathVariable("userId") long userId, Model model) {
         Optional<DcscUser> user = dcscUserService.getUserById(userId);
 
@@ -76,7 +56,7 @@ public class AdminUsersController {
         return "admin/user";
     }
 
-    @RequestMapping(value = "/admin/super/users/user/edit/{userId}", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public String editUser(@PathVariable("userId") long userId, @Valid @ModelAttribute DcscUserForm dcscUserForm,
                            BindingResult result, RedirectAttributes redirectAttributes) {
         if(result.hasErrors()) {

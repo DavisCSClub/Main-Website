@@ -19,7 +19,7 @@ import java.util.Optional;
  * Created by tktong on 7/31/2015.
  */
 @Controller
-public class AdminCarouselController {
+public class CarouselController {
     @Autowired
     private CarouselBannerService carouselBannerService;
     @Autowired
