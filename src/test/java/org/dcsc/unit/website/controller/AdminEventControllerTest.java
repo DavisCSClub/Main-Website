@@ -21,7 +21,7 @@ import java.util.Optional;
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(EventController.class)
-public class EventControllerTest {
+public class AdminEventControllerTest {
     private static final long EVENT_ID = 0;
 
     @Mock

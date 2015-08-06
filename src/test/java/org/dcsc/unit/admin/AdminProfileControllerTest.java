@@ -2,7 +2,7 @@ package org.dcsc.unit.admin;
 
 import org.dcsc.activity.Activity;
 import org.dcsc.activity.ActivityService;
-import org.dcsc.admin.ProfileController;
+import org.dcsc.admin.AdminProfileController;
 import org.dcsc.security.user.DcscUser;
 import org.dcsc.security.userdetails.DcscUserDetails;
 import org.junit.Assert;
@@ -21,7 +21,7 @@ import java.util.List;
  * Created by tktong on 7/27/2015.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class ProfileControllerTest {
+public class AdminProfileControllerTest {
     private static final long ID = 0;
     private static final String EXPECTED_VIEW = "admin/profile";
 
@@ -29,7 +29,7 @@ public class ProfileControllerTest {
     private ActivityService activityService;
 
     @InjectMocks
-    private ProfileController profileController;
+    private AdminProfileController adminProfileController;
 
     @Mock
     private Authentication authentication;
@@ -49,7 +49,7 @@ public class ProfileControllerTest {
         Mockito.when(dcscUser.getId()).thenReturn(ID);
         Mockito.when(activityService.getAllActivities(ID)).thenReturn(expectedList);
 
-        String actualView = profileController.profile(authentication, model);
+        String actualView = adminProfileController.profile(authentication, model);
 
         Mockito.verify(model).addAttribute("activities", expectedList);
 

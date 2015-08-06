@@ -18,7 +18,7 @@ import java.util.List;
  * Created by tktong on 7/18/15.
  */
 @Controller
-public class ProfileController {
+public class AdminProfileController {
     @Autowired
     private ActivityService activityService;
 

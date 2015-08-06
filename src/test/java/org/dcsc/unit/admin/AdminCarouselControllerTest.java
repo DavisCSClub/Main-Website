@@ -6,7 +6,6 @@ import org.dcsc.carousel.CarouselBannerService;
 import org.dcsc.uploader.ImageFileUploader;
 import org.dcsc.uploader.UploadResult;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -21,8 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.util.List;
 import java.util.Optional;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by tktong on 8/2/2015.

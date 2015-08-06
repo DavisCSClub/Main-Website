@@ -44,6 +44,8 @@ public class DcscUserDetailsServiceTest {
 
         PowerMockito.whenNew(DcscUserDetails.class).withAnyArguments().thenReturn(expectedUserDetails);
         Mockito.when(expectedUserDetails.getUser()).thenReturn(expectedUser);
+        Mockito.when(expectedUser.isLocked()).thenReturn(false);
+        Mockito.when(expectedUser.isEnabled()).thenReturn(true);
 
         DcscUserDetails dcscUserDetails = (DcscUserDetails) dcscUserDetailsService.loadUserByUsername(USERNAME);
 
