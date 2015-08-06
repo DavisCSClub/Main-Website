@@ -54,7 +54,7 @@ public class SuperAdminUserEditController {
             return "redirect:/admin/super/users";
         }
 
-        dcscUserService.save(dcscSuperUserEditForm);
+        dcscUserService.save(dcscSuperUserEditForm, userId);
 
         return "redirect:/admin/super/users";
     }

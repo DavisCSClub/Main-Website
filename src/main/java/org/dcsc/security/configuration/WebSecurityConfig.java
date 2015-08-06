@@ -1,5 +1,6 @@
 package org.dcsc.security.configuration;
 
+import org.dcsc.security.user.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * Created by tktong on 7/15/15.
  */
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsService userDetailsService;
@@ -33,7 +35,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                     .and()
                 .logout()
-                    .logoutSuccessUrl("/login?logout");
+                    .logoutSuccessUrl("/login?logout")
+                    .and()
+                .exceptionHandling()
+                    .accessDeniedPage("/admin");
     }
 
     @Override

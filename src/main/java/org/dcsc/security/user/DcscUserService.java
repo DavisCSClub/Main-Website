@@ -18,15 +18,19 @@ public class DcscUserService {
         DcscUser user = null;
 
         if(dcscUser.isPresent()) {
-            user = userRepository.save(form.build(dcscUser.get()));
+			user = save(form.build(dcscUser.get()));
         }
 
-        return null;
+        return user;
     }
 
     public DcscUser save(DcscUserForm form) {
-        return userRepository.save(form.build());
+		return save(form.build());
     }
+
+	private DcscUser save(DcscUser user) {
+		return userRepository.save(user);
+	}
 
 	@Transactional(readOnly = true)
 	public List<DcscUser> getAllUsers() {
