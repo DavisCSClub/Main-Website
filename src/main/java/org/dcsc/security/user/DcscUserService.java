@@ -3,8 +3,8 @@ package org.dcsc.security.user;
 import java.util.List;
 import java.util.Optional;
 
+import org.dcsc.security.user.form.DcscUserForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,35 +13,20 @@ public class DcscUserService {
 	@Autowired
 	private DcscUserRepository userRepository;
 
-	public DcscUser saveDcscUser(DcscUserForm dcscUserForm) {
-		return saveDcscUser(new DcscUser(), dcscUserForm);
-	}
+    public DcscUser save(DcscUserForm form, long id) {
+        Optional<DcscUser> dcscUser = getUserById(id);
+        DcscUser user = null;
 
-	public DcscUser saveDcscUser(long id, DcscUserForm dcscUserForm) {
-		Optional<DcscUser> user = userRepository.findUserById(id);
+        if(dcscUser.isPresent()) {
+            user = userRepository.save(form.build(dcscUser.get()));
+        }
 
-		if(user.isPresent()) {
-			return saveDcscUser(user.get(), dcscUserForm);
-		}
+        return null;
+    }
 
-		return null;
-	}
-
-	private DcscUser saveDcscUser(DcscUser dcscUser, DcscUserForm dcscUserForm) {
-		String username = dcscUserForm.getUsername();
-		String email = dcscUserForm.getEmail();
-		String password = new BCryptPasswordEncoder().encode(dcscUserForm.getPassword());
-		String name = dcscUserForm.getName();
-		Role role = Role.ROLE_USER;
-
-		dcscUser.setUsername(username);
-		dcscUser.setName(name);
-		dcscUser.setPassword(password);
-		dcscUser.setEmail(email);
-		dcscUser.setRole(role);
-
-		return userRepository.save(dcscUser);
-	}
+    public DcscUser save(DcscUserForm form) {
+        return userRepository.save(form.build());
+    }
 
 	@Transactional(readOnly = true)
 	public List<DcscUser> getAllUsers() {

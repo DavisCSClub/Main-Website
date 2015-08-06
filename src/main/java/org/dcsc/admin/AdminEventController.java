@@ -22,7 +22,7 @@ import java.util.Optional;
  * Created by tktong on 7/20/2015.
  */
 @Controller
-public class EventController {
+public class AdminEventController {
     @Autowired
     private EventService eventService;
     @Autowired

@@ -1,9 +1,8 @@
 package org.dcsc.admin;
 
-import org.dcsc.security.user.DcscUser;
-import org.dcsc.security.user.DcscUserForm;
-import org.dcsc.security.user.DcscUserFormValidator;
 import org.dcsc.security.user.DcscUserService;
+import org.dcsc.security.user.form.create.DcscUserCreationForm;
+import org.dcsc.security.user.form.create.DcscUserCreationFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,36 +17,36 @@ import javax.validation.Valid;
  * Created by tktong on 8/4/2015.
  */
 @Controller
-@RequestMapping(value = "/admin/super/users/create", method = RequestMethod.GET)
-public class AdminUserCreationController {
+public class SuperAdminUserCreationController {
     @Autowired
     private DcscUserService dcscUserService;
     @Autowired
-    private DcscUserFormValidator dcscUserFormValidator;
+    private DcscUserCreationFormValidator createUserFormValidator;
 
-    @InitBinder("dcscUserForm")
+    @InitBinder("dcscUserCreationForm")
     public void initBinder(WebDataBinder binder) {
-        binder.addValidators(dcscUserFormValidator);
+        binder.addValidators(createUserFormValidator);
     }
 
     @RequestMapping(value = "/admin/super/users/create", method = RequestMethod.GET)
     public String createUser(Model model) {
-        DcscUserForm dcscUserForm = new DcscUserForm();
+        model.addAttribute("form", new DcscUserCreationForm());
 
-        model.addAttribute("form", dcscUserForm);
+        model.addAttribute("content_fragment", DcscUserCreationForm.THYMELEAF_FRAGMENT);
 
-        return "admin/user";
+        return "admin/super/user-create-form";
     }
 
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String createUser(@Valid @ModelAttribute DcscUserForm dcscUserForm, BindingResult result, RedirectAttributes redirectAttributes) {
+    @RequestMapping(value = "/admin/super/users/create", method = RequestMethod.POST)
+    public String createUser(@Valid @ModelAttribute DcscUserCreationForm dcscUserCreationForm, BindingResult result, RedirectAttributes redirectAttributes) {
         if(result.hasErrors()) {
             redirectAttributes.addFlashAttribute("errors", result.getAllErrors());
-            return "redirect:/admin/super/users/create?error";
+            return "redirect:/admin/super/users";
         }
 
-        dcscUserService.saveDcscUser(dcscUserForm);
+        dcscUserService.save(dcscUserCreationForm);
+
 
         return "redirect:/admin/super/users";
     }

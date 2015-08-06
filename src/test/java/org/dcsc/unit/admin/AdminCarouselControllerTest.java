@@ -1,6 +1,6 @@
 package org.dcsc.unit.admin;
 
-import org.dcsc.admin.CarouselController;
+import org.dcsc.admin.AdminCarouselController;
 import org.dcsc.carousel.CarouselBanner;
 import org.dcsc.carousel.CarouselBannerService;
 import org.dcsc.uploader.ImageFileUploader;
@@ -25,8 +25,8 @@ import java.util.Optional;
  * Created by tktong on 8/2/2015.
  */
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({CarouselController.class, CarouselBanner.class})
-public class CarouselControllerTest {
+@PrepareForTest({AdminCarouselController.class, CarouselBanner.class})
+public class AdminCarouselControllerTest {
     private static final String NAME = "name";
     private static final String CAPTION = "caption";
     private static final String UPLOAD_PATH = "upload path";
@@ -39,7 +39,7 @@ public class CarouselControllerTest {
     private ImageFileUploader imageFileUploader;
 
     @InjectMocks
-    private CarouselController carouselController;
+    private AdminCarouselController adminCarouselController;
 
     @Mock
     private Model model;
@@ -60,7 +60,7 @@ public class CarouselControllerTest {
     public void carouselUploadGetRequest() {
         Mockito.when(carouselBannerService.getAllCarouselBanners()).thenReturn(carouselBannerList);
 
-        String view = carouselController.carouselUpload(model);
+        String view = adminCarouselController.carouselUpload(model);
 
         Mockito.verify(model).addAttribute("banners", carouselBannerList);
 
@@ -75,7 +75,7 @@ public class CarouselControllerTest {
         Mockito.when(uploadResult.getUploadPath()).thenReturn(UPLOAD_PATH);
         Mockito.when(carouselBannerService.save(carouselBanner)).thenReturn(carouselBanner);
 
-        String redirect = carouselController.carouselUpload(NAME, CAPTION, multipartFile);
+        String redirect = adminCarouselController.carouselUpload(NAME, CAPTION, multipartFile);
 
         Mockito.verify(carouselBanner).setName(NAME);
         Mockito.verify(carouselBanner).setCaption(CAPTION);
@@ -89,7 +89,7 @@ public class CarouselControllerTest {
         Mockito.when(imageFileUploader.upload(multipartFile)).thenReturn(uploadResult);
         Mockito.when(uploadResult.isSuccess()).thenReturn(false);
 
-        String redirect = carouselController.carouselUpload(NAME, CAPTION, multipartFile);
+        String redirect = adminCarouselController.carouselUpload(NAME, CAPTION, multipartFile);
 
         Assert.assertEquals("redirect:/admin/carousel", redirect);
     }
@@ -103,7 +103,7 @@ public class CarouselControllerTest {
         PowerMockito.whenNew(File.class).withArguments(UPLOAD_PATH).thenReturn(file);
         Mockito.when(carouselBannerService.delete(ID)).thenReturn(true);
 
-        String redirect = carouselController.delete(ID);
+        String redirect = adminCarouselController.delete(ID);
 
         Mockito.verify(file).delete();
 
@@ -115,7 +115,7 @@ public class CarouselControllerTest {
         Mockito.when(carouselBannerService.getCarouselById(ID)).thenReturn(carouselBannerOptional);
         Mockito.when(carouselBannerOptional.isPresent()).thenReturn(false);
 
-        String redirect = carouselController.delete(ID);
+        String redirect = adminCarouselController.delete(ID);
 
         Assert.assertEquals("redirect:/admin/carousel", redirect);
     }

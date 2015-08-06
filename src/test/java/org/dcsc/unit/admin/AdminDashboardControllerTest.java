@@ -1,20 +1,20 @@
 package org.dcsc.unit.admin;
 
-import org.dcsc.admin.DashboardController;
+import org.dcsc.admin.AdminDashboardController;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
  * Created by tktong on 7/16/15.
  */
-public class DashboardControllerTest {
+public class AdminDashboardControllerTest {
     private static final String EXPECTED_VIEW = "admin/dashboard";
 
-    private DashboardController dashboardController = new DashboardController();
+    private AdminDashboardController adminDashboardController = new AdminDashboardController();
 
     @Test
     public void dashboard() {
-        String view = dashboardController.dashboard();
+        String view = adminDashboardController.dashboard();
 
         Assert.assertEquals(EXPECTED_VIEW, view);
     }

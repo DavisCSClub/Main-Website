@@ -1,20 +1,16 @@
 package org.dcsc.admin;
 
 import org.dcsc.security.user.DcscUser;
-import org.dcsc.security.user.DcscUserForm;
-import org.dcsc.security.user.DcscUserFormValidator;
 import org.dcsc.security.user.DcscUserService;
+import org.dcsc.security.user.form.superedit.DcscSuperUserEditForm;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -22,25 +18,9 @@ import java.util.Optional;
  */
 @Controller
 @RequestMapping(value = "/admin/super/users/user/edit/{userId}")
-public class AdminUserEditController {
+public class SuperAdminUserEditController {
     @Autowired
     private DcscUserService dcscUserService;
-    @Autowired
-    private DcscUserFormValidator dcscUserFormValidator;
-
-    @InitBinder("dcscUserForm")
-    public void initBinder(WebDataBinder binder) {
-        binder.addValidators(dcscUserFormValidator);
-    }
-
-    @RequestMapping(value = "/admin/super/users")
-    public String users(Model model) {
-        List<DcscUser> users = dcscUserService.getAllUsers();
-
-        model.addAttribute("users", users);
-
-        return "admin/users";
-    }
 
     @RequestMapping(method = RequestMethod.GET)
     public String editUser(@PathVariable("userId") long userId, Model model) {
@@ -50,21 +30,31 @@ public class AdminUserEditController {
             return "redirect:/admin/super/users";
         }
 
-        DcscUserForm dcscUserForm = new DcscUserForm(user.get());
-        model.addAttribute("form", dcscUserForm);
+        DcscUser dcscUser = user.get();
 
-        return "admin/user";
+        DcscSuperUserEditForm form = new DcscSuperUserEditForm();
+
+        form.setId(userId);
+        form.setEnabled(dcscUser.isEnabled());
+        form.setLocked(dcscUser.isLocked());
+        form.setRole(dcscUser.getRole());
+
+        model.addAttribute("user", dcscUser);
+
+        model.addAttribute("form", form);
+
+        return "admin/super/user-edit-form";
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String editUser(@PathVariable("userId") long userId, @Valid @ModelAttribute DcscUserForm dcscUserForm,
+    public String editUser(@PathVariable("userId") long userId, @ModelAttribute DcscSuperUserEditForm dcscSuperUserEditForm,
                            BindingResult result, RedirectAttributes redirectAttributes) {
         if(result.hasErrors()) {
             redirectAttributes.addFlashAttribute("errors", result.getAllErrors());
-            return "redirect:/admin/super/users/create?error";
+            return "redirect:/admin/super/users";
         }
 
-        dcscUserService.saveDcscUser(userId, dcscUserForm);
+        dcscUserService.save(dcscSuperUserEditForm);
 
         return "redirect:/admin/super/users";
     }

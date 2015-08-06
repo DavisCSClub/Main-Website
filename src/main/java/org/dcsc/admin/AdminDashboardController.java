@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Created by tktong on 7/15/15.
  */
 @Controller
-public class DashboardController {
+public class AdminDashboardController {
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String dashboard() {

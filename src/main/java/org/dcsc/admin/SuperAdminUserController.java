@@ -15,7 +15,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/admin/super/users")
-public class AdminUserController {
+public class SuperAdminUserController {
     @Autowired
     private DcscUserService dcscUserService;
 
@@ -25,6 +25,6 @@ public class AdminUserController {
 
         model.addAttribute("users", users);
 
-        return "admin/users";
+        return "admin/super/user-list";
     }
 }
