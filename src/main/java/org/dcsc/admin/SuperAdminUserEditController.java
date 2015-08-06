@@ -1,5 +1,6 @@
 package org.dcsc.admin;
 
+import javassist.NotFoundException;
 import org.dcsc.security.user.DcscUser;
 import org.dcsc.security.user.DcscUserService;
 import org.dcsc.security.user.form.superedit.DcscSuperUserEditForm;
@@ -56,7 +57,11 @@ public class SuperAdminUserEditController {
             return "redirect:/admin/super/users";
         }
 
-        dcscUserService.save(dcscSuperUserEditForm, userId);
+        try {
+            dcscUserService.save(dcscSuperUserEditForm, userId);
+        } catch(NotFoundException e) {
+            return "redirect:/admin/super/users";
+        }
 
         return "redirect:/admin/super/users";
     }

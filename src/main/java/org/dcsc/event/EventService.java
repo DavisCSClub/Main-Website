@@ -28,14 +28,10 @@ public class EventService {
 
 
     public Event saveEvent(long id, EventForm eventForm) throws NotFoundException {
-        Optional<Event> event = eventRepository.findEventById(id);
+        Event event = eventRepository.findEventById(id)
+                .orElseThrow(() -> new NotFoundException(String.format("Event #%d does not exists.", id)));
 
-        if(event.isPresent()) {
-            return saveEvent(event.get(), eventForm);
-        }
-        else {
-            throw new NotFoundException(String.format("Event #%d does not exists.", id));
-        }
+        return saveEvent(event, eventForm);
     }
 
     public Event saveEvent(EventForm eventForm) {
