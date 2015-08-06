@@ -1,7 +1,7 @@
 package org.dcsc.event;
 
-import org.dcsc.activity.Actions;
-import org.dcsc.activity.ActivityService;
+import javassist.NotFoundException;
+import org.dcsc.event.form.EventForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,31 +25,21 @@ public class EventService {
 
     @Autowired
     private EventRepository eventRepository;
-    @Autowired
-    private ActivityService activityService;
 
 
-    public Event saveEvent(long id, EventForm eventForm) throws SavingUndefinedEventException {
+    public Event saveEvent(long id, EventForm eventForm) throws NotFoundException {
         Optional<Event> event = eventRepository.findEventById(id);
 
         if(event.isPresent()) {
-            Event e = saveEvent(event.get(), eventForm);
-
-            activityService.save("Event", "Updated event #" + id + " (" + e.getName() +").", Actions.UPDATE);
-
-            return e;
+            return saveEvent(event.get(), eventForm);
         }
         else {
-            throw new SavingUndefinedEventException("Attempted to save an event with id that does not exists.");
+            throw new NotFoundException(String.format("Event #%d does not exists.", id));
         }
     }
 
     public Event saveEvent(EventForm eventForm) {
-        Event e =  saveEvent(new Event(), eventForm);
-
-        activityService.save("Event", "Created event " + e.getName() +".", Actions.UPDATE);
-
-        return e;
+        return saveEvent(new Event(), eventForm);
     }
 
     private Event saveEvent(Event event, EventForm eventForm) {

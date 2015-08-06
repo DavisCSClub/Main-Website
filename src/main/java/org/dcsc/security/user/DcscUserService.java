@@ -3,6 +3,7 @@ package org.dcsc.security.user;
 import java.util.List;
 import java.util.Optional;
 
+import org.dcsc.activity.ActivityService;
 import org.dcsc.security.user.form.DcscUserForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class DcscUserService {
 	@Autowired
 	private DcscUserRepository userRepository;
+	@Autowired
+	private ActivityService activityService;
 
     public DcscUser save(DcscUserForm form, long id) {
         Optional<DcscUser> dcscUser = getUserById(id);
@@ -19,6 +22,7 @@ public class DcscUserService {
 
         if(dcscUser.isPresent()) {
 			user = save(form.build(dcscUser.get()));
+
         }
 
         return user;

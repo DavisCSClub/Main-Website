@@ -1,8 +1,8 @@
 package org.dcsc.admin;
 
 import org.dcsc.event.Event;
-import org.dcsc.event.EventForm;
-import org.dcsc.event.EventFormValidator;
+import org.dcsc.event.form.EventForm;
+import org.dcsc.event.form.EventFormValidator;
 import org.dcsc.event.EventService;
 import org.dcsc.template.Template;
 import org.springframework.beans.TypeMismatchException;

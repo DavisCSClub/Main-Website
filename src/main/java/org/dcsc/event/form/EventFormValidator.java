@@ -1,4 +1,4 @@
-package org.dcsc.event;
+package org.dcsc.event.form;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

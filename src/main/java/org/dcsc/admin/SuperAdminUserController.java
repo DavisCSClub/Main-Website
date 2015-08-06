@@ -16,12 +16,12 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/admin/super/users")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class SuperAdminUserController {
     @Autowired
     private DcscUserService dcscUserService;
 
     @RequestMapping(method = RequestMethod.GET)
-    @PreAuthorize("hasRole('ADMIN')")
     public String users(Model model) {
         List<DcscUser> users = dcscUserService.getAllUsers();
 

@@ -66,6 +66,8 @@ public class DcscUserCreationForm implements DcscUserForm {
         user.setEmail(email);
         user.setPassword(new BCryptPasswordEncoder().encode(password));
         user.setRole(Role.ROLE_USER);
+        user.setEnabled(true);
+        user.setLocked(false);
 
         return user;
     }

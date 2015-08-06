@@ -4,6 +4,7 @@ import org.dcsc.security.user.DcscUserService;
 import org.dcsc.security.user.form.create.DcscUserCreationForm;
 import org.dcsc.security.user.form.create.DcscUserCreationFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,8 @@ import javax.validation.Valid;
  * Created by tktong on 8/4/2015.
  */
 @Controller
+@RequestMapping("/admin/super/users/create")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class SuperAdminUserCreationController {
     @Autowired
     private DcscUserService dcscUserService;
@@ -28,7 +31,7 @@ public class SuperAdminUserCreationController {
         binder.addValidators(createUserFormValidator);
     }
 
-    @RequestMapping(value = "/admin/super/users/create", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String createUser(Model model) {
         model.addAttribute("form", new DcscUserCreationForm());
 
@@ -38,7 +41,7 @@ public class SuperAdminUserCreationController {
     }
 
 
-    @RequestMapping(value = "/admin/super/users/create", method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST)
     public String createUser(@Valid @ModelAttribute DcscUserCreationForm dcscUserCreationForm, BindingResult result, RedirectAttributes redirectAttributes) {
         if(result.hasErrors()) {
             redirectAttributes.addFlashAttribute("errors", result.getAllErrors());

@@ -1,4 +1,6 @@
-package org.dcsc.event;
+package org.dcsc.event.form;
+
+import org.dcsc.event.Event;
 
 /**
  * Created by tktong on 7/22/2015.
