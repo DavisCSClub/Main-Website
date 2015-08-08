@@ -1,11 +1,11 @@
 package org.dcsc.unit.activity;
 
-import org.dcsc.activity.Actions;
+import org.dcsc.activity.Action;
 import org.dcsc.activity.Activity;
 import org.dcsc.activity.ActivityRepository;
 import org.dcsc.activity.ActivityService;
 import org.dcsc.security.user.DcscUser;
-import org.dcsc.security.userdetails.DcscUserDetails;
+import org.dcsc.security.user.details.DcscUserDetails;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +34,7 @@ public class ActivityServiceTest {
     private static final long TIME = 0;
     private static final String TARGET = "target";
     private static final String DESCRIPTION = "description";
-    private static final Actions ACTION = Actions.CREATE;
+    private static final Action ACTION = Action.CREATE;
 
     @Mock
     private ActivityRepository activityRepository;

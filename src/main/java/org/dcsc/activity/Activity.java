@@ -23,7 +23,7 @@ public class Activity {
 
     @Column(name = "action", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Actions action;
+    private Action action;
 
     @Column(name = "target", nullable = false)
     private String target;
@@ -53,11 +53,11 @@ public class Activity {
         this.user = user;
     }
 
-    public Actions getAction() {
+    public Action getAction() {
         return action;
     }
 
-    public void setAction(Actions action) {
+    public void setAction(Action action) {
         this.action = action;
     }
 

@@ -1,9 +1,8 @@
 package org.dcsc.activity;
 
 import org.dcsc.security.user.DcscUser;
-import org.dcsc.security.userdetails.DcscUserDetails;
+import org.dcsc.security.user.details.DcscUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -29,7 +28,7 @@ public class ActivityService {
         return activityRepository.findAll();
     }
 
-    public void save(String target, String description, Actions action) {
+    public void save(String target, String description, Action action) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         DcscUserDetails dcscUserDetails = (DcscUserDetails) authentication.getPrincipal();
         DcscUser user = dcscUserDetails.getUser();

@@ -1,13 +1,22 @@
-package org.dcsc.faq.form;
+package org.dcsc.faq;
 
-import org.dcsc.faq.FrequentlyAskedQuestion;
+import javax.persistence.*;
 
 /**
- * Created by tktong on 8/7/2015.
+ * Created by tktong on 7/8/2015.
  */
-public class QuestionAnswerForm {
+@Entity
+@Table(name = "faq", schema = "public")
+public class FrequentlyAskedQuestion {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, updatable = false)
     private long id;
+
+    @Column(name = "question", nullable = false)
     private String question;
+
+    @Column(name = "answer", nullable = false)
     private String answer;
 
     public long getId() {
@@ -32,15 +41,5 @@ public class QuestionAnswerForm {
 
     public void setAnswer(String answer) {
         this.answer = answer;
-    }
-
-    public FrequentlyAskedQuestion build() {
-        FrequentlyAskedQuestion qa = new FrequentlyAskedQuestion();
-
-        qa.setId(id);
-        qa.setQuestion(question);
-        qa.setAnswer(answer);
-
-        return qa;
     }
 }

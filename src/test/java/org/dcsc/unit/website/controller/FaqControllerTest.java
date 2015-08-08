@@ -1,8 +1,8 @@
 package org.dcsc.unit.website.controller;
 
-import org.dcsc.faq.QuestionAnswer;
-import org.dcsc.faq.QuestionAnswerService;
-import org.dcsc.website.controller.FaqController;
+import org.dcsc.faq.FrequentlyAskedQuestion;
+import org.dcsc.faq.FrequentlyAskedQuestionService;
+import org.dcsc.controllers.mainwebsite.FaqController;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,9 +19,9 @@ import java.util.List;
 @RunWith(MockitoJUnitRunner.class)
 public class FaqControllerTest {
     @Mock
-    private QuestionAnswerService questionAnswerService;
+    private FrequentlyAskedQuestionService frequentlyAskedQuestionService;
     @Mock
-    private List<QuestionAnswer> expectedQuestionAnswers;
+    private List<FrequentlyAskedQuestion> expectedFrequentlyAskedQuestions;
     @Mock
     private Model model;
 
@@ -30,11 +30,11 @@ public class FaqControllerTest {
 
     @Test
     public void faq() {
-        Mockito.when(questionAnswerService.getAllQuestionAnswers()).thenReturn(expectedQuestionAnswers);
+        Mockito.when(frequentlyAskedQuestionService.getAllQuestionAnswers()).thenReturn(expectedFrequentlyAskedQuestions);
 
         String actualView = faqController.faq(model);
 
-        Mockito.verify(model).addAttribute("questionAnswers", expectedQuestionAnswers);
+        Mockito.verify(model).addAttribute("questionAnswers", expectedFrequentlyAskedQuestions);
 
         Assert.assertEquals("main/faq", actualView);
     }

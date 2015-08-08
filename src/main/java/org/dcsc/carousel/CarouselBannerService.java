@@ -1,6 +1,6 @@
 package org.dcsc.carousel;
 
-import org.dcsc.activity.Actions;
+import org.dcsc.activity.Action;
 import org.dcsc.activity.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +32,7 @@ public class CarouselBannerService {
     public CarouselBanner save(CarouselBanner carouselBanner) {
         CarouselBanner banner =  carouselBannerRepository.save(carouselBanner);
 
-        activityService.save("Carousel", "Created banner " + carouselBanner.getName() + ".", Actions.CREATE);
+        activityService.save("Carousel", "Created banner " + carouselBanner.getName() + ".", Action.CREATE);
 
         return carouselBanner;
     }
@@ -44,11 +44,11 @@ public class CarouselBannerService {
             carouselBannerRepository.delete(id);
             success = true;
 
-            activityService.save("Carousel", "Deleted banner id#" + id, Actions.DELETE);
+            activityService.save("Carousel", "Deleted banner id#" + id, Action.DELETE);
         } catch(IllegalArgumentException e) {
             // Exception thrown when ID is invalid.
             // Swallowing Exception and Returning Success = false
-            activityService.save("Carousel", "Failed to delete banner id#" + id, Actions.DELETE);
+            activityService.save("Carousel", "Failed to delete banner id#" + id, Action.DELETE);
         }
 
         return success;

@@ -1,6 +1,6 @@
 package org.dcsc.unit.website.controller;
 
-import org.dcsc.website.controller.AboutController;
+import org.dcsc.controllers.mainwebsite.AboutController;
 import org.junit.Assert;
 import org.junit.Test;
 

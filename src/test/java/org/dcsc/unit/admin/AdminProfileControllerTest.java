@@ -2,9 +2,9 @@ package org.dcsc.unit.admin;
 
 import org.dcsc.activity.Activity;
 import org.dcsc.activity.ActivityService;
-import org.dcsc.admin.AdminProfileController;
+import org.dcsc.controllers.admin.AdminProfileController;
 import org.dcsc.security.user.DcscUser;
-import org.dcsc.security.userdetails.DcscUserDetails;
+import org.dcsc.security.user.details.DcscUserDetails;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
