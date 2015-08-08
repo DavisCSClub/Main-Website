@@ -18,7 +18,7 @@ public class EventServiceAspect {
     private ActivityService activityService;
 
     @AfterReturning(
-            pointcut = "execution(* org.dcsc.event.EventService.saveEvent(long,EventForm))",
+            pointcut = "execution(* org.dcsc.event.EventService.saveEvent(long,org.dcsc.event.form.EventForm))",
             returning = "result"
     )
     public void saveEventWithId(JoinPoint joinPoint, Object result) {
@@ -28,7 +28,7 @@ public class EventServiceAspect {
     }
 
     @AfterReturning(
-            pointcut = "execution(* org.dcsc.event.EventService.saveEvent(EventForm))",
+            pointcut = "execution(* org.dcsc.event.EventService.saveEvent(org.dcsc.event.form.EventForm))",
             returning = "result"
     )
     public void createEvent(JoinPoint joinPoint, Object result) {
