@@ -94,21 +94,6 @@ public class AdminCarouselControllerTest {
         Assert.assertEquals("redirect:/admin/carousel", redirect);
     }
 
-    @Test
-    public void deleteSuccess() throws Exception {
-        Mockito.when(carouselBannerService.getCarouselById(ID)).thenReturn(carouselBannerOptional);
-        Mockito.when(carouselBannerOptional.isPresent()).thenReturn(true);
-        Mockito.when(carouselBannerOptional.get()).thenReturn(carouselBanner);
-        Mockito.when(carouselBanner.getPath()).thenReturn(UPLOAD_PATH);
-        PowerMockito.whenNew(File.class).withArguments(UPLOAD_PATH).thenReturn(file);
-        Mockito.when(carouselBannerService.delete(ID)).thenReturn(true);
-
-        String redirect = adminCarouselController.delete(ID);
-
-        Mockito.verify(file).delete();
-
-        Assert.assertEquals("redirect:/admin/carousel", redirect);
-    }
 
     @Test
     public void deleteInvalidId() {
