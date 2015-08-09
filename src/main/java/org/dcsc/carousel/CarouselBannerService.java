@@ -1,11 +1,10 @@
 package org.dcsc.carousel;
 
-import org.dcsc.activity.Action;
-import org.dcsc.activity.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,8 +15,20 @@ import java.util.Optional;
 public class CarouselBannerService {
     @Autowired
     private CarouselBannerRepository carouselBannerRepository;
-    @Autowired
-    private ActivityService activityService;
+
+    public CarouselBanner save(CarouselBanner carouselBanner) {
+        return carouselBannerRepository.save(carouselBanner);
+    }
+
+    public void delete(long id) throws EntityIdNotFoundException {
+        CarouselBanner carouselBanner = carouselBannerRepository.findCarouselBannerById(id)
+                .orElseThrow(() -> new EntityIdNotFoundException(id, String.format("Carousel banner #%d could not be found.", id)));
+
+        File file = new File(carouselBanner.getPath());
+        file.delete();
+
+        carouselBannerRepository.delete(carouselBanner);
+    }
 
     @Transactional(readOnly = true)
     public Optional<CarouselBanner> getCarouselById(long id) {
@@ -27,30 +38,5 @@ public class CarouselBannerService {
     @Transactional(readOnly = true)
     public List<CarouselBanner> getAllCarouselBanners() {
         return carouselBannerRepository.findAll();
-    }
-
-    public CarouselBanner save(CarouselBanner carouselBanner) {
-        CarouselBanner banner =  carouselBannerRepository.save(carouselBanner);
-
-        activityService.save("Carousel", "Created banner " + carouselBanner.getName() + ".", Action.CREATE);
-
-        return carouselBanner;
-    }
-
-    public boolean delete(long id) {
-        boolean success = false;
-
-        try {
-            carouselBannerRepository.delete(id);
-            success = true;
-
-            activityService.save("Carousel", "Deleted banner id#" + id, Action.DELETE);
-        } catch(IllegalArgumentException e) {
-            // Exception thrown when ID is invalid.
-            // Swallowing Exception and Returning Success = false
-            activityService.save("Carousel", "Failed to delete banner id#" + id, Action.DELETE);
-        }
-
-        return success;
     }
 }

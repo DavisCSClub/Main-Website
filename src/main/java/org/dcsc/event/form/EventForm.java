@@ -1,12 +1,13 @@
 package org.dcsc.event.form;
 
+import org.dcsc.datetime.DcscDateTimeConverter;
 import org.dcsc.event.Event;
 
 /**
  * Created by tktong on 7/22/2015.
  */
 public class EventForm {
-    private long id = -1;
+    private long id;
     private String name;
     private String description;
     private String date;
@@ -92,5 +93,20 @@ public class EventForm {
 
     public void setPublished(boolean published) {
         this.published = published;
+    }
+
+    public Event build() {
+        Event event = new Event();
+
+        event.setId(id);
+        event.setName(name);
+        event.setDescription(description);
+        event.setDate(DcscDateTimeConverter.stringToSqlDate(date));
+        event.setStartTime(DcscDateTimeConverter.stringToSqlTime(startTime));
+        event.setEndTime(DcscDateTimeConverter.stringToSqlTime(endTime));
+        event.setLocation(location);
+        event.setPublished(published);
+
+        return event;
     }
 }
