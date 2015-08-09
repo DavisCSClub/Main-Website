@@ -32,7 +32,6 @@ public class AdminCarouselControllerTest {
     private static final String UPLOAD_PATH = "upload path";
     private static final long ID = 0;
 
-
     @Mock
     private CarouselBannerService carouselBannerService;
     @Mock
