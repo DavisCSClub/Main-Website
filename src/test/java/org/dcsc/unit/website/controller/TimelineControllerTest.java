@@ -2,7 +2,7 @@ package org.dcsc.unit.website.controller;
 
 import org.dcsc.event.Event;
 import org.dcsc.event.EventService;
-import org.dcsc.website.controller.TimelineController;
+import org.dcsc.controllers.mainwebsite.TimelineController;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,6 +1,6 @@
 package org.dcsc.faq.form;
 
-import org.dcsc.faq.QuestionAnswer;
+import org.dcsc.faq.FrequentlyAskedQuestion;
 
 /**
  * Created by tktong on 8/7/2015.
@@ -34,8 +34,8 @@ public class QuestionAnswerForm {
         this.answer = answer;
     }
 
-    public QuestionAnswer build() {
-        QuestionAnswer qa = new QuestionAnswer();
+    public FrequentlyAskedQuestion build() {
+        FrequentlyAskedQuestion qa = new FrequentlyAskedQuestion();
 
         qa.setId(id);
         qa.setQuestion(question);

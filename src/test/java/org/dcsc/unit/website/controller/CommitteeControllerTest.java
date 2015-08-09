@@ -2,7 +2,7 @@ package org.dcsc.unit.website.controller;
 
 import org.dcsc.committee.Committee;
 import org.dcsc.committee.ReadOnlyCommitteeService;
-import org.dcsc.website.controller.CommitteeController;
+import org.dcsc.controllers.mainwebsite.CommitteeController;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,6 +1,6 @@
 package org.dcsc.unit.admin;
 
-import org.dcsc.admin.AdminCarouselController;
+import org.dcsc.controllers.admin.AdminCarouselController;
 import org.dcsc.carousel.CarouselBanner;
 import org.dcsc.carousel.CarouselBannerService;
 import org.dcsc.uploader.ImageFileUploader;

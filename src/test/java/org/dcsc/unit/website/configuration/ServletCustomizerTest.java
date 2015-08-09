@@ -1,6 +1,6 @@
 package org.dcsc.unit.website.configuration;
 
-import org.dcsc.website.configuration.ServletCustomizer;
+import org.dcsc.configuration.ServletCustomizer;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

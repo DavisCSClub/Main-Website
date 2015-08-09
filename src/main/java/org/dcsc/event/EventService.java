@@ -1,6 +1,5 @@
 package org.dcsc.event;
 
-import javassist.NotFoundException;
 import org.dcsc.event.form.EventForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,8 +8,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,37 +23,8 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
-
-    public Event saveEvent(long id, EventForm eventForm) throws NotFoundException {
-        Event event = eventRepository.findEventById(id)
-                .orElseThrow(() -> new NotFoundException(String.format("Event #%d does not exists.", id)));
-
-        return saveEvent(event, eventForm);
-    }
-
     public Event saveEvent(EventForm eventForm) {
-        return saveEvent(new Event(), eventForm);
-    }
-
-    private Event saveEvent(Event event, EventForm eventForm) {
-        String name = eventForm.getName();
-        String description = eventForm.getDescription();
-        Date date = Date.valueOf(eventForm.getDate());
-
-        Time startTime = Time.valueOf(standardTimeFormat(eventForm.getStartTime()));
-        Time endTime = Time.valueOf(standardTimeFormat(eventForm.getEndTime()));
-        String location = eventForm.getLocation();
-        boolean isPublished = eventForm.isPublished();
-
-        event.setName(name);
-        event.setDescription(description);
-        event.setDate(date);
-        event.setStartTime(startTime);
-        event.setEndTime(endTime);
-        event.setLocation(location);
-        event.setPublished(isPublished);
-
-        return eventRepository.save(event);
+        return eventRepository.save(eventForm.build());
     }
 
     @Transactional(readOnly = true)
