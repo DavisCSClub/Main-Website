@@ -23,7 +23,7 @@ public class Activity {
 
     @Column(name = "action", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Actions action;
+    private Action action;
 
     @Column(name = "target", nullable = false)
     private String target;
@@ -36,6 +36,19 @@ public class Activity {
 
     @Column(name = "time", nullable = false)
     private Time time;
+
+    public Activity() {
+
+    }
+
+    public Activity(DcscUser user, Action action, String target, String description, Date date, Time time) {
+        this.user = user;
+        this.action = action;
+        this.target = target;
+        this.description = description;
+        this.date = date;
+        this.time = time;
+    }
 
     public long getId() {
         return id;
@@ -53,11 +66,11 @@ public class Activity {
         this.user = user;
     }
 
-    public Actions getAction() {
+    public Action getAction() {
         return action;
     }
 
-    public void setAction(Actions action) {
+    public void setAction(Action action) {
         this.action = action;
     }
 

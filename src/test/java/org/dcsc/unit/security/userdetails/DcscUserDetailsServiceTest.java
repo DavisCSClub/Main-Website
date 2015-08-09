@@ -2,8 +2,8 @@ package org.dcsc.unit.security.userdetails;
 
 import org.dcsc.security.user.DcscUser;
 import org.dcsc.security.user.DcscUserService;
-import org.dcsc.security.userdetails.DcscUserDetails;
-import org.dcsc.security.userdetails.DcscUserDetailsService;
+import org.dcsc.security.user.details.DcscUserDetails;
+import org.dcsc.security.user.details.DcscUserDetailsService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,6 +44,8 @@ public class DcscUserDetailsServiceTest {
 
         PowerMockito.whenNew(DcscUserDetails.class).withAnyArguments().thenReturn(expectedUserDetails);
         Mockito.when(expectedUserDetails.getUser()).thenReturn(expectedUser);
+        Mockito.when(expectedUser.isLocked()).thenReturn(false);
+        Mockito.when(expectedUser.isEnabled()).thenReturn(true);
 
         DcscUserDetails dcscUserDetails = (DcscUserDetails) dcscUserDetailsService.loadUserByUsername(USERNAME);
 

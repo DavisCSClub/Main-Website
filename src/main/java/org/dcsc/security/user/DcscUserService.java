@@ -3,8 +3,9 @@ package org.dcsc.security.user;
 import java.util.List;
 import java.util.Optional;
 
+import javassist.NotFoundException;
+import org.dcsc.security.user.form.DcscUserForm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,34 +14,19 @@ public class DcscUserService {
 	@Autowired
 	private DcscUserRepository userRepository;
 
-	public DcscUser saveDcscUser(DcscUserForm dcscUserForm) {
-		return saveDcscUser(new DcscUser(), dcscUserForm);
-	}
+    public DcscUser save(DcscUserForm form, long id) throws NotFoundException {
+        DcscUser user = userRepository.findUserById(id)
+                .orElseThrow(() -> new NotFoundException(String.format("User #%d does not exists.", id)));
 
-	public DcscUser saveDcscUser(long id, DcscUserForm dcscUserForm) {
-		Optional<DcscUser> user = userRepository.findUserById(id);
+        return save(form.build(user));
+    }
 
-		if(user.isPresent()) {
-			return saveDcscUser(user.get(), dcscUserForm);
-		}
+    public DcscUser save(DcscUserForm form) {
+		return save(form.build());
+    }
 
-		return null;
-	}
-
-	private DcscUser saveDcscUser(DcscUser dcscUser, DcscUserForm dcscUserForm) {
-		String username = dcscUserForm.getUsername();
-		String email = dcscUserForm.getEmail();
-		String password = new BCryptPasswordEncoder().encode(dcscUserForm.getPassword());
-		String name = dcscUserForm.getName();
-		Role role = Role.ROLE_USER;
-
-		dcscUser.setUsername(username);
-		dcscUser.setName(name);
-		dcscUser.setPassword(password);
-		dcscUser.setEmail(email);
-		dcscUser.setRole(role);
-
-		return userRepository.save(dcscUser);
+	private DcscUser save(DcscUser user) {
+		return userRepository.save(user);
 	}
 
 	@Transactional(readOnly = true)

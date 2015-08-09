@@ -1,6 +1,6 @@
 package org.dcsc.unit.activity;
 
-import org.dcsc.activity.Actions;
+import org.dcsc.activity.Action;
 import org.dcsc.activity.Activity;
 import org.dcsc.security.user.DcscUser;
 import org.junit.Assert;
@@ -21,7 +21,7 @@ public class ActivityTest {
     private static final long ID = 0;
     private static final String TARGET = "target";
     private static final String DESCRIPTION = "description";
-    private static final Actions ACTION = Actions.CREATE;
+    private static final Action ACTION = Action.CREATE;
 
     @Mock
     private DcscUser dcscUser;
