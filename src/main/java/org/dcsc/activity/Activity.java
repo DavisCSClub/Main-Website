@@ -37,6 +37,19 @@ public class Activity {
     @Column(name = "time", nullable = false)
     private Time time;
 
+    public Activity() {
+
+    }
+
+    public Activity(DcscUser user, Action action, String target, String description, Date date, Time time) {
+        this.user = user;
+        this.action = action;
+        this.target = target;
+        this.description = description;
+        this.date = date;
+        this.time = time;
+    }
+
     public long getId() {
         return id;
     }
