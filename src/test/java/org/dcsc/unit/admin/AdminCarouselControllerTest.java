@@ -1,10 +1,10 @@
 package org.dcsc.unit.admin;
 
-import org.dcsc.controllers.admin.AdminCarouselController;
-import org.dcsc.carousel.CarouselBanner;
-import org.dcsc.carousel.CarouselBannerService;
-import org.dcsc.uploader.ImageFileUploader;
-import org.dcsc.uploader.UploadResult;
+import org.dcsc.presentation.controllers.portal.AdminCarouselController;
+import org.dcsc.model.carousel.CarouselBanner;
+import org.dcsc.service.carousel.CarouselBannerService;
+import org.dcsc.utilities.uploader.ImageFileUploader;
+import org.dcsc.utilities.uploader.UploadResult;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

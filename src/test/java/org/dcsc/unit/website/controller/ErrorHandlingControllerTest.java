@@ -1,6 +1,6 @@
 package org.dcsc.unit.website.controller;
 
-import org.dcsc.controllers.mainwebsite.ErrorHandlingController;
+import org.dcsc.presentation.controllers.website.ErrorHandlingController;
 import org.junit.Assert;
 import org.junit.Test;
 

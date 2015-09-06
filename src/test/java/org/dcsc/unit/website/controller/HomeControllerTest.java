@@ -1,9 +1,9 @@
 package org.dcsc.unit.website.controller;
 
 
-import org.dcsc.carousel.CarouselBanner;
-import org.dcsc.carousel.CarouselBannerService;
-import org.dcsc.controllers.mainwebsite.HomeController;
+import org.dcsc.model.carousel.CarouselBanner;
+import org.dcsc.service.carousel.CarouselBannerService;
+import org.dcsc.presentation.controllers.website.HomeController;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

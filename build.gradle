@@ -55,18 +55,6 @@ dependencies {
 	testCompile 'org.springframework:spring-test:4.0.5.RELEASE'
 }
 
-test {
-	testLogging {
-		events "passed", "skipped", "failed"
-
-		afterSuite { desc, result ->
-			if (!desc.parent) { // will match the outermost suite
-				println "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
-			}
-		}
-	}
-}
-
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.4'
 }

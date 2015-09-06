@@ -1,8 +1,8 @@
 package org.dcsc.unit.faq;
 
-import org.dcsc.faq.FrequentlyAskedQuestion;
-import org.dcsc.faq.FrequentlyAskedQuestionRepository;
-import org.dcsc.faq.FrequentlyAskedQuestionService;
+import org.dcsc.model.faq.FrequentlyAskedQuestion;
+import org.dcsc.persistence.faq.FrequentlyAskedQuestionRepository;
+import org.dcsc.service.faq.FrequentlyAskedQuestionService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

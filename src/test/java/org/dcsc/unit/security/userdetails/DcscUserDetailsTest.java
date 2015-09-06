@@ -1,8 +1,8 @@
 package org.dcsc.unit.security.userdetails;
 
-import org.dcsc.security.user.DcscUser;
-import org.dcsc.security.user.Role;
-import org.dcsc.security.user.details.DcscUserDetails;
+import org.dcsc.model.user.DcscUser;
+import org.dcsc.model.user.Role;
+import org.dcsc.model.user.details.DcscUserDetails;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
