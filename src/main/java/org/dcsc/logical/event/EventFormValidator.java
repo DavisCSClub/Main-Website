@@ -1,5 +1,6 @@
-package org.dcsc.model.event;
+package org.dcsc.logical.event;
 
+import org.dcsc.model.event.EventForm;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

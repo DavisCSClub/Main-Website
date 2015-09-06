@@ -2,7 +2,7 @@ package org.dcsc.presentation.controllers.portal.superuser;
 
 import org.dcsc.service.user.DcscUserService;
 import org.dcsc.model.user.DcscUserCreationForm;
-import org.dcsc.model.user.DcscUserCreationFormValidator;
+import org.dcsc.logical.user.DcscUserCreationFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;

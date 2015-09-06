@@ -3,7 +3,7 @@ package org.dcsc.presentation.controllers.portal.event;
 import org.dcsc.model.event.Event;
 import org.dcsc.service.event.EventService;
 import org.dcsc.model.event.EventForm;
-import org.dcsc.model.event.EventFormValidator;
+import org.dcsc.logical.event.EventFormValidator;
 import org.dcsc.template.Template;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
