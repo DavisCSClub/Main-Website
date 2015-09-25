@@ -1,6 +1,6 @@
 package org.dcsc.unit.faq;
 
-import org.dcsc.model.faq.FrequentlyAskedQuestion;
+import org.dcsc.core.model.faq.FrequentlyAskedQuestion;
 import org.junit.Assert;
 import org.junit.Test;
 

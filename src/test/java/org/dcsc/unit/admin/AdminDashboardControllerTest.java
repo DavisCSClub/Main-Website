@@ -1,6 +1,6 @@
 package org.dcsc.unit.admin;
 
-import org.dcsc.presentation.controllers.portal.AdminDashboardController;
+import org.dcsc.compound.presentation.controller.AdminDashboardController;
 import org.junit.Assert;
 import org.junit.Test;
 

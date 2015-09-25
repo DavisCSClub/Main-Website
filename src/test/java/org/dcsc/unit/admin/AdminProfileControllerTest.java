@@ -1,10 +1,10 @@
 package org.dcsc.unit.admin;
 
-import org.dcsc.model.activity.Activity;
-import org.dcsc.service.activity.ActivityService;
-import org.dcsc.presentation.controllers.portal.AdminProfileController;
-import org.dcsc.model.user.DcscUser;
-import org.dcsc.model.user.details.DcscUserDetails;
+import org.dcsc.core.model.activity.Activity;
+import org.dcsc.core.service.activity.ActivityService;
+import org.dcsc.compound.presentation.controller.AdminProfileController;
+import org.dcsc.core.model.user.DcscUser;
+import org.dcsc.core.model.user.details.DcscUserDetails;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

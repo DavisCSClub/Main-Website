@@ -1,8 +1,8 @@
 package org.dcsc.unit.committee;
 
-import org.dcsc.model.committee.Committee;
-import org.dcsc.persistence.committee.CommitteeRepository;
-import org.dcsc.service.committee.ReadOnlyCommitteeService;
+import org.dcsc.core.model.committee.Committee;
+import org.dcsc.core.persistence.committee.CommitteeRepository;
+import org.dcsc.core.service.committee.ReadOnlyCommitteeService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

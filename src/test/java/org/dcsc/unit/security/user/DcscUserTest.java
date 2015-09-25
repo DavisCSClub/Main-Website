@@ -1,8 +1,8 @@
 package org.dcsc.unit.security.user;
 
 
-import org.dcsc.model.user.DcscUser;
-import org.dcsc.model.user.Role;
+import org.dcsc.core.model.user.DcscUser;
+import org.dcsc.core.model.user.Role;
 import org.junit.Assert;
 import org.junit.Test;
 

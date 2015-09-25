@@ -1,6 +1,6 @@
 package org.dcsc.logical.user;
 
-import org.dcsc.model.user.DcscUserCreationForm;
+import org.dcsc.core.model.user.DcscUserCreationForm;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

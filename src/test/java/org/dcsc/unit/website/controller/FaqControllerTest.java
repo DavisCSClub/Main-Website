@@ -1,8 +1,8 @@
 package org.dcsc.unit.website.controller;
 
-import org.dcsc.model.faq.FrequentlyAskedQuestion;
-import org.dcsc.service.faq.FrequentlyAskedQuestionService;
-import org.dcsc.presentation.controllers.website.FaqController;
+import org.dcsc.core.model.faq.FrequentlyAskedQuestion;
+import org.dcsc.core.service.faq.FrequentlyAskedQuestionService;
+import org.dcsc.web.presentation.controller.FaqController;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
