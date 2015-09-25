@@ -22,21 +22,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/admin/**")
-                    .authenticated()
-                    .and()
+                .antMatchers("/admin/**")
+                .authenticated()
+                .and()
                 .formLogin()
-                    .loginPage("/login")
-                    .failureUrl("/login?error")
-                    .usernameParameter("username")
-                    .passwordParameter("password")
-                    .permitAll()
-                    .and()
+                .loginPage("/login")
+                .failureUrl("/login?error")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .permitAll()
+                .and()
                 .logout()
-                    .logoutSuccessUrl("/login?logout")
-                    .and()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login?logout")
+                .and()
                 .exceptionHandling()
-                    .accessDeniedPage("/admin");
+                .accessDeniedPage("/admin");
     }
 
     @Override
