@@ -1,6 +1,6 @@
 package org.dcsc.unit.committee;
 
-import org.dcsc.committee.Committee;
+import org.dcsc.core.model.committee.Committee;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

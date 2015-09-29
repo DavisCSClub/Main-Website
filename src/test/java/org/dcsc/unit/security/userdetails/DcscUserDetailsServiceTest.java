@@ -1,9 +1,9 @@
 package org.dcsc.unit.security.userdetails;
 
-import org.dcsc.security.user.DcscUser;
-import org.dcsc.security.user.DcscUserService;
-import org.dcsc.security.user.details.DcscUserDetails;
-import org.dcsc.security.user.details.DcscUserDetailsService;
+import org.dcsc.core.model.user.DcscUser;
+import org.dcsc.core.service.user.DcscUserService;
+import org.dcsc.core.model.user.details.DcscUserDetails;
+import org.dcsc.core.service.user.details.DcscUserDetailsService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

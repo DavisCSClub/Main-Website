@@ -1,7 +1,7 @@
 package org.dcsc.unit.event;
 
-import org.dcsc.event.form.EventForm;
-import org.dcsc.event.form.EventFormValidator;
+import org.dcsc.core.model.event.EventForm;
+import org.dcsc.logical.event.EventFormValidator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

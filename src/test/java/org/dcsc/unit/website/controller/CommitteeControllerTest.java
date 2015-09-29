@@ -1,8 +1,8 @@
 package org.dcsc.unit.website.controller;
 
-import org.dcsc.committee.Committee;
-import org.dcsc.committee.ReadOnlyCommitteeService;
-import org.dcsc.controllers.mainwebsite.CommitteeController;
+import org.dcsc.core.model.committee.Committee;
+import org.dcsc.core.service.committee.ReadOnlyCommitteeService;
+import org.dcsc.web.presentation.controller.CommitteeController;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
