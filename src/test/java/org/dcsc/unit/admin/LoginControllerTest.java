@@ -1,6 +1,6 @@
 package org.dcsc.unit.admin;
 
-import org.dcsc.controllers.admin.LoginController;
+import org.dcsc.compound.presentation.controller.LoginController;
 import org.junit.Assert;
 import org.junit.Test;
 

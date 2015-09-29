@@ -1,8 +1,8 @@
 package org.dcsc.unit.website.controller;
 
-import org.dcsc.event.Event;
-import org.dcsc.event.EventService;
-import org.dcsc.controllers.mainwebsite.EventController;
+import org.dcsc.core.model.event.Event;
+import org.dcsc.core.service.event.EventService;
+import org.dcsc.web.presentation.controller.EventController;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,8 +1,8 @@
 package org.dcsc.unit.activity;
 
-import org.dcsc.activity.Action;
-import org.dcsc.activity.Activity;
-import org.dcsc.security.user.DcscUser;
+import org.dcsc.core.model.activity.Action;
+import org.dcsc.core.model.activity.Activity;
+import org.dcsc.core.model.user.DcscUser;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
