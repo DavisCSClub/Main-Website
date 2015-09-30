@@ -5,6 +5,7 @@ import org.dcsc.core.model.event.Event;
 import org.dcsc.core.persistence.attendees.EventAttendeeRepository;
 import org.dcsc.core.persistence.event.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -13,6 +14,7 @@ import java.util.*;
 
 @Service
 public class HereService {
+    private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
     @Autowired
     private EventRepository eventRepository;
     @Autowired
@@ -31,6 +33,8 @@ public class HereService {
     }
 
     public void addAttendee(String email, long eventId) {
+        email = "" + email.hashCode();
+
         Optional<Event> eventWrapper = eventRepository.findEventById(eventId);
         Optional<EventAttendee> eventAttendee = eventAttendeeRepository.findEventAttendeeByEmail(email);
 

@@ -50,6 +50,11 @@ public class HereController {
         return success;
     }
 
+    @RequestMapping(value = "/privacy", method = RequestMethod.GET)
+    public String privacyNotice() {
+        return "main/privacy";
+    }
+
     private boolean validEmail(String email) {
         Matcher matcher = EMAIL_PATTERN.matcher(email);
         return matcher.matches();
