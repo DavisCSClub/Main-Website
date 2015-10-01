@@ -1,6 +1,7 @@
 package org.dcsc.web.presentation.controller;
 
 import org.dcsc.core.model.event.Event;
+import org.dcsc.core.service.event.EventService;
 import org.dcsc.web.service.HereService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,16 +20,33 @@ public class HereController {
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
     @Autowired
     private HereService hereService;
+    @Autowired
+    private EventService eventService;
 
     @RequestMapping(value = "/here", method = RequestMethod.GET)
     public String here(Model model) {
         List<Event> events = hereService.getCurrentEvent();
 
-        if (events.size() > 0) {
-            model.addAttribute("event", events.get(0));
-        }
+        model.addAttribute("events", events);
 
         return "main/here";
+    }
+
+    @RequestMapping(value = "/hereForm", method = RequestMethod.GET)
+    public String hereForm(Model model, @RequestParam("event_id") String eventId) {
+        int id = -1;
+
+        try {
+            id = Integer.parseInt(eventId);
+        } catch (Exception e) {
+            return "main/here-form::error";
+        }
+
+        Event event = eventService.getEventById(id).get();
+
+        model.addAttribute("event", event);
+
+        return "main/here-form::here-form";
     }
 
     @ResponseBody

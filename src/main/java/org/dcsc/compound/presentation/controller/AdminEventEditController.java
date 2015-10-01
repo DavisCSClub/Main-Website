@@ -44,7 +44,7 @@ public class AdminEventEditController {
     }
 
     @RequestMapping(value = "/{eventId}", method = RequestMethod.POST)
-    public String saveEvent(@PathVariable("eventId") long eventId, @Valid @ModelAttribute EventForm eventForm,
+    public String saveEvent(@PathVariable(value = "eventId") long eventId, @Valid @ModelAttribute EventForm eventForm,
                             BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             redirectAttributes.addFlashAttribute("errors", result.getAllErrors());
@@ -52,11 +52,9 @@ public class AdminEventEditController {
             return String.format("redirect:/admin/events/event/%d?error", eventId);
         }
 
-        System.out.println(eventForm.getId());
+        Event event = eventService.saveEvent(eventForm);
 
-        eventService.saveEvent(eventForm);
-
-        return String.format("redirect:/admin/events/event/%d?success", eventId);
+        return String.format("redirect:/admin/events/event/%d?success", event.getId());
     }
 
     @ExceptionHandler(TypeMismatchException.class)
