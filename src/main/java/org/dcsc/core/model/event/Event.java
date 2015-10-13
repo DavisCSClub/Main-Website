@@ -39,6 +39,12 @@ public class Event {
     @Column(name = "image")
     private String imagePath;
 
+    @Column(name = "thumbnail")
+    private String thumbnail;
+
+    @Column(name = "banner")
+    private String banner;
+
     @Column(name = "tag")
     private String tag;
 
@@ -118,6 +124,14 @@ public class Event {
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
+
+    public String getThumbnail() { return thumbnail; }
+
+    public void setThumbnail(String thumbnail) { this.thumbnail = thumbnail; }
+
+    public String getBanner() { return banner; }
+
+    public void setBanner(String banner) { this.banner = banner; }
 
     public String getTag() {
         return tag;
