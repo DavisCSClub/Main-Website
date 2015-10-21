@@ -1,10 +1,7 @@
 package org.dcsc.compound.presentation.controller;
 
-import org.dcsc.core.model.carousel.CarouselBanner;
-import org.dcsc.core.service.carousel.CarouselBannerService;
 import org.dcsc.core.model.carousel.EntityIdNotFoundException;
-import org.dcsc.utilities.uploader.ImageFileUploader;
-import org.dcsc.utilities.uploader.UploadResult;
+import org.dcsc.core.service.carousel.CarouselBannerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 /**
  * Created by tktong on 7/31/2015.
@@ -21,8 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 public class AdminCarouselController {
     @Autowired
     private CarouselBannerService carouselBannerService;
-    @Autowired
-    private ImageFileUploader imageFileUploader;
 
     @RequestMapping(method = RequestMethod.GET)
     public String carouselUpload(Model model) {
@@ -33,14 +30,10 @@ public class AdminCarouselController {
 
     @RequestMapping(method = RequestMethod.POST)
     public String carouselUpload(@RequestParam("name") String name, @RequestParam("caption") String caption, @RequestParam("file") MultipartFile file) {
-        UploadResult result = imageFileUploader.upload(file);
-
-        if(result.isSuccess()) {
-            CarouselBanner carouselBanner = new CarouselBanner();
-            carouselBanner.setName(name);
-            carouselBanner.setPath(result.getUploadPath());
-            carouselBanner.setCaption(caption);
-            carouselBannerService.save(carouselBanner);
+        try {
+            carouselBannerService.save(name, caption, file);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return "redirect:/admin/carousel";
@@ -50,7 +43,7 @@ public class AdminCarouselController {
     public String delete(@RequestParam("id") long id) {
         try {
             carouselBannerService.delete(id);
-        } catch(EntityIdNotFoundException e) {
+        } catch (EntityIdNotFoundException e) {
             // redirect to error page
         }
 

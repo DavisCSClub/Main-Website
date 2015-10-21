@@ -2,9 +2,8 @@ package org.dcsc.utilities.uploader;
 
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- * Created by tktong on 7/31/2015.
- */
+import java.io.IOException;
+
 public interface FileUploader {
-    UploadResult upload(MultipartFile file);
+    void upload(MultipartFile file, String destination) throws IOException;
 }
