@@ -2,7 +2,9 @@ package org.dcsc.core.service.carousel;
 
 import org.dcsc.core.model.carousel.CarouselBanner;
 import org.dcsc.core.model.carousel.EntityIdNotFoundException;
+import org.dcsc.core.model.image.Image;
 import org.dcsc.core.persistence.carousel.CarouselBannerRepository;
+import org.dcsc.core.persistence.image.ImageRepository;
 import org.dcsc.utilities.uploader.ImageUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,18 +23,15 @@ public class CarouselBannerService {
     private CarouselBannerRepository carouselBannerRepository;
     @Autowired
     private ImageUploadService imageUploadService;
+    @Autowired
+    private ImageRepository imageRepository;
 
     public void save(String name, String caption, MultipartFile file) throws IOException {
-        imageUploadService.upload(file);
-
-        String fileName = file.getOriginalFilename();
+        Image image = imageUploadService.upload(file, name, caption);
 
         CarouselBanner carouselBanner = new CarouselBanner();
-        carouselBanner.setName(name);
-        carouselBanner.setPath(ImageUploadService.IMAGE_RELATIVE_DIRECTORY + File.separator + fileName);
-        carouselBanner.setRelativePath(ImageUploadService.IMAGE_RELATIVE_DIRECTORY + File.separator + fileName);
-        carouselBanner.setAbsolutePath(ImageUploadService.IMAGE_UPLOAD_DIRECTORY + File.separator + fileName);
         carouselBanner.setCaption(caption);
+        carouselBanner.setImage(image);
 
         save(carouselBanner);
     }
@@ -45,9 +44,10 @@ public class CarouselBannerService {
         CarouselBanner carouselBanner = carouselBannerRepository.findCarouselBannerById(id)
                 .orElseThrow(() -> new EntityIdNotFoundException(id, String.format("Carousel banner #%d could not be found.", id)));
 
-        File file = new File(carouselBanner.getAbsolutePath());
+        File file = new File(carouselBanner.getImage().getAbsolutePath());
         file.delete();
 
+        imageRepository.delete(carouselBanner.getImage());
         carouselBannerRepository.delete(carouselBanner);
     }
 
