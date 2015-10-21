@@ -1,4 +1,4 @@
-package org.dcsc.utilities;
+package org.dcsc.utilities.uploader;
 
 import org.dcsc.utilities.uploader.FileUploader;
 import org.springframework.stereotype.Component;
