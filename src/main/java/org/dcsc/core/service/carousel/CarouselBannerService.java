@@ -1,23 +1,41 @@
 package org.dcsc.core.service.carousel;
 
-import org.dcsc.core.model.carousel.EntityIdNotFoundException;
 import org.dcsc.core.model.carousel.CarouselBanner;
+import org.dcsc.core.model.carousel.EntityIdNotFoundException;
 import org.dcsc.core.persistence.carousel.CarouselBannerRepository;
+import org.dcsc.utilities.uploader.ImageUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Created by tktong on 7/31/2015.
- */
+
 @Service
 public class CarouselBannerService {
     @Autowired
     private CarouselBannerRepository carouselBannerRepository;
+    @Autowired
+    private ImageUploadService imageUploadService;
+
+    public void save(String name, String caption, MultipartFile file) throws IOException {
+        imageUploadService.upload(file);
+
+        String fileName = file.getOriginalFilename();
+
+        CarouselBanner carouselBanner = new CarouselBanner();
+        carouselBanner.setName(name);
+        carouselBanner.setPath(ImageUploadService.IMAGE_RELATIVE_DIRECTORY + File.separator + fileName);
+        carouselBanner.setRelativePath(ImageUploadService.IMAGE_RELATIVE_DIRECTORY + File.separator + fileName);
+        carouselBanner.setAbsolutePath(ImageUploadService.IMAGE_UPLOAD_DIRECTORY + File.separator + fileName);
+        carouselBanner.setCaption(caption);
+
+        save(carouselBanner);
+    }
 
     public CarouselBanner save(CarouselBanner carouselBanner) {
         return carouselBannerRepository.save(carouselBanner);
@@ -27,7 +45,7 @@ public class CarouselBannerService {
         CarouselBanner carouselBanner = carouselBannerRepository.findCarouselBannerById(id)
                 .orElseThrow(() -> new EntityIdNotFoundException(id, String.format("Carousel banner #%d could not be found.", id)));
 
-        File file = new File(carouselBanner.getPath());
+        File file = new File(carouselBanner.getAbsolutePath());
         file.delete();
 
         carouselBannerRepository.delete(carouselBanner);

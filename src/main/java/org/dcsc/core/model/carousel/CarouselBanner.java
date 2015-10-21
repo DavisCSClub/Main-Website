@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class CarouselBanner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, updatable =  false, unique = true)
+    @Column(name = "id", nullable = false, updatable = false, unique = true)
     private long id;
 
     @Column(name = "name", nullable = false)
@@ -21,6 +21,12 @@ public class CarouselBanner {
 
     @Column(name = "path", nullable = false)
     private String path;
+
+    @Column(name = "relative_path", nullable = false)
+    private String relativePath;
+
+    @Column(name = "absolute_path", nullable = false)
+    private String absolutePath;
 
     public long getId() {
         return id;
@@ -52,5 +58,21 @@ public class CarouselBanner {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getRelativePath() {
+        return relativePath;
+    }
+
+    public void setRelativePath(String relativePath) {
+        this.relativePath = relativePath;
+    }
+
+    public String getAbsolutePath() {
+        return absolutePath;
+    }
+
+    public void setAbsolutePath(String absolutePath) {
+        this.absolutePath = absolutePath;
     }
 }
