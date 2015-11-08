@@ -27,16 +27,7 @@ public class HereService {
         int currentHour = currentDateTime.getHourOfDay();
 
         Date date = currentDateTime.toLocalDateTime().toDate();
-        System.out.println(date);
-        System.out.println(currentDateTime.toDate());
-
         List<Event> eventsHappeningToday = eventRepository.findEventsByDate(date);
-
-        List<Event> ongoingEvents = eventsHappeningToday.stream()
-                .filter(event -> (event.getStartTime().getHours() <= currentHour) && (event.getEndTime().getHours() >= currentHour))
-                .collect(Collectors.toList());
-
-        System.out.println(ongoingEvents.size());
 
         return eventsHappeningToday.stream()
                 .filter(event -> (event.getStartTime().getHours() <= currentHour) && (event.getEndTime().getHours() >= currentHour))
