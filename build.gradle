@@ -21,44 +21,46 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    aspectjVersion = '1.8.7'
+    commonsVersion = '1.3.1'
+    guavaVersion = '19.0-rc2'
+    jacksonVersion = '2.6.3'
+    jadiraVersion = '4.0.0.GA'
+    jodaTimeVersion = '2.9'
+    junitVersion = '4.12'
+    mockitoVersion = '2.0.2-beta'
+    postgresVersion = '9.4-1205-jdbc42'
+    powerMockVersion = '1.6.3'
+    springVersion = '4.2.2.RELEASE'
+    springBootVersion = '1.2.7.RELEASE'
+    thymeleafVersion = '2.1.2.RELEASE'
+    thymeleafLayoutVersion = '1.2.8'
+}
+
 dependencies {
-    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:$jacksonVersion"
+    compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:$jacksonVersion"
+    compile "com.google.guava:guava:$guavaVersion"
+    compile "commons-fileupload:commons-fileupload:$commonsVersion"
+    compile "joda-time:joda-time:$jodaTimeVersion"
+    compile "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:$thymeleafLayoutVersion"
+    compile "org.aspectj:aspectjrt:$aspectjVersion"
+    compile "org.aspectj:aspectjweaver:$aspectjVersion"
+    compile "org.jadira.usertype:usertype.core:$jadiraVersion"
+    compile "org.postgresql:postgresql:$postgresVersion"
+    compile "org.springframework:spring-aop:$springVersion"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
+    compile "org.springframework.boot:spring-boot-starter-security:$springBootVersion"
+    compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    compile "org.thymeleaf:thymeleaf-spring4:$thymeleafVersion"
+    compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity3:$thymeleafVersion"
 
-    // Google Utilities Library for Java
-    compile "com.google.guava:guava:18.0"
-
-    // Joda Time
-    compile "joda-time:joda-time:2.8.2"
-    compile "org.jadira.usertype:usertype.core:4.0.0.GA"
-    compile "com.fasterxml.jackson.jaxrs:jackson-jaxrs-json-provider:2.6.2"
-    compile "com.fasterxml.jackson.datatype:jackson-datatype-joda:2.6.2"
-
-    // Thymeleaf
-    compile "org.thymeleaf:thymeleaf-spring4"
-    compile "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:1.2.8"
-    compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity3:2.1.2.RELEASE"
-
-    // Data Source
-    compile "org.springframework.boot:spring-boot-starter-data-jpa"
-    compile "org.postgresql:postgresql:9.4-1201-jdbc41"
-
-    // Aspect-Oriented Programming
-    compile "org.springframework:spring-aop:4.2.0.RELEASE" // Spring AOP
-    compile 'org.aspectj:aspectjrt:1.8.6' // AspectJ Runtime
-    compile 'org.aspectj:aspectjweaver:1.8.6' // AspectJ Weaver
-
-    // File Upload
-    compile "commons-fileupload:commons-fileupload:1.3.1"
-
-    // Security
-    compile "org.springframework.boot:spring-boot-starter-security"
-
-    // Testing
-    testCompile 'org.springframework.boot:spring-boot-starter-test:1.2.5.RELEASE'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-all:2.0.2-beta'
-    testCompile 'org.powermock:powermock-mockito-release-full:1.6.2'
-    testCompile 'org.springframework:spring-test:4.0.5.RELEASE'
+    testCompile "junit:junit:$junitVersion"
+    testCompile "org.mockito:mockito-all:$mockitoVersion"
+    testCompile "org.powermock:powermock-mockito-release-full:$powerMockVersion"
+    testCompile "org.springframework:spring-test:$springVersion"
+    testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
 }
 
 task wrapper(type: Wrapper) {
