@@ -54,7 +54,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-security:$springBootVersion"
     compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
     compile "org.thymeleaf:thymeleaf-spring4:$thymeleafVersion"
-    compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity3:$thymeleafVersion"
+    compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:$thymeleafVersion"
 
     testCompile "junit:junit:$junitVersion"
     testCompile "org.mockito:mockito-all:$mockitoVersion"
