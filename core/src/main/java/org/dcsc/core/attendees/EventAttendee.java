@@ -19,7 +19,7 @@ public class EventAttendee {
     @Column(name = "name", nullable = false, updatable = false)
     private String name;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "dcsc_attended", schema = "public",
             joinColumns = {
                     @JoinColumn(name = "attendee_id", referencedColumnName = "id")

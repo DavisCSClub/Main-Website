@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.sql.Time;
+import java.util.Date;
 
 @Controller
 public class AdminEventController {
@@ -41,12 +42,11 @@ public class AdminEventController {
     @RequestMapping(value = "/admin/event/create", method = RequestMethod.GET)
     public String eventCreate(Model model) {
         DateTime currentDateTime = DateTime.now(DateTimeZone.forID("America/Los_Angeles"));
-
-        java.sql.Date date = new java.sql.Date(currentDateTime.getMillis());
+        Date date = currentDateTime.toLocalDateTime().toDate();
 
         Event event = new Event();
         event.setName("Untitled Event");
-        event.setDate(date);
+        event.setDate(new java.sql.Date(date.getTime()));
         event.setStartTime(Time.valueOf("00:00:00"));
         event.setEndTime(Time.valueOf("00:00:00"));
 
