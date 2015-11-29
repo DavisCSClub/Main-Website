@@ -43,10 +43,9 @@ public class AdminEventRestController {
 
         try {
             eventService.deleteEventById(Long.parseLong(eventId));
+            success = true;
         } catch (Exception e) {
             // swallow exception
-        } finally {
-            success = true;
         }
 
         return success;
