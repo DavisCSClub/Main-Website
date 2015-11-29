@@ -1,0 +1,6 @@
+dependencies {
+    compile "commons-fileupload:commons-fileupload:$commonsVersion"
+    compile "org.jadira.usertype:usertype.core:$jadiraVersion"
+    compile "org.springframework:spring-webmvc:$springVersion"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
+}

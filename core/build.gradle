@@ -1,0 +1,7 @@
+dependencies {
+    compile "org.jadira.usertype:usertype.core:$jadiraVersion"
+    compile "org.springframework:spring-webmvc:$springVersion"
+    compile "org.springframework.boot:spring-boot-starter-security:$springBootVersion"
+
+    compile project(":utilities")
+}
