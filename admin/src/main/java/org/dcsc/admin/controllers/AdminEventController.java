@@ -1,6 +1,7 @@
 package org.dcsc.admin.controllers;
 
 import org.dcsc.admin.constants.ViewNames;
+import org.dcsc.core.attendees.EventAttendeeService;
 import org.dcsc.core.event.Event;
 import org.dcsc.core.event.EventService;
 import org.joda.time.DateTime;
@@ -19,6 +20,8 @@ import java.util.Date;
 public class AdminEventController {
     @Autowired
     private EventService eventService;
+    @Autowired
+    private EventAttendeeService eventAttendeeService;
 
     @RequestMapping(value = "/admin/events")
     public String events() {
@@ -27,8 +30,12 @@ public class AdminEventController {
 
     @RequestMapping(value = "/admin/event/{eventId}", method = RequestMethod.GET)
     public String event(@PathVariable("eventId") String eventId, Model model) {
-        Event event = eventService.getEventById(Long.parseLong(eventId)).get();
+        long id = Long.parseLong(eventId);
+
+        Event event = eventService.getEventById(id).get();
         model.addAttribute("event", event);
+        model.addAttribute("attendanceCount", eventAttendeeService.getAttendanceCount(id));
+
         return ViewNames.ADMIN_EVENT_FORM;
     }
 
