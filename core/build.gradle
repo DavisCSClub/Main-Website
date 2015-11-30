@@ -1,5 +1,6 @@
 dependencies {
     compile "org.jadira.usertype:usertype.core:$jadiraVersion"
+    compile "joda-time:joda-time:$jodaTimeVersion"
     compile "org.springframework:spring-webmvc:$springVersion"
     compile "org.springframework.boot:spring-boot-starter-security:$springBootVersion"
 
