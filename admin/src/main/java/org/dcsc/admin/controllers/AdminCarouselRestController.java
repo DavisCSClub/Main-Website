@@ -1,12 +1,10 @@
 package org.dcsc.admin.controllers;
 
 import org.dcsc.core.carousel.CarouselBannerService;
+import org.dcsc.core.carousel.CarouselForm;
 import org.dcsc.core.carousel.EntityIdNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AdminCarouselRestController {
@@ -25,5 +23,12 @@ public class AdminCarouselRestController {
         }
 
         return success;
+    }
+
+    @CrossOrigin(origins = {"https://daviscsclub.org", "http://localhost:8080"}, methods = {RequestMethod.PUT})
+    @RequestMapping(value = "/admin/r/carousel/{id}", method = RequestMethod.PUT)
+    public boolean updateBanner(@RequestBody CarouselForm carouselForm) {
+        carouselBannerService.save(carouselForm);
+        return true;
     }
 }

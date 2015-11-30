@@ -4,6 +4,7 @@ import org.dcsc.utilities.image.Image;
 import org.dcsc.utilities.image.ImageRepository;
 import org.dcsc.utilities.image.ImageUploadService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,6 +34,15 @@ public class CarouselBannerService {
         save(carouselBanner);
     }
 
+    public void save(CarouselForm carouselForm) {
+        CarouselBanner carouselBanner = getCarouselById(carouselForm.getId()).get();
+
+        carouselBanner.getImage().setName(carouselForm.getName());
+        carouselBanner.setCaption(carouselForm.getCaption());
+
+        carouselBannerRepository.save(carouselBanner);
+    }
+
     public CarouselBanner save(CarouselBanner carouselBanner) {
         return carouselBannerRepository.save(carouselBanner);
     }
@@ -55,6 +65,6 @@ public class CarouselBannerService {
 
     @Transactional(readOnly = true)
     public List<CarouselBanner> getAllCarouselBanners() {
-        return carouselBannerRepository.findAll();
+        return carouselBannerRepository.findAll(new Sort("order"));
     }
 }

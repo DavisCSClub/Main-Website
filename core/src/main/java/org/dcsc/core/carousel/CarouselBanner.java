@@ -20,6 +20,9 @@ public class CarouselBanner {
     @JoinColumn(name = "image_id")
     private Image image;
 
+    @Column(name = "precedence")
+    private int order;
+
     public long getId() {
         return id;
     }
@@ -42,5 +45,13 @@ public class CarouselBanner {
 
     public void setImage(Image image) {
         this.image = image;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 }
