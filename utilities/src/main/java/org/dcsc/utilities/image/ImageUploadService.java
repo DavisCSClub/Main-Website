@@ -13,7 +13,7 @@ public class ImageUploadService {
     public static final String IMAGE_UPLOAD_DIRECTORY = new File(System.getProperty("user.home")).getAbsolutePath()
             + File.separator + "webapps" + File.separator + "media_dcsc" + File.separator + "upload"
             + File.separator + "img";
-    public static final String IMAGE_RELATIVE_DIRECTORY = "/media/upload/upload/img";
+    public static final String IMAGE_RELATIVE_DIRECTORY = File.separator + "media" + File.separator + "upload" + File.separator + "img";
 
     @Autowired
     private FileUploader fileUploader;
