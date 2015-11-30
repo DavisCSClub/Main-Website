@@ -3,6 +3,7 @@ package org.dcsc.core.attendees;
 import org.dcsc.core.event.Event;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -37,6 +38,12 @@ public class EventAttendee {
         attendedEvents = null;
     }
 
+    public EventAttendee(String email) {
+        this.email = email;
+        this.name = "";
+        this.attendedEvents = new ArrayList<Event>();
+    }
+
     public EventAttendee(String email, String name, List<Event> attendedEvents) {
         this.email = email;
         this.name = name;
@@ -48,6 +55,12 @@ public class EventAttendee {
         this.email = email;
         this.name = name;
         this.attendedEvents = attendedEvents;
+    }
+
+    public void addEvent(Event event) {
+        if (!attendedEvents.contains(event)) {
+            attendedEvents.add(event);
+        }
     }
 
     public long getId() {
