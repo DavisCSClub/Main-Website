@@ -1,12 +1,11 @@
 package org.dcsc.core.event;
 
+import org.dcsc.utilities.image.Image;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
 
-/**
- * Created by tktong on 7/7/2015.
- */
 @Entity
 @Table(name = "dcsc_events", schema = "public")
 public class Event {
@@ -36,11 +35,13 @@ public class Event {
     @Column(name = "image")
     private String imagePath;
 
-    @Column(name = "thumbnail")
-    private String thumbnail;
+    @OneToOne
+    @JoinColumn(name = "thumbnail_id")
+    private Image thumbnail;
 
-    @Column(name = "banner")
-    private String banner;
+    @OneToOne
+    @JoinColumn(name = "banner_id")
+    private Image banner;
 
     @Column(name = "tag")
     private String tag;
@@ -112,19 +113,19 @@ public class Event {
         this.imagePath = imagePath;
     }
 
-    public String getThumbnail() {
+    public Image getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(String thumbnail) {
+    public void setThumbnail(Image thumbnail) {
         this.thumbnail = thumbnail;
     }
 
-    public String getBanner() {
+    public Image getBanner() {
         return banner;
     }
 
-    public void setBanner(String banner) {
+    public void setBanner(Image banner) {
         this.banner = banner;
     }
 
