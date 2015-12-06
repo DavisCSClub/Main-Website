@@ -3,6 +3,7 @@ package org.dcsc.admin.controllers;
 import org.dcsc.core.carousel.CarouselBannerService;
 import org.dcsc.core.carousel.EntityIdNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,7 @@ public class AdminCarouselController {
     private CarouselBannerService carouselBannerService;
 
     @RequestMapping(method = RequestMethod.GET)
+    @PreAuthorize("hasPermission('CAROUSEL',read)")
     public String carouselUpload(Model model) {
         model.addAttribute("banners", carouselBannerService.getAllCarouselBanners());
 

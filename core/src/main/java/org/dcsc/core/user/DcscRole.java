@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "dcsc_roles", schema = "dcsc_accounts")
@@ -19,7 +20,7 @@ public class DcscRole {
     private String name;
 
     @OneToMany(mappedBy = "role", fetch = FetchType.EAGER)
-    private Collection<RolePermission> rolePermissions;
+    private Set<RolePermission> rolePermissions;
 
     public long getId() {
         return id;
@@ -45,4 +46,13 @@ public class DcscRole {
 
         return authorities;
     }
+
+    public Collection<RolePermission> getRolePermissions() {
+        return rolePermissions;
+    }
+
+    public void setRolePermissions(Set<RolePermission> rolePermissions) {
+        this.rolePermissions = rolePermissions;
+    }
+
 }
