@@ -17,7 +17,6 @@ import java.util.Arrays;
  * Created by tktong on 7/15/15.
  */
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailsService userDetailsService;

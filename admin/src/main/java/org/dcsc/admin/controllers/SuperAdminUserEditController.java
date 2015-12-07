@@ -4,6 +4,7 @@ import javassist.NotFoundException;
 import org.dcsc.core.user.DcscSuperUserEditForm;
 import org.dcsc.core.user.DcscUser;
 import org.dcsc.core.user.DcscUserService;
+import org.dcsc.core.user.Role;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -37,7 +38,7 @@ public class SuperAdminUserEditController {
         form.setId(userId);
         form.setEnabled(dcscUser.isEnabled());
         form.setLocked(dcscUser.isLocked());
-        form.setRole(dcscUser.getRole());
+        form.setRole(Role.ROLE_USER);
 
         model.addAttribute("user", dcscUser);
 
