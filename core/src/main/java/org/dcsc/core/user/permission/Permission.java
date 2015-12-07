@@ -1,4 +1,4 @@
-package org.dcsc.core.user;
+package org.dcsc.core.user.permission;
 
 import javax.persistence.*;
 

@@ -1,7 +1,6 @@
 package org.dcsc.admin.controllers;
 
 import org.dcsc.core.carousel.CarouselBannerService;
-import org.dcsc.core.carousel.EntityIdNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -20,7 +19,7 @@ public class AdminCarouselController {
     private CarouselBannerService carouselBannerService;
 
     @RequestMapping(method = RequestMethod.GET)
-    @PreAuthorize("hasPermission('CAROUSEL',read)")
+    @PreAuthorize("hasPermission('carousel',read)")
     public String carouselUpload(Model model) {
         model.addAttribute("banners", carouselBannerService.getAllCarouselBanners());
 
@@ -28,22 +27,12 @@ public class AdminCarouselController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
+    @PreAuthorize("hasPermission('carousel',create)")
     public String carouselUpload(@RequestParam("name") String name, @RequestParam("caption") String caption, @RequestParam("file") MultipartFile file) {
         try {
             carouselBannerService.save(name, caption, file);
         } catch (IOException e) {
             e.printStackTrace();
-        }
-
-        return "redirect:/admin/carousel";
-    }
-
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String delete(@RequestParam("id") long id) {
-        try {
-            carouselBannerService.delete(id);
-        } catch (EntityIdNotFoundException e) {
-            // redirect to error page
         }
 
         return "redirect:/admin/carousel";

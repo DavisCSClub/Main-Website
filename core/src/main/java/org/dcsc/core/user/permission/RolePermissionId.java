@@ -1,4 +1,6 @@
-package org.dcsc.core.user;
+package org.dcsc.core.user.permission;
+
+import org.dcsc.core.user.role.DcscRole;
 
 import java.io.Serializable;
 

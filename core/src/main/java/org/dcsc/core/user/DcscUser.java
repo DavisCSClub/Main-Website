@@ -22,12 +22,11 @@ public class DcscUser {
     @Column(name = "is_locked", nullable = false)
     private boolean locked;
 
-    @OneToOne
-    @JoinColumn(name = "role_id")
-    private DcscRole role;
+    @Column(name = "role_id", nullable = false)
+    private long roleId;
 
-    public DcscRole getRole() {
-        return role;
+    public long getRoleId() {
+        return roleId;
     }
 
     public void setRole(Role role) {
