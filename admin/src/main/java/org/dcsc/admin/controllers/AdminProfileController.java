@@ -1,6 +1,7 @@
 package org.dcsc.admin.controllers;
 
 import org.dcsc.admin.constants.ViewNames;
+import org.dcsc.admin.profile.ProfileCreateForm;
 import org.dcsc.admin.profile.ProfileForm;
 import org.dcsc.core.activity.Activity;
 import org.dcsc.core.activity.ActivityService;
@@ -36,5 +37,12 @@ public class AdminProfileController {
         model.addAttribute("profileForm", new ProfileForm());
 
         return ViewNames.ADMIN_PROFILE_EDIT;
+    }
+
+    @RequestMapping(value = "/admin/user/create", method = RequestMethod.GET)
+    public String profileCreate(Model model) {
+        model.addAttribute("profileForm", new ProfileCreateForm());
+
+        return ViewNames.ADMIN_PROFILE_CREATE;
     }
 }

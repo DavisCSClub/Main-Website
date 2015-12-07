@@ -9,10 +9,7 @@ import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Component
 public class DcscPermissionEvaluator implements PermissionEvaluator {
@@ -50,5 +47,22 @@ public class DcscPermissionEvaluator implements PermissionEvaluator {
         int requestedAccessLevel = Optional.ofNullable(permissionMask.get(permission)).orElseGet(() -> 0);
 
         return ((userAccessLevel & requestedAccessLevel) > 0);
+    }
+
+    public List<String> getBitPermissionsAsString(int permissions) {
+        List<String> stringPermissions = new ArrayList<>();
+
+        Set<Map.Entry<String, Integer>> permissionMaskEntrySet = permissionMask.entrySet();
+
+        for (Map.Entry<String, Integer> entry : permissionMaskEntrySet) {
+            String ability = entry.getKey();
+            int permissionBit = entry.getValue();
+
+            if ((permissions & permissionBit) > 0) {
+                stringPermissions.add(ability);
+            }
+        }
+
+        return stringPermissions;
     }
 }

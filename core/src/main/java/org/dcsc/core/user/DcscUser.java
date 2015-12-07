@@ -1,5 +1,7 @@
 package org.dcsc.core.user;
 
+import org.dcsc.core.user.profile.UserProfile;
+
 import javax.persistence.*;
 
 @Entity
@@ -24,6 +26,10 @@ public class DcscUser {
 
     @Column(name = "role_id", nullable = false)
     private long roleId;
+
+    @JoinColumn(name = "profile_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    private UserProfile userProfile;
 
     public long getRoleId() {
         return roleId;
@@ -79,5 +85,17 @@ public class DcscUser {
 
     public void setLocked(boolean locked) {
         this.locked = locked;
+    }
+
+    public void setRoleId(long roleId) {
+        this.roleId = roleId;
+    }
+
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
 }
