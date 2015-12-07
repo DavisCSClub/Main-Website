@@ -1,120 +1,101 @@
 package org.dcsc.core.user;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.dcsc.core.user.profile.UserProfile;
+
+import javax.persistence.*;
 
 @Entity
-@Table(name = "dcsc_users", schema = "administration")
+@Table(name = "dcsc_users", schema = "dcsc_accounts")
 public class DcscUser {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private long id;
-	
-	@Column(name = "username", nullable = false)
-	private String username;
-	
-	@Column(name = "email", nullable = false)
-	private String email;
-	
-	@Column(name = "name", nullable = false)
-	private String name;
-	
-	@Column(name = "password", nullable = false)
-	private String password;
-	
-	@Column(name = "is_enabled", nullable = false)
-	private boolean enabled;
-	
-	@Column(name = "is_locked", nullable = false)
-	private boolean locked;
-	
-	@Column(name = "role", nullable = false)
-	@Enumerated(EnumType.STRING)
-	private Role role;
-	
-	public DcscUser() {
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private long id;
 
-	public DcscUser(long id, String username, String email, String name, String password, boolean enabled,
-			boolean locked, Role role) {
-		this.id = id;
-		this.username = username;
-		this.email = email;
-		this.name = name;
-		this.password = password;
-		this.enabled = enabled;
-		this.locked = locked;
-		this.role = role;
-	}
+    @Column(name = "username", nullable = false)
+    private String username;
 
-	public long getId() {
-		return id;
-	}
+    @Column(name = "password", nullable = false)
+    private String password;
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    @Column(name = "is_enabled", nullable = false)
+    private boolean enabled;
 
-	public String getUsername() {
-		return username;
-	}
+    @Column(name = "is_locked", nullable = false)
+    private boolean locked;
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    @Column(name = "role_id", nullable = false)
+    private long roleId;
 
-	public String getEmail() {
-		return email;
-	}
+    @JoinColumn(name = "profile_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    private UserProfile userProfile;
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public long getRoleId() {
+        return roleId;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setRole(Role role) {
+        // nop
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        // nop
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setEmail(String email) {
+        //nop
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+    public String getUsername() {
+        return username;
+    }
 
-	public boolean isLocked() {
-		return locked;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public void setLocked(boolean locked) {
-		this.locked = locked;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public Role getRole() {
-		return role;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public void setRoleId(long roleId) {
+        this.roleId = roleId;
+    }
+
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
 }

@@ -22,8 +22,13 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
+
     public Event saveEvent(EventForm eventForm) {
-        return eventRepository.save(eventForm.build());
+        return saveEvent(eventForm.build());
+    }
+
+    public Event saveEvent(Event event) {
+        return eventRepository.save(event);
     }
 
     @Transactional(readOnly = true)
