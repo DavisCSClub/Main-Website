@@ -26,7 +26,7 @@ public class AdminEventRestController {
     }
 
     @RequestMapping(value = "/admin/r/events/{pageId}", method = RequestMethod.GET)
-    @PreAuthorize("hasPermission('event',get)")
+    @PreAuthorize("hasPermission('event',read)")
     public Page<Event> getEventsByPage(@PathVariable("pageId") String pageId) {
         int pageIndex = 0;
 
