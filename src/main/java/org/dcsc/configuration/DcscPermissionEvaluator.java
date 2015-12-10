@@ -63,6 +63,10 @@ public class DcscPermissionEvaluator implements PermissionEvaluator {
             }
         }
 
+        if (stringPermissions.isEmpty()) {
+            stringPermissions.add("NONE");
+        }
+
         return stringPermissions;
     }
 }

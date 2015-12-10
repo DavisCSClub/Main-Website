@@ -1,16 +1,23 @@
 package org.dcsc.admin.controllers;
 
+import org.dcsc.admin.constants.AttributeNames;
 import org.dcsc.admin.constants.ViewNames;
 import org.dcsc.admin.profile.ProfileCreateForm;
 import org.dcsc.admin.profile.ProfileForm;
 import org.dcsc.core.activity.Activity;
 import org.dcsc.core.activity.ActivityService;
 import org.dcsc.core.user.DcscUser;
+import org.dcsc.core.user.DcscUserService;
 import org.dcsc.core.user.details.DcscUserDetails;
+import org.dcsc.core.user.permission.RolePermissionService;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -20,13 +27,20 @@ import java.util.List;
 public class AdminProfileController {
     @Autowired
     private ActivityService activityService;
+    @Autowired
+    private DcscUserService dcscUserService;
+    @Autowired
+    private RolePermissionService rolePermissionService;
 
     @RequestMapping(value = "/admin/profile", method = RequestMethod.GET)
     public String profile(Authentication authentication, Model model) {
-        DcscUser user = ((DcscUserDetails) authentication.getPrincipal()).getUser();
+        DcscUserDetails userDetails = ((DcscUserDetails) authentication.getPrincipal());
+        DcscUser user = userDetails.getUser();
 
         List<Activity> list = activityService.getAllActivities(user.getId());
 
+        model.addAttribute(AttributeNames.USER, user);
+        model.addAttribute("permissions", userDetails.getPermissions());
         model.addAttribute("activities", list);
 
         return ViewNames.ADMIN_PROFILE;
@@ -39,10 +53,36 @@ public class AdminProfileController {
         return ViewNames.ADMIN_PROFILE_EDIT;
     }
 
+    @RequestMapping(value = "/admin/user/{user_id}", method = RequestMethod.GET)
+    @PreAuthorize("hasPermission('user',read)")
+    public String profileView(@PathVariable("user_id") long id, Model model) {
+        DcscUser user = dcscUserService.getUserById(id).get();
+
+        List<Activity> list = activityService.getAllActivities(user.getId());
+
+        model.addAttribute(AttributeNames.USER, user);
+        model.addAttribute("permissions", rolePermissionService.getPermissionMap(user.getRoleId()));
+        model.addAttribute("activities", list);
+
+        return ViewNames.ADMIN_PROFILE;
+    }
+
     @RequestMapping(value = "/admin/user/create", method = RequestMethod.GET)
-    public String profileCreate(Model model) {
+    @PreAuthorize("hasPermission('user',create)")
+    public String userCreatePage(Model model) {
         model.addAttribute("profileForm", new ProfileCreateForm());
 
         return ViewNames.ADMIN_PROFILE_CREATE;
+    }
+
+    @RequestMapping(value = "/admin/user/{user_id}/edit", method = RequestMethod.GET)
+    public String userEditPage(@PathVariable("user_id") long id, Model model) {
+
+        return ViewNames.ADMIN_PROFILE_CREATE;
+    }
+
+    @ExceptionHandler(TypeMismatchException.class)
+    public String invalidIdPage() {
+        return "redirect:/admin/directory";
     }
 }

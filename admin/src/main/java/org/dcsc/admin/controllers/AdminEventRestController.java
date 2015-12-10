@@ -6,6 +6,7 @@ import org.dcsc.core.event.EventFormValidator;
 import org.dcsc.core.event.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ public class AdminEventRestController {
     }
 
     @RequestMapping(value = "/admin/r/events/{pageId}", method = RequestMethod.GET)
+    @PreAuthorize("hasPermission('event',get)")
     public Page<Event> getEventsByPage(@PathVariable("pageId") String pageId) {
         int pageIndex = 0;
 
@@ -38,6 +40,7 @@ public class AdminEventRestController {
     }
 
     @RequestMapping(value = "/admin/r/event/{eventId}", method = RequestMethod.DELETE)
+    @PreAuthorize("hasPermission('event',delete)")
     public boolean deleteEventById(@PathVariable("eventId") String eventId) {
         boolean success = false;
 
@@ -53,6 +56,7 @@ public class AdminEventRestController {
 
     @CrossOrigin(origins = {"https://daviscsclub.org", "http://localhost:8080"}, methods = {RequestMethod.PUT})
     @RequestMapping(value = "/admin/r/event/{eventId}", method = RequestMethod.PUT)
+    @PreAuthorize("hasPermission('event',update)")
     public boolean updateEventById(@RequestBody EventForm eventForm, BindingResult bindingResult) {
         boolean success = false;
 

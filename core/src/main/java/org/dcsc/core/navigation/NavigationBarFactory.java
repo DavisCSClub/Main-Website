@@ -33,10 +33,11 @@ public class NavigationBarFactory {
 
         for (Map.Entry<String, Integer> entrySet : permissionEntrySet) {
             String category = StringUtils.toUpperCase(entrySet.getKey(), Locale.ENGLISH);
+            Integer accessLevel = entrySet.getValue();
 
             NavigationLink navLink = navigationLinks.get(category);
 
-            if (navLink != null) {
+            if (navLink != null && accessLevel > 0) {
                 navbar.addNavigationLinks(navLink);
             }
         }

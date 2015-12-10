@@ -1,5 +1,6 @@
 package org.dcsc.admin.controllers;
 
+import org.dcsc.admin.constants.AttributeNames;
 import org.dcsc.admin.constants.ViewNames;
 import org.dcsc.core.user.DcscUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,8 @@ public class AdminDirectoryController {
 
     @RequestMapping("/admin/directory")
     public String directoryPage(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
-        
+        model.addAttribute(AttributeNames.USERS, userService.getAllUsers());
+
         return ViewNames.ADMIN_DIRECTORY;
     }
 }

@@ -10,6 +10,7 @@ import org.dcsc.core.user.profile.UserProfile;
 import org.dcsc.core.user.role.DcscRole;
 import org.dcsc.core.user.role.DcscRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,6 +47,7 @@ public class AdminProfileRestController {
     }
 
     @RequestMapping(value = "/admin/r/user", method = RequestMethod.POST)
+    @PreAuthorize("hasPermission('user',create)")
     public RestTransactionResult createNewUser(@RequestBody ProfileCreateForm profileCreateForm) {
         RestTransactionResult transactionResult = null;
 

@@ -1,5 +1,7 @@
 package org.dcsc.admin.controllers;
 
+import org.dcsc.admin.constants.AttributeNames;
+import org.dcsc.admin.constants.ViewNames;
 import org.dcsc.core.carousel.CarouselBannerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,9 +23,9 @@ public class AdminCarouselController {
     @RequestMapping(method = RequestMethod.GET)
     @PreAuthorize("hasPermission('carousel',read)")
     public String carouselUpload(Model model) {
-        model.addAttribute("banners", carouselBannerService.getAllCarouselBanners());
+        model.addAttribute(AttributeNames.BANNERS, carouselBannerService.getAllCarouselBanners());
 
-        return "admin/carousel";
+        return ViewNames.ADMIN_CAROUSEL;
     }
 
     @RequestMapping(method = RequestMethod.POST)
