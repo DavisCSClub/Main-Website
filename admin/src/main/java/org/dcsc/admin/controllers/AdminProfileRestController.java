@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,11 +29,13 @@ public class AdminProfileRestController {
     private DcscRoleRepository roleRepository;
 
     @RequestMapping(value = "/admin/r/profile/", method = RequestMethod.PUT)
-    public boolean submitProfileEdit(@RequestBody ProfileForm profileForm, Authentication authentication) {
+    public RestTransactionResult submitProfileEdit(@RequestBody ProfileForm profileForm, Authentication authentication) {
+        boolean success = false;
+        String message = null;
         String password = profileForm.getPassword();
         String confirmPassword = profileForm.getConfirmPassword();
 
-        if (password.equals(confirmPassword)) {
+        if (StringUtils.hasLength(password) && password.equals(confirmPassword)) {
             DcscUserDetails dcscUserDetails = (DcscUserDetails) authentication.getPrincipal();
             DcscUser dcscUser = dcscUserDetails.getUser();
 
@@ -40,10 +43,13 @@ public class AdminProfileRestController {
 
             dcscUserService.save(dcscUser);
 
-            return true;
+            success = true;
+            message = "Password successfully changed.";
+        } else {
+            message = "Failed to update password. Passwords did not match.";
         }
 
-        return false;
+        return new RestTransactionResult(success, message);
     }
 
     @RequestMapping(value = "/admin/r/user", method = RequestMethod.POST)
