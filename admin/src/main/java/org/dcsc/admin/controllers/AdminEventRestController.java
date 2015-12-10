@@ -26,7 +26,7 @@ public class AdminEventRestController {
     }
 
     @RequestMapping(value = "/admin/r/events/{pageId}", method = RequestMethod.GET)
-    @PreAuthorize("hasPermission('event',read)")
+    @PreAuthorize("hasPermission('event','read')")
     public Page<Event> getEventsByPage(@PathVariable("pageId") String pageId) {
         int pageIndex = 0;
 
@@ -40,7 +40,7 @@ public class AdminEventRestController {
     }
 
     @RequestMapping(value = "/admin/r/event/{eventId}", method = RequestMethod.DELETE)
-    @PreAuthorize("hasPermission('event',delete)")
+    @PreAuthorize("hasPermission('event','delete')")
     public boolean deleteEventById(@PathVariable("eventId") String eventId) {
         boolean success = false;
 
@@ -56,7 +56,7 @@ public class AdminEventRestController {
 
     @CrossOrigin(origins = {"https://daviscsclub.org", "http://localhost:8080"}, methods = {RequestMethod.PUT})
     @RequestMapping(value = "/admin/r/event/{eventId}", method = RequestMethod.PUT)
-    @PreAuthorize("hasPermission('event',update)")
+    @PreAuthorize("hasPermission('event','update')")
     public boolean updateEventById(@RequestBody EventForm eventForm, BindingResult bindingResult) {
         boolean success = false;
 

@@ -21,7 +21,7 @@ public class AdminCarouselController {
     private CarouselBannerService carouselBannerService;
 
     @RequestMapping(method = RequestMethod.GET)
-    @PreAuthorize("hasPermission('carousel',read)")
+    @PreAuthorize("hasPermission('carousel','read')")
     public String carouselUpload(Model model) {
         model.addAttribute(AttributeNames.BANNERS, carouselBannerService.getAllCarouselBanners());
 
@@ -29,7 +29,7 @@ public class AdminCarouselController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    @PreAuthorize("hasPermission('carousel',create)")
+    @PreAuthorize("hasPermission('carousel','create')")
     public String carouselUpload(@RequestParam("name") String name, @RequestParam("caption") String caption, @RequestParam("file") MultipartFile file) {
         try {
             carouselBannerService.save(name, caption, file);

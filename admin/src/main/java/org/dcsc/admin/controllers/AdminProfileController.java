@@ -54,7 +54,7 @@ public class AdminProfileController {
     }
 
     @RequestMapping(value = "/admin/user/{user_id}", method = RequestMethod.GET)
-    @PreAuthorize("hasPermission('user',read)")
+    @PreAuthorize("hasPermission('user','read')")
     public String profileView(@PathVariable("user_id") long id, Model model) {
         DcscUser user = dcscUserService.getUserById(id).get();
 
@@ -68,7 +68,7 @@ public class AdminProfileController {
     }
 
     @RequestMapping(value = "/admin/user/create", method = RequestMethod.GET)
-    @PreAuthorize("hasPermission('user',create)")
+    @PreAuthorize("hasPermission('user','create')")
     public String userCreatePage(Model model) {
         model.addAttribute("profileForm", new ProfileCreateForm());
 

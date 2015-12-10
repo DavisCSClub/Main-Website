@@ -26,13 +26,13 @@ public class AdminEventController {
     private EventAttendeeService eventAttendeeService;
 
     @RequestMapping(value = "/admin/events")
-    @PreAuthorize("hasPermission('event',read)")
+    @PreAuthorize("hasPermission('event','read')")
     public String events() {
         return ViewNames.ADMIN_EVENT_LIST;
     }
 
     @RequestMapping(value = "/admin/event/{eventId}", method = RequestMethod.GET)
-    @PreAuthorize("hasPermission('event',read)")
+    @PreAuthorize("hasPermission('event','read')")
     public String event(@PathVariable("eventId") String eventId, Model model) {
         long id = Long.parseLong(eventId);
 
@@ -44,7 +44,7 @@ public class AdminEventController {
     }
 
     @RequestMapping(value = "/admin/event/{eventId}/edit", method = RequestMethod.GET)
-    @PreAuthorize("hasPermission('event',update)")
+    @PreAuthorize("hasPermission('event','update')")
     public String eventEdit(@PathVariable("eventId") String eventId, Model model) {
         Event event = eventService.getEventById(Long.parseLong(eventId)).get();
         model.addAttribute(AttributeNames.EVENT, event);
@@ -52,7 +52,7 @@ public class AdminEventController {
     }
 
     @RequestMapping(value = "/admin/event/create", method = RequestMethod.GET)
-    @PreAuthorize("hasPermission('event',create)")
+    @PreAuthorize("hasPermission('event','create')")
     public String eventCreate(Model model) {
         DateTime currentDateTime = DateTime.now(DateTimeZone.forID("America/Los_Angeles"));
         Date date = currentDateTime.toLocalDateTime().toDate();

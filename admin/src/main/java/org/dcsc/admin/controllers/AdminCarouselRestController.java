@@ -14,7 +14,7 @@ public class AdminCarouselRestController {
     private CarouselBannerService carouselBannerService;
 
     @RequestMapping(value = "/admin/r/carousel/{id}", method = RequestMethod.DELETE)
-    @PreAuthorize("hasPermission('carousel',delete)")
+    @PreAuthorize("hasPermission('carousel','delete')")
     public RestTransactionResult deleteCarousel(@PathVariable("id") String id) {
         RestTransactionResult result = null;
 
@@ -30,7 +30,7 @@ public class AdminCarouselRestController {
 
     @CrossOrigin(origins = {"https://daviscsclub.org", "http://localhost:8080"}, methods = {RequestMethod.PUT})
     @RequestMapping(value = "/admin/r/carousel/{id}", method = RequestMethod.PUT)
-    @PreAuthorize("hasPermission('carousel',update)")
+    @PreAuthorize("hasPermission('carousel','update')")
     public boolean updateBanner(@RequestBody CarouselForm carouselForm) {
         carouselBannerService.save(carouselForm);
         return true;

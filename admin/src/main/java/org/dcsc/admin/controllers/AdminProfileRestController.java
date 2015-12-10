@@ -47,7 +47,7 @@ public class AdminProfileRestController {
     }
 
     @RequestMapping(value = "/admin/r/user", method = RequestMethod.POST)
-    @PreAuthorize("hasPermission('user',create)")
+    @PreAuthorize("hasPermission('user','create')")
     public RestTransactionResult createNewUser(@RequestBody ProfileCreateForm profileCreateForm) {
         RestTransactionResult transactionResult = null;
 
