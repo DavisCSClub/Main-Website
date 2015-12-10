@@ -1,5 +1,6 @@
 package org.dcsc.admin.controllers;
 
+import org.dcsc.admin.dto.RestTransactionResult;
 import org.dcsc.core.event.Event;
 import org.dcsc.core.event.EventForm;
 import org.dcsc.core.event.EventFormValidator;
@@ -41,30 +42,40 @@ public class AdminEventRestController {
 
     @RequestMapping(value = "/admin/r/event/{eventId}", method = RequestMethod.DELETE)
     @PreAuthorize("hasPermission('event','delete')")
-    public boolean deleteEventById(@PathVariable("eventId") String eventId) {
-        boolean success = false;
+    public RestTransactionResult deleteEventById(@PathVariable("eventId") String eventId) {
+        boolean success;
+        String message;
 
         try {
             eventService.deleteEventById(Long.parseLong(eventId));
             success = true;
+            message = String.format("Event %s succesfully deleted.", eventId);
         } catch (Exception e) {
-            // swallow exception
+            success = false;
+            message = String.format("Failed to delete event %s", eventId);
         }
 
-        return success;
+        return new RestTransactionResult(success, message);
     }
 
     @CrossOrigin(origins = {"https://daviscsclub.org", "http://localhost:8080"}, methods = {RequestMethod.PUT})
     @RequestMapping(value = "/admin/r/event/{eventId}", method = RequestMethod.PUT)
     @PreAuthorize("hasPermission('event','update')")
-    public boolean updateEventById(@RequestBody EventForm eventForm, BindingResult bindingResult) {
+    public RestTransactionResult updateEventById(@PathVariable("eventId") String eventId,
+                                                 @RequestBody EventForm eventForm,
+                                                 BindingResult bindingResult) {
         boolean success = false;
+        String message = null;
 
         if (!bindingResult.hasErrors()) {
             eventService.saveEvent(eventForm);
+
+            message = String.format("Event %s successfully updated.", eventId);
             success = true;
+        } else {
+            message = String.format("Failed to update event %s.", eventId);
         }
 
-        return success;
+        return new RestTransactionResult(success, message);
     }
 }
