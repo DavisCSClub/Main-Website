@@ -2,7 +2,6 @@ package org.dcsc.admin.controllers;
 
 import org.dcsc.admin.constants.AttributeNames;
 import org.dcsc.admin.constants.ViewNames;
-import org.dcsc.admin.profile.ProfileCreateForm;
 import org.dcsc.admin.profile.ProfileForm;
 import org.dcsc.core.activity.Activity;
 import org.dcsc.core.activity.ActivityService;
@@ -22,17 +21,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class AdminProfileController {
     @Autowired
     private ActivityService activityService;
     @Autowired
-    private DcscUserService dcscUserService;
+    private DcscUserService userService;
     @Autowired
     private RolePermissionService rolePermissionService;
 
-    @RequestMapping(value = "/admin/profile", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/user", method = RequestMethod.GET)
     public String profile(Authentication authentication, Model model) {
         DcscUserDetails userDetails = ((DcscUserDetails) authentication.getPrincipal());
         DcscUser user = userDetails.getUser();
@@ -46,17 +46,16 @@ public class AdminProfileController {
         return ViewNames.ADMIN_PROFILE;
     }
 
-    @RequestMapping(value = "/admin/profile/edit", method = RequestMethod.GET)
-    public String profileEdit(Model model) {
-        model.addAttribute("profileForm", new ProfileForm());
-
-        return ViewNames.ADMIN_PROFILE_EDIT;
-    }
-
     @RequestMapping(value = "/admin/user/{user_id}", method = RequestMethod.GET)
     @PreAuthorize("hasPermission('user','read')")
     public String profileView(@PathVariable("user_id") long id, Model model) {
-        DcscUser user = dcscUserService.getUserById(id).get();
+        Optional<DcscUser> dcscUser = userService.getUserById(id);
+
+        if (!dcscUser.isPresent()) {
+            return "redirect:/admin/user";
+        }
+
+        DcscUser user = dcscUser.get();
 
         List<Activity> list = activityService.getAllActivities(user.getId());
 
@@ -67,18 +66,13 @@ public class AdminProfileController {
         return ViewNames.ADMIN_PROFILE;
     }
 
-    @RequestMapping(value = "/admin/user/create", method = RequestMethod.GET)
-    @PreAuthorize("hasPermission('user','create')")
-    public String userCreatePage(Model model) {
-        model.addAttribute("profileForm", new ProfileCreateForm());
 
-        return ViewNames.ADMIN_PROFILE_CREATE;
-    }
+    @RequestMapping(value = "/admin/user/edit", method = RequestMethod.GET)
+    @PreAuthorize("hasPermission('user','update')")
+    public String profileEdit(Model model) {
+        model.addAttribute("profileForm", new ProfileForm());
 
-    @RequestMapping(value = "/admin/user/{user_id}/edit", method = RequestMethod.GET)
-    public String userEditPage(@PathVariable("user_id") long id, Model model) {
-
-        return ViewNames.ADMIN_PROFILE_CREATE;
+        return ViewNames.ADMIN_PROFILE_EDIT;
     }
 
     @ExceptionHandler(TypeMismatchException.class)
