@@ -9,15 +9,11 @@ import java.time.LocalDateTime;
 public class LocalDateTimeConverter implements AttributeConverter<LocalDateTime, Timestamp> {
     @Override
     public Timestamp convertToDatabaseColumn(LocalDateTime attribute) {
-        return Timestamp.valueOf(attribute);
+        return (attribute == null) ? null : Timestamp.valueOf(attribute);
     }
 
     @Override
     public LocalDateTime convertToEntityAttribute(Timestamp dbData) {
-        if (dbData == null) {
-            return null;
-        }
-
-        return dbData.toLocalDateTime();
+        return (dbData == null) ? null : dbData.toLocalDateTime();
     }
 }
