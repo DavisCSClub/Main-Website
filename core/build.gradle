@@ -4,6 +4,6 @@ dependencies {
     compile "org.springframework:spring-webmvc:$springVersion"
     compile "org.springframework.boot:spring-boot-starter-security:$springBootVersion"
     compile "org.thymeleaf:thymeleaf-spring4:$thymeleafVersion"
-    
+
     compile project(":utilities")
 }
