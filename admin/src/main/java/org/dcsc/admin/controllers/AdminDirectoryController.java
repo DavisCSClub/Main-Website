@@ -46,6 +46,7 @@ public class AdminDirectoryController {
     }
 
     @RequestMapping(value = "/admin/user/{user_id}/edit", method = RequestMethod.GET)
+    @PreAuthorize("hasPermission('user','update')")
     public String userEditPage(@PathVariable("user_id") long id, Model model) {
         model.addAttribute("form", adminUserService.getAccountForm(id));
         model.addAttribute("roles", roleService.getAllRoles());
