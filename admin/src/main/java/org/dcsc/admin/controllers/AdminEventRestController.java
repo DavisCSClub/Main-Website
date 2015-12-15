@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.HtmlUtils;
 
 @RestController
 public class AdminEventRestController {
@@ -68,6 +69,7 @@ public class AdminEventRestController {
         String message = null;
 
         if (!bindingResult.hasErrors()) {
+            eventForm.setDescription(HtmlUtils.htmlEscape(eventForm.getDescription()));
             eventService.saveEvent(eventForm);
 
             message = String.format("Event %s successfully updated.", eventId);
