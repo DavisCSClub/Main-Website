@@ -39,8 +39,8 @@ public class AdminDirectoryController {
     @RequestMapping(value = "/admin/user/create", method = RequestMethod.GET)
     @PreAuthorize("hasPermission('user','create')")
     public String userCreatePage(Model model) {
-        model.addAttribute("form", new ProfileCreateForm());
-        model.addAttribute("roles", roleService.getAllRoles());
+        model.addAttribute(AttributeNames.FORM, new ProfileCreateForm());
+        model.addAttribute(AttributeNames.ROLES, roleService.getAllRoles());
 
         return ViewNames.ADMIN_USER_CREATE;
     }
@@ -48,8 +48,8 @@ public class AdminDirectoryController {
     @RequestMapping(value = "/admin/user/{user_id}/edit", method = RequestMethod.GET)
     @PreAuthorize("hasPermission('user','update')")
     public String userEditPage(@PathVariable("user_id") long id, Model model) {
-        model.addAttribute("form", adminUserService.getAccountForm(id));
-        model.addAttribute("roles", roleService.getAllRoles());
+        model.addAttribute(AttributeNames.FORM, adminUserService.getAccountForm(id));
+        model.addAttribute(AttributeNames.ROLES, roleService.getAllRoles());
 
         return "admin/user-edit";
     }

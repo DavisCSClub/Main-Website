@@ -29,6 +29,10 @@ public class DcscRoleService {
     public Collection<GrantedAuthority> getRoleAuthorities(long id) {
         DcscRole role = getRole(id);
 
+        return getRoleAuthorities(role);
+    }
+
+    public Collection<GrantedAuthority> getRoleAuthorities(DcscRole role) {
         Set<GrantedAuthority> authorities = new HashSet<>();
 
         authorities.add(new SimpleGrantedAuthority(role.getName()));

@@ -5,6 +5,7 @@ import org.dcsc.core.navigation.NavigationBarFactory;
 import org.dcsc.core.user.DcscUser;
 import org.dcsc.core.user.DcscUserService;
 import org.dcsc.core.user.permission.RolePermissionService;
+import org.dcsc.core.user.role.DcscRole;
 import org.dcsc.core.user.role.DcscRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.DisabledException;
@@ -47,11 +48,12 @@ public class DcscUserDetailsService implements UserDetailsService {
         }
 
         long roleId = dcscUser.getRoleId();
+        DcscRole role = roleService.getRole(dcscUser.getId());
 
-        Collection<GrantedAuthority> authorities = roleService.getRoleAuthorities(roleId);
+        Collection<GrantedAuthority> authorities = roleService.getRoleAuthorities(role);
         Map<String, Integer> permissionMap = rolePermissionService.getPermissionMap(roleId);
         NavigationBar navbar = navigationBarFactory.getNavigationBar(permissionMap);
 
-        return new DcscUserDetails(dcscUser, authorities, permissionMap, navbar);
+        return new DcscUserDetails(dcscUser, authorities, role, permissionMap, navbar);
     }
 }

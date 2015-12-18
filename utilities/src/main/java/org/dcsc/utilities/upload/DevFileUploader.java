@@ -10,10 +10,24 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 @Component
-@Profile("production")
-public class StandardFileUploader implements FileUploader {
+@Profile("dev")
+public class DevFileUploader implements FileUploader {
+    private static final String TEMP_DIRECTORY_PROPERTY = "java.io.tmpdir";
+
     @Override
     public void upload(MultipartFile file, String destination) throws IOException {
+        upload(file);
+    }
+
+    private void upload(MultipartFile file) throws IOException {
+        String tempDir = System.getProperty(TEMP_DIRECTORY_PROPERTY);
+
+        if (!tempDir.endsWith(File.separator)) {
+            tempDir += File.separator;
+        }
+
+        String destination = tempDir + file.getName();
+
         File directory = new File(destination);
 
         if (!directory.exists()) {

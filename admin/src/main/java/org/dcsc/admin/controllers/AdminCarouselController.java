@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @Controller
-@RequestMapping(value = "admin/carousel")
+@RequestMapping(value = "/admin/carousel")
 public class AdminCarouselController {
     @Autowired
     private CarouselBannerService carouselBannerService;
