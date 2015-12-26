@@ -7,7 +7,7 @@ public class AccountUpdateForm {
     private String title;
     private String role;
     private boolean isActive;
-    private boolean isUnlocked;
+    private boolean isLocked;
 
     public String getTitle() {
         return title;
@@ -29,15 +29,15 @@ public class AccountUpdateForm {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setIsActive(boolean active) {
         isActive = active;
     }
 
-    public boolean isUnlocked() {
-        return isUnlocked;
+    public boolean isLocked() {
+        return isLocked;
     }
 
-    public void setUnlocked(boolean unlocked) {
-        isUnlocked = unlocked;
+    public void setIsLocked(boolean locked) {
+        isLocked = locked;
     }
 }

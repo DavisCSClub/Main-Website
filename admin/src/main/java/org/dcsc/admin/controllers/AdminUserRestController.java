@@ -74,9 +74,9 @@ public class AdminUserRestController {
 
             dcscUser.getUserProfile().setTitle(accountUpdateForm.getTitle());
             dcscUser.setRoleId(role.getId());
-            dcscUser.setLocked(!accountUpdateForm.isUnlocked());
             dcscUser.setEnabled(accountUpdateForm.isActive());
-
+            dcscUser.setLocked(accountUpdateForm.isLocked());
+            
             dcscUserService.save(dcscUser);
 
             transactionResult = RestTransactionResult.success(String.format("User %d successfully updated.", id));

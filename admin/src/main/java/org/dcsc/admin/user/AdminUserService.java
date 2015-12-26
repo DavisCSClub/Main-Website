@@ -28,7 +28,7 @@ public class AdminUserService {
 
             form.setUsername(user.getUsername());
             form.setIsActive(user.isEnabled());
-            form.setIsUnlocked(!user.isLocked());
+            form.setIsLocked(user.isLocked());
 
             form.setName(userProfile.getName());
             form.setRole(dcscRoleService.getRole(user.getRoleId()).getName());

@@ -11,7 +11,7 @@ public class AccountForm {
     private String password;
     private String confirmPassword;
     private boolean isActive;
-    private boolean isUnlocked;
+    private boolean isLocked;
 
     private boolean readOnlyPassword = false;
 
@@ -71,12 +71,12 @@ public class AccountForm {
         this.isActive = isActive;
     }
 
-    public boolean isUnlocked() {
-        return isUnlocked;
+    public boolean isLocked() {
+        return isLocked;
     }
 
-    public void setIsUnlocked(boolean isUnlocked) {
-        this.isUnlocked = isUnlocked;
+    public void setIsLocked(boolean isLocked) {
+        this.isLocked = isLocked;
     }
 
     public boolean isReadOnlyPassword() {
