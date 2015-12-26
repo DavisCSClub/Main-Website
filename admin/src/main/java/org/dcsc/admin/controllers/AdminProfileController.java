@@ -37,11 +37,9 @@ public class AdminProfileController {
         DcscUserDetails userDetails = ((DcscUserDetails) authentication.getPrincipal());
         DcscUser user = userDetails.getUser();
 
-        List<Activity> list = activityService.getAllActivities(user.getId());
-
         model.addAttribute(AttributeNames.USER, user);
         model.addAttribute("permissions", userDetails.getPermissions());
-        model.addAttribute("activities", list);
+        model.addAttribute("activities", activityService.getAllActivities(user.getId()));
 
         return ViewNames.ADMIN_PROFILE;
     }
@@ -65,7 +63,6 @@ public class AdminProfileController {
 
         return ViewNames.ADMIN_PROFILE;
     }
-
 
     @RequestMapping(value = "/admin/user/edit", method = RequestMethod.GET)
     @PreAuthorize("hasPermission('user','update')")

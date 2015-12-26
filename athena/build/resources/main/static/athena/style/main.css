@@ -1,0 +1,251 @@
+@charset "UTF-8";
+
+/**
+ * Background pattern from subtlepatterns.com
+ */
+
+/* SITE-WIDE */
+
+.bot {
+    margin: 0px 25px 0px 50px;
+}
+
+.paper {
+    background: white;
+    box-shadow: 0px 3px 5px rgba(0, 24, 51, 0.5);
+}
+
+html {
+    font-family: Gill Sans, Gill Sans MT, Calibri, sans-serif;
+    font-size: 16px;
+}
+
+body {
+    background-image: url("/athena/img/background.png");
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+    margin: 0px auto;
+    max-width: 70rem;
+    min-height: 100vh;
+    min-width: 600px;
+}
+
+body > header {
+    display: flex;
+    align-items: center;
+    margin: 10px 25px 0px 25px;
+    padding: 10px;
+}
+
+body > header .site-name {
+    color: #002855;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+main {
+    display: flex;
+    flex-flow: row-reverse wrap;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+main > .content {
+    flex: 1 1 70%;
+    margin: 5px;
+    padding: 5px 20px;
+}
+
+main > nav {
+    flex-grow: 1;
+    margin: 5px;
+    min-width: 12rem;
+}
+
+main > nav ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 5px 0px;
+}
+
+main > nav a {
+    display: block;
+    padding: 0px 5px;
+    margin: 5px 0px;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow 0.3s ease;
+}
+
+main > nav .inactive a:hover {
+    box-shadow: inset 1em 0px 0px 0px #00B5E2,
+    inset -1em 0px 0px 0px #00B5E2;
+}
+
+main > nav .active a {
+    background-color: #DEE;
+    box-shadow: inset 1em 0px 0px 0px #00B5E2,
+    inset -1em 0px 0px 0px #00B5E2;
+    font-weight: bold;
+}
+
+body > footer {
+    align-items: flex-end; /* push footer content to bottom */
+    display: flex;
+    flex-grow: 1; /* fill empty space at bottom of page */
+    line-height: 1.0;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+h1, h2, h3 {
+    color: #002855;
+    font-family: Futura, Trebuchet MS, Arial, sans-serif;
+    line-height: 1.0;
+}
+
+h1 {
+    border-bottom: 2px solid #00B5E2;
+    padding-bottom: 0.5rem;
+}
+
+a.logo {
+    float: left;
+    margin-left: 5px;
+    margin-right: 25px;
+}
+
+a.logo img {
+    display: block;
+}
+
+/* SPECIAL SECTIONS */
+
+.tutor, .day {
+    background-color: #DEE;
+    border-left: 1em solid #00B5E2;
+    margin-bottom: 10px;
+    padding: 5px 20px;
+}
+
+/* TUTORS */
+
+.tutor > dl dt {
+    float: left;
+    font-weight: bold;
+    width: 4em;
+}
+
+/* SCHEDULE */
+
+.schedule .details {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.schedule .details aside {
+    margin: 0px 20px;
+    padding: 5px 0px;
+    min-width: 12rem;
+}
+
+.schedule ol {
+    flex: 1 1 70%;
+    list-style-type: none;
+    margin: 0px;
+    padding: 5px 0px;
+}
+
+.search > ul {
+    list-style-type: none;
+    margin: 0px;
+    padding-left: 10px;
+}
+
+.search label {
+    color: #002855;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.search input {
+    border: 1px solid #999;
+    display: block;
+    font-family: inherit;
+    margin-bottom: 10px;
+}
+
+.search > ul label {
+    color: #333;
+    font-weight: normal;
+}
+
+.search > ul input {
+    display: inline;
+}
+
+.search .find-times {
+    background-color: #002855;
+    border: 0.5em solid #002855;
+    color: white;
+    font-weight: bold;
+    margin: 10px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+form.search .find-times:hover {
+    background-color: #00B5E2;
+    color: #002855;
+}
+
+/* SIGN-UP */
+
+form {
+    font-size: 20px;
+}
+
+.signup > ul {
+    list-style-type: none;
+    margin: 0px;
+    padding-left: 10px;
+}
+
+.signup label {
+    color: #002855;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.signup input {
+    border: 1px solid #999;
+    display: block;
+    font-family: inherit;
+    margin-bottom: 10px;
+}
+
+.signup > ul label {
+    color: #333;
+    font-weight: normal;
+}
+
+.signup > ul input {
+    display: inline;
+}
+
+.signup .submit {
+    background-color: #002855;
+    border: 0.5em solid #002855;
+    color: white;
+    font-weight: bold;
+    margin: 10px;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+form.signup .submit:hover {
+    background-color: #00B5E2;
+    color: #002855;
+}
