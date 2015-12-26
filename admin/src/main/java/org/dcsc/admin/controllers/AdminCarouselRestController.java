@@ -1,5 +1,6 @@
 package org.dcsc.admin.controllers;
 
+import org.dcsc.admin.dto.RestTransactionResult;
 import org.dcsc.core.carousel.CarouselBannerService;
 import org.dcsc.core.carousel.CarouselForm;
 import org.dcsc.core.carousel.EntityIdNotFoundException;
@@ -13,23 +14,23 @@ public class AdminCarouselRestController {
     private CarouselBannerService carouselBannerService;
 
     @RequestMapping(value = "/admin/r/carousel/{id}", method = RequestMethod.DELETE)
-    @PreAuthorize("hasPermission('carousel',delete)")
-    public boolean deleteCarousel(@PathVariable("id") String id) {
-        boolean success = false;
+    @PreAuthorize("hasPermission('carousel','delete')")
+    public RestTransactionResult deleteCarousel(@PathVariable("id") String id) {
+        RestTransactionResult result = null;
 
         try {
             carouselBannerService.delete(Long.parseLong(id));
-            success = true;
+            result = new RestTransactionResult(true, String.format("Banner #%s successfully deleted.", id));
         } catch (EntityIdNotFoundException e) {
-            // swallow exception
+            result = new RestTransactionResult(false, String.format("Failed to delete banner #%s", id));
         }
 
-        return success;
+        return result;
     }
 
     @CrossOrigin(origins = {"https://daviscsclub.org", "http://localhost:8080"}, methods = {RequestMethod.PUT})
     @RequestMapping(value = "/admin/r/carousel/{id}", method = RequestMethod.PUT)
-    @PreAuthorize("hasPermission('carousel',update)")
+    @PreAuthorize("hasPermission('carousel','update')")
     public boolean updateBanner(@RequestBody CarouselForm carouselForm) {
         carouselBannerService.save(carouselForm);
         return true;

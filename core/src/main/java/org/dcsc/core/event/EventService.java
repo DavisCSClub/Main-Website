@@ -41,6 +41,7 @@ public class EventService {
         return eventRepository.findEventById(id);
     }
 
+
     @Transactional(readOnly = true)
     public Page<Event> getPagedEvents(int index, int size) {
         PageRequest request = new PageRequest(index, size, Sort.Direction.DESC, EVENT_DATE_COLUMN_LABEL, EVENT_START_TIME_COLUMN_LABEL);

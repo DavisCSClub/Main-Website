@@ -1,5 +1,6 @@
 package org.dcsc.utilities.upload;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -9,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 @Component
+@Profile("production")
 public class StandardFileUploader implements FileUploader {
     @Override
     public void upload(MultipartFile file, String destination) throws IOException {
