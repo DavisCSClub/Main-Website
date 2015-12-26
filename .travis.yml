@@ -8,11 +8,3 @@ before_install:
 
 git:
  submodules: false
-
-after_success:
- - eval "$(ssh-agent -s)"
- - chmod 600 .travis/deploy_key.pem
- - ssh-add .travis/deploy_key.pem
- - ssh-keyscan gitlab.com >> ~/.ssh/known_hosts
- - git remote add deploy git@gitlab.com:DavisCSClub/website.git
- - git push deploy
