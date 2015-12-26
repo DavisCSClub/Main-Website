@@ -1,8 +1,10 @@
 package org.dcsc.core.user;
 
+import org.dcsc.core.user.group.UserGroup;
 import org.dcsc.core.user.profile.UserProfile;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "dcsc_users", schema = "dcsc_accounts")
@@ -30,6 +32,9 @@ public class DcscUser {
     @JoinColumn(name = "profile_id")
     @OneToOne(cascade = CascadeType.ALL)
     private UserProfile userProfile;
+
+    @OneToMany(mappedBy = "dcscUser", fetch = FetchType.EAGER)
+    private List<UserGroup> userGroups;
 
     public long getRoleId() {
         return roleId;
@@ -97,5 +102,13 @@ public class DcscUser {
 
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
+    }
+
+    public List<UserGroup> getUserGroups() {
+        return userGroups;
+    }
+
+    public void setUserGroups(List<UserGroup> userGroups) {
+        this.userGroups = userGroups;
     }
 }

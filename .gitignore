@@ -3,6 +3,7 @@ admin/build/**
 core/build/**
 dcsc-web/build/**
 utilities/build/**
+**/build/**
 bin/**
 .DS_STORE
 .settings

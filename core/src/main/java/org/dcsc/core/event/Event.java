@@ -1,10 +1,12 @@
 package org.dcsc.core.event;
 
+import org.dcsc.utilities.converter.LocalDateTimeConverter;
 import org.dcsc.utilities.image.Image;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "dcsc_events", schema = "public")
@@ -28,6 +30,14 @@ public class Event {
 
     @Column(name = "endtime")
     private Time endTime;
+
+    @Column(name = "start_date_time")
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime startDateTime;
+
+    @Column(name = "end_date_time")
+    @Convert(converter = LocalDateTimeConverter.class)
+    private LocalDateTime endDateTime;
 
     @Column(name = "location")
     private String location;
@@ -143,5 +153,21 @@ public class Event {
 
     public void setPublished(boolean published) {
         this.published = published;
+    }
+
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
+    }
+
+    public void setStartDateTime(LocalDateTime startDateTime) {
+        this.startDateTime = startDateTime;
+    }
+
+    public LocalDateTime getEndDateTime() {
+        return endDateTime;
+    }
+
+    public void setEndDateTime(LocalDateTime endDateTime) {
+        this.endDateTime = endDateTime;
     }
 }

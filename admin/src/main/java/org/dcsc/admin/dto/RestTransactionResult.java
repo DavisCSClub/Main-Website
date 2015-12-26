@@ -1,6 +1,14 @@
 package org.dcsc.admin.dto;
 
 public class RestTransactionResult {
+    public static RestTransactionResult success(String message) {
+        return new RestTransactionResult(true, message);
+    }
+
+    public static RestTransactionResult fail(String message) {
+        return new RestTransactionResult(false, message);
+    }
+
     private boolean success;
     private String message;
 
