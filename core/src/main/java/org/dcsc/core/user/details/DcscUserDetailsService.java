@@ -48,7 +48,7 @@ public class DcscUserDetailsService implements UserDetailsService {
         }
 
         long roleId = dcscUser.getRoleId();
-        DcscRole role = roleService.getRole(dcscUser.getId());
+        DcscRole role = roleService.getRole(roleId);
 
         Collection<GrantedAuthority> authorities = roleService.getRoleAuthorities(role);
         Map<String, Integer> permissionMap = rolePermissionService.getPermissionMap(roleId);

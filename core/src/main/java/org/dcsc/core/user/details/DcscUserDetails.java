@@ -13,7 +13,7 @@ public class DcscUserDetails extends User {
     private final DcscUser user;
     private DcscRole role;
     private Map<String, Integer> permissions;
-    private NavigationBar navigationBar;
+    private transient NavigationBar navigationBar;
 
     public DcscUserDetails(DcscUser user, Collection<GrantedAuthority> authorities, DcscRole role, Map<String, Integer> permissions, NavigationBar navigationBar) {
         super(user.getUsername(), user.getPassword(), authorities);
