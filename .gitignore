@@ -5,6 +5,7 @@ dcsc-web/build/**
 utilities/build/**
 **/build/**
 bin/**
+out/**
 .DS_STORE
 .settings
 .project

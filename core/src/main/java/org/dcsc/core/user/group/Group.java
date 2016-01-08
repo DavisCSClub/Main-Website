@@ -1,6 +1,7 @@
 package org.dcsc.core.user.group;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "dcsc_groups", schema = "dcsc_accounts")
@@ -12,6 +13,9 @@ public class Group {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER)
+    private List<UserGroup> userGroups;
 
     public long getId() {
         return id;
@@ -27,5 +31,13 @@ public class Group {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<UserGroup> getUserGroups() {
+        return userGroups;
+    }
+
+    public void setUserGroups(List<UserGroup> userGroups) {
+        this.userGroups = userGroups;
     }
 }
