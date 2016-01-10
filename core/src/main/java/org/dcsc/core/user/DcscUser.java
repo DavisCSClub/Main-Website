@@ -1,5 +1,6 @@
 package org.dcsc.core.user;
 
+import org.dcsc.core.user.group.Group;
 import org.dcsc.core.user.group.UserGroup;
 import org.dcsc.core.user.profile.UserProfile;
 
@@ -33,7 +34,7 @@ public class DcscUser {
     @OneToOne(cascade = CascadeType.ALL)
     private UserProfile userProfile;
 
-    @OneToMany(mappedBy = "dcscUser", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "dcscUser", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<UserGroup> userGroups;
 
     public long getRoleId() {
@@ -110,5 +111,46 @@ public class DcscUser {
 
     public void setUserGroups(List<UserGroup> userGroups) {
         this.userGroups = userGroups;
+    }
+
+    public boolean inGroup(String groupName) {
+        for (UserGroup group : userGroups) {
+            if (groupName.equals(group.getGroup().getName())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public UserGroup getUserGroup(String groupName) {
+        UserGroup userGroup = null;
+
+        for (UserGroup group : userGroups) {
+            if (groupName.equals(group.getGroup().getName())) {
+                userGroup = group;
+                break;
+            }
+        }
+
+        return userGroup;
+    }
+
+    public void addGroup(Group group) {
+        addGroup(group, false);
+    }
+
+    public void addGroup(Group group, boolean isAdmin) {
+        for (UserGroup userGroup : userGroups) {
+            if (userGroup.getGroup().getName().equals(group.getName())) {
+                return;
+            }
+        }
+
+        userGroups.add(new UserGroup(this, group, isAdmin));
+    }
+
+    public void removeGroup(String groupName) {
+        userGroups.removeIf(userGroup -> userGroup.getGroup().getName().equals(groupName));
     }
 }

@@ -1,47 +1,78 @@
 package org.dcsc.core.navigation;
 
+import com.google.common.collect.ImmutableList;
+import org.dcsc.core.user.DcscUser;
+import org.dcsc.core.user.group.UserGroup;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.PostConstruct;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class NavigationBarFactory {
-    public static final NavigationLink CAROUSEL = new NavigationLink("Carousel", "/admin/carousel", "&#xE41B;");
-    public static final NavigationLink DASHBOARD = new NavigationLink("Dashboard", "/admin", "&#xE871;");
-    public static final NavigationLink DIRECTORY = new NavigationLink("Directory", "/admin/directory", "&#xE7FB;");
-    public static final NavigationLink EVENT_LIST = new NavigationLink("Events", "/admin/events", "&#xE878;");
+    private static final Logger LOGGER = LoggerFactory.getLogger(NavigationBarFactory.class);
 
-    private static final Map<String, NavigationLink> navigationLinks = new HashMap<>();
+    public static final NavigationLink DASHBOARD = new StandardNavigationLink("Dashboard", "/admin", "&#xE871;");
+    public static final NavigationLink DIRECTORY = new StandardNavigationLink("Directory", "/admin/directory", "&#xE7FB;");
+
+    public static final NavigationLink TUTORING_DASHBOARD = new StandardNavigationLink("Dashboard", "/admin/tutoring", "&#xE7FB;");
+    public static final NavigationLink TUTORING_EDIT = new StandardNavigationLink("Edit Courses", "/admin/tutoring/tutor/edit", "&#xE7FB;");
+    public static final NavigationLink TUTORING_DIRECTORY = new StandardNavigationLink("Directory", "/admin/tutoring/directory", "&#xE7FB;");
+    public static final NavigationLink TUTORING = new NestedNavigationLink("Tutoring", "&#xE54B;",
+            ImmutableList.of(TUTORING_DASHBOARD, TUTORING_DIRECTORY, TUTORING_EDIT));
+
+    private static final List<NavigationLink> MEMBER_LEVEL_LINKS = ImmutableList.of(DASHBOARD, DIRECTORY);
+    private static final Map<String, NavigationLink> OFFICER_LINKS = new HashMap();
 
     @PostConstruct
     private void initialize() {
-        navigationLinks.put("CAROUSEL", CAROUSEL);
-        navigationLinks.put("USER", DIRECTORY);
-        navigationLinks.put("EVENT", EVENT_LIST);
+        OFFICER_LINKS.put("CAROUSEL", new StandardNavigationLink("Carousel", "/admin/carousel", "&#xE41B;"));
+        OFFICER_LINKS.put("EVENT", new StandardNavigationLink("Events", "/admin/events", "&#xE878;"));
     }
 
-    public NavigationBar getNavigationBar(Map<String, Integer> permissionMap) {
+    public NavigationBar getNavigationBar(DcscUser dcscUser, Map<String, Integer> permissionMap) {
         NavigationBar navbar = new NavigationBar();
-        navbar.addNavigationLinks(DASHBOARD);
 
+        navbar.addNavigationLinks(MEMBER_LEVEL_LINKS);
+        navbar.addNavigationLinks(getOfficerNavigationLinks(permissionMap));
+
+        if (isTutoring(dcscUser)) {
+            navbar.addNavigationLink(TUTORING);
+        }
+
+        return navbar;
+    }
+
+    private List<NavigationLink> getOfficerNavigationLinks(Map<String, Integer> permissionMap) {
         Set<Map.Entry<String, Integer>> permissionEntrySet = permissionMap.entrySet();
+        List<NavigationLink> navigationLinks = new ArrayList<>();
 
         for (Map.Entry<String, Integer> entrySet : permissionEntrySet) {
             String category = StringUtils.toUpperCase(entrySet.getKey(), Locale.ENGLISH);
             Integer accessLevel = entrySet.getValue();
 
-            NavigationLink navLink = navigationLinks.get(category);
+            NavigationLink navLink = OFFICER_LINKS.get(category);
 
             if (navLink != null && accessLevel > 0) {
-                navbar.addNavigationLinks(navLink);
+                navigationLinks.add(navLink);
             }
         }
 
-        return navbar;
+        return navigationLinks;
+    }
+
+    private boolean isTutoring(DcscUser dcscUser) {
+        List<UserGroup> userGroups = dcscUser.getUserGroups();
+
+        for (UserGroup userGroup : userGroups) {
+            if ("Tutoring Committee".equals(userGroup.getGroup().getName())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

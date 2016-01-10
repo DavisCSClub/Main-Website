@@ -1,6 +1,8 @@
 package org.dcsc.configuration;
 
+import org.dcsc.core.user.DcscUser;
 import org.dcsc.core.user.details.DcscUserDetails;
+import org.dcsc.core.user.group.UserGroup;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -47,6 +49,21 @@ public class DcscPermissionEvaluator implements PermissionEvaluator {
         int requestedAccessLevel = Optional.ofNullable(permissionMask.get(permission)).orElseGet(() -> 0);
 
         return ((userAccessLevel & requestedAccessLevel) > 0);
+    }
+
+    public boolean hasGroup(Authentication authentication, String group, boolean adminOnly) {
+        boolean hasGroup = false;
+
+        DcscUserDetails userDetails = (DcscUserDetails) authentication.getPrincipal();
+        DcscUser dcscUser = userDetails.getUser();
+
+        UserGroup userGroup = dcscUser.getUserGroup(group);
+
+        if (userGroup != null) {
+            hasGroup = userGroup.isAdmin() || !adminOnly;
+        }
+
+        return hasGroup;
     }
 
     public List<String> getBitPermissionsAsString(int permissions) {

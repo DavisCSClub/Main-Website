@@ -115,6 +115,8 @@ subprojects {
     }
 
     dependencies {
+        compile "com.google.guava:guava:$guavaVersion"
+        
         testCompile "junit:junit:$junitVersion"
         testCompile "org.mockito:mockito-all:$mockitoVersion"
         testCompile "org.powermock:powermock-mockito-release-full:$powerMockVersion"

@@ -14,8 +14,12 @@ public class NavigationBar {
         this.navigationLinks = navigationLinks;
     }
 
-    public void addNavigationLinks(NavigationLink navigationLink) {
+    public void addNavigationLink(NavigationLink navigationLink) {
         navigationLinks.add(navigationLink);
+    }
+
+    public void addNavigationLinks(List<NavigationLink> navigationLinkList) {
+        navigationLinks.addAll(navigationLinkList);
     }
 
     public List<NavigationLink> getNavigationLinks() {

@@ -52,7 +52,7 @@ public class DcscUserDetailsService implements UserDetailsService {
 
         Collection<GrantedAuthority> authorities = roleService.getRoleAuthorities(role);
         Map<String, Integer> permissionMap = rolePermissionService.getPermissionMap(roleId);
-        NavigationBar navbar = navigationBarFactory.getNavigationBar(permissionMap);
+        NavigationBar navbar = navigationBarFactory.getNavigationBar(dcscUser, permissionMap);
 
         return new DcscUserDetails(dcscUser, authorities, role, permissionMap, navbar);
     }

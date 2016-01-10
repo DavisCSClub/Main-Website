@@ -21,6 +21,16 @@ public class UserGroup {
     @Column(name = "is_admin")
     private boolean isAdmin;
 
+    public UserGroup() {
+        
+    }
+
+    public UserGroup(DcscUser dcscUser, Group group, boolean isAdmin) {
+        this.dcscUser = dcscUser;
+        this.group = group;
+        this.isAdmin = isAdmin;
+    }
+
     public DcscUser getDcscUser() {
         return dcscUser;
     }
