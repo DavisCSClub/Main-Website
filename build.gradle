@@ -63,14 +63,17 @@ dependencies {
     compile "org.jadira.usertype:usertype.core:$jadiraVersion"
     compile "org.postgresql:postgresql:$postgresVersion"
     compile "org.springframework:spring-aop:$springVersion"
+    compile "org.springframework:spring-messaging:$springVersion"
     compile "org.springframework:spring-web:$springVersion"
     compile "org.springframework:spring-webmvc:$springVersion"
+    compile "org.springframework:spring-websocket:$springVersion"
     compile "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
     compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
     compile "org.springframework.security:spring-security-acl:$springSecurityVersion"
     compile "org.springframework.security:spring-security-config:$springSecurityVersion"
     compile "org.springframework.security:spring-security-core:$springSecurityVersion"
     compile "org.springframework.security:spring-security-web:$springSecurityVersion"
+
     compile "org.thymeleaf:thymeleaf-spring4:$thymeleafVersion"
     compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:$thymeleafVersion"
 
@@ -116,7 +119,7 @@ subprojects {
 
     dependencies {
         compile "com.google.guava:guava:$guavaVersion"
-        
+
         testCompile "junit:junit:$junitVersion"
         testCompile "org.mockito:mockito-all:$mockitoVersion"
         testCompile "org.powermock:powermock-mockito-release-full:$powerMockVersion"
