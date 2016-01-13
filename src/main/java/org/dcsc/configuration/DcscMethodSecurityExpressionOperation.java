@@ -61,6 +61,6 @@ public class DcscMethodSecurityExpressionOperation extends SecurityExpressionRoo
     }
 
     public boolean hasGroup(String group, boolean adminOnly) {
-        return permissionEvaluator.hasGroup(authentication, group, true);
+        return permissionEvaluator.hasGroup(authentication, group, adminOnly);
     }
 }
