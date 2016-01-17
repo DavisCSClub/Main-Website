@@ -13,9 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Controller
 public class AdminTutoringEditController {
     @Autowired
@@ -32,12 +29,9 @@ public class AdminTutoringEditController {
             AcademicTerm academicTerm = academicTermService.getCurrentTerm();
             Tutor tutor = tutorService.getTutor(authentication);
 
-            List tutoredCourses = tutor.getCourses(academicTerm.getCode()).stream()
-                    .map(course -> course.getCode()).collect(Collectors.toList());
-
             model.addAttribute("currentTerm", academicTerm.toString());
             model.addAttribute("allCourses", academicCourseService.getAll());
-            model.addAttribute("tutoredCourses", tutoredCourses);
+            model.addAttribute("tutoredCourses", tutor.getCurrentTermCourses());
         } catch (Exception e) {
             e.printStackTrace();
             return "redirect:/admin";

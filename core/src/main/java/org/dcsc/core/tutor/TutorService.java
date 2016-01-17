@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,6 +30,8 @@ public class TutorService {
     private AcademicTermService academicTermService;
     @Autowired
     private AcademicCourseService academicCourseService;
+    @Autowired
+    private OfficeHourService officeHourService;
     @Autowired
     private DcscUserService dcscUserService;
     @Autowired
@@ -46,8 +49,24 @@ public class TutorService {
 
     @Transactional(readOnly = true)
     public Tutor getTutor(DcscUser dcscUser) {
-        return tutorRepository.findByDcscUser(dcscUser);
+        Tutor tutor = tutorRepository.findByDcscUser(dcscUser);
+
+        try {
+            AcademicTerm currentTerm = academicTermService.getCurrentTerm();
+            Set<TutorRelation> relations = tutorRelationRepository.findByTutorAndAcademicTerm(tutor, currentTerm);
+
+            List courses = relations.stream().map(TutorRelation::getAcademicCourse).collect(Collectors.toList());
+            List officeHours = officeHourService.getOfficeHours(tutor, currentTerm);
+
+            tutor.setCurrentTermCourses(courses);
+            tutor.setCurrentOfficeHours(officeHours);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return tutor;
     }
+
 
     @Transactional(readOnly = true)
     public List<Tutor> getAllTutors() {

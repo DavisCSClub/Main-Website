@@ -1,6 +1,9 @@
 package org.dcsc.core.time;
 
+import org.dcsc.utilities.converter.LocalDateConverter;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "dcsc_academic_term", schema = "dcsc_time")
@@ -15,6 +18,14 @@ public class AcademicTerm {
 
     @Column(name = "year")
     private int year;
+
+    @Column(name = "start_date")
+    @Convert(converter = LocalDateConverter.class)
+    private LocalDate startDate;
+
+    @Column(name = "end_date")
+    @Convert(converter = LocalDateConverter.class)
+    private LocalDate endDate;
 
     public AcademicTerm() {
     }
@@ -51,5 +62,21 @@ public class AcademicTerm {
 
     public String toString() {
         return String.format("%s %d", AcademicTermNames.expandTermCode(code), year);
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 }

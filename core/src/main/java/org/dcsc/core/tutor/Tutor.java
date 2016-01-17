@@ -25,6 +25,12 @@ public class Tutor {
     @OneToMany(mappedBy = "tutor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     List<TutorRelation> tutorRelations;
 
+    @Transient
+    private List<AcademicCourse> currentTermCourses;
+
+    @Transient
+    private List<OfficeHour> currentOfficeHours;
+
     public Tutor() {
     }
 
@@ -64,6 +70,22 @@ public class Tutor {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public List<AcademicCourse> getCurrentTermCourses() {
+        return currentTermCourses;
+    }
+
+    public void setCurrentTermCourses(List<AcademicCourse> currentTermCourses) {
+        this.currentTermCourses = currentTermCourses;
+    }
+
+    public List<OfficeHour> getCurrentOfficeHours() {
+        return currentOfficeHours;
+    }
+
+    public void setCurrentOfficeHours(List<OfficeHour> currentOfficeHours) {
+        this.currentOfficeHours = currentOfficeHours;
     }
 
     public void addTutorRelation(TutorRelation tutorRelation) {

@@ -6,6 +6,8 @@ import org.dcsc.core.time.AcademicTerm;
 import java.io.Serializable;
 
 public class TutorRelationId implements Serializable {
+    private static final long serialVersionUID = -6347097393703895888L;
+    
     private Tutor tutor;
     private AcademicCourse academicCourse;
     private AcademicTerm academicTerm;

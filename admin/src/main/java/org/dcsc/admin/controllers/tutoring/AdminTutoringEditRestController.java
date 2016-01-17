@@ -2,9 +2,6 @@ package org.dcsc.admin.controllers.tutoring;
 
 import org.dcsc.admin.dto.RestTransactionResult;
 import org.dcsc.admin.dto.TutorCourseUpdateForm;
-import org.dcsc.core.course.AcademicCourseService;
-import org.dcsc.core.time.AcademicTermService;
-import org.dcsc.core.tutor.TutorRelationRepository;
 import org.dcsc.core.tutor.TutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -16,12 +13,6 @@ import java.util.List;
 public class AdminTutoringEditRestController {
     @Autowired
     private TutorService tutorService;
-    @Autowired
-    private AcademicTermService academicTermService;
-    @Autowired
-    private AcademicCourseService academicCourseService;
-    @Autowired
-    private TutorRelationRepository tutorRelationRepository;
 
     @CrossOrigin(origins = {"https://daviscsclub.org", "http://localhost:8080"}, methods = {RequestMethod.PUT})
     @RequestMapping(value = "/admin/r/tutoring/tutor/edit", method = RequestMethod.PUT)

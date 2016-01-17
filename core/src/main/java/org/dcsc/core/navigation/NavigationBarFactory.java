@@ -3,8 +3,6 @@ package org.dcsc.core.navigation;
 import com.google.common.collect.ImmutableList;
 import org.dcsc.core.user.DcscUser;
 import org.dcsc.core.user.group.UserGroup;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.util.StringUtils;
 
@@ -13,16 +11,15 @@ import java.util.*;
 
 @Component
 public class NavigationBarFactory {
-    private static final Logger LOGGER = LoggerFactory.getLogger(NavigationBarFactory.class);
-
     public static final NavigationLink DASHBOARD = new StandardNavigationLink("Dashboard", "/admin", "&#xE871;");
     public static final NavigationLink DIRECTORY = new StandardNavigationLink("Directory", "/admin/directory", "&#xE7FB;");
 
     public static final NavigationLink TUTORING_DASHBOARD = new StandardNavigationLink("Dashboard", "/admin/tutoring", "&#xE7FB;");
     public static final NavigationLink TUTORING_EDIT = new StandardNavigationLink("Edit Courses", "/admin/tutoring/tutor/edit", "&#xE7FB;");
     public static final NavigationLink TUTORING_DIRECTORY = new StandardNavigationLink("Directory", "/admin/tutoring/directory", "&#xE7FB;");
+    public static final NavigationLink TUTORING_CALENDAR = new StandardNavigationLink("Office Hour", "/admin/tutoring/calendar", "&#xE7FB;");
     public static final NavigationLink TUTORING = new NestedNavigationLink("Tutoring", "&#xE54B;",
-            ImmutableList.of(TUTORING_DASHBOARD, TUTORING_DIRECTORY, TUTORING_EDIT));
+            ImmutableList.of(TUTORING_DASHBOARD, TUTORING_DIRECTORY, TUTORING_CALENDAR, TUTORING_EDIT));
 
     private static final List<NavigationLink> MEMBER_LEVEL_LINKS = ImmutableList.of(DASHBOARD, DIRECTORY);
     private static final Map<String, NavigationLink> OFFICER_LINKS = new HashMap();
