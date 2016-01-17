@@ -1,8 +1,9 @@
 dependencies {
-    compile "org.jadira.usertype:usertype.core:$jadiraVersion"
     compile "joda-time:joda-time:$jodaTimeVersion"
+    compile "org.jadira.usertype:usertype.core:$jadiraVersion"
     compile "org.springframework:spring-webmvc:$springVersion"
-    compile "org.springframework.boot:spring-boot-starter-security:$springBootVersion"
+    compile "org.springframework.security:spring-security-core:$springSecurityVersion"
+    compile "org.springframework.security:spring-security-web:$springSecurityVersion"
     compile "org.thymeleaf:thymeleaf-spring4:$thymeleafVersion"
 
     compile project(":utilities")
