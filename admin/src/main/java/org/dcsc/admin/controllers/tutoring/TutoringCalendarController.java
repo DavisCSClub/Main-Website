@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,8 +32,13 @@ public class TutoringCalendarController {
 
         List<OfficeHour> officeHours = tutor.getCurrentOfficeHours();
 
+        LocalDate startDate = LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
+
         return officeHours.stream()
-                .map(oh -> new FullCalendarEvent("Office Hour", oh.getStartDateTime().toString(), oh.getEndDateTime().toString(), null))
+                .filter(oh -> oh.getStartDateTime().getDayOfYear() >= startDate.getDayOfYear())
+                .filter(oh -> oh.getEndDateTime().getDayOfYear() <= endDate.getDayOfYear())
+                .map(oh -> new FullCalendarEvent(oh.getId(), "Office Hour", oh.getStartDateTime().toString(), oh.getEndDateTime().toString(), null))
                 .collect(Collectors.toList());
     }
 }

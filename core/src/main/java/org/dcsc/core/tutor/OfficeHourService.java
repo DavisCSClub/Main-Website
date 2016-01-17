@@ -12,6 +12,10 @@ public class OfficeHourService {
     @Autowired
     private OfficeHourRepository officeHourRepository;
 
+    public OfficeHour getOfficeHour(long id) {
+        return officeHourRepository.findOne(id);
+    }
+
     public List<OfficeHour> getOfficeHours(Tutor tutor, AcademicTerm academicTerm) {
         return officeHourRepository.findByTutorAndAcademicTerm(tutor, academicTerm);
     }
@@ -22,5 +26,21 @@ public class OfficeHourService {
 
     public List<OfficeHour> save(Collection<OfficeHour> officeHours) {
         return officeHourRepository.save(officeHours);
+    }
+
+    /**
+     * Cannot delete by instance. Tutors can be holding onto the reference.
+     *
+     * @param id
+     * @param deleteChildren
+     */
+    public void delete(long id, boolean deleteChildren) {
+        if (deleteChildren) {
+            for (OfficeHour officeHour = getOfficeHour(id); officeHour != null; officeHour = officeHour.getChildOfficeHour()) {
+                officeHourRepository.delete(officeHour.getId());
+            }
+        } else {
+            officeHourRepository.delete(id);
+        }
     }
 }

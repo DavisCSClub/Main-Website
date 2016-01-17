@@ -1,6 +1,7 @@
 package org.dcsc.admin.controllers.tutoring;
 
 import org.dcsc.admin.dto.RestTransactionResult;
+import org.dcsc.admin.dto.TutorOfficeHourDelete;
 import org.dcsc.admin.dto.TutorOfficeHourTransaction;
 import org.dcsc.core.time.AcademicTerm;
 import org.dcsc.core.time.AcademicTermService;
@@ -67,10 +68,26 @@ public class TutoringCalendarWebSocketController {
             result = RestTransactionResult.success("Office hour successfully added.");
         } catch (Exception e) {
             e.printStackTrace();
-            result = RestTransactionResult.fail("Failed to add course. Cause: " + e.getClass().getSimpleName());
+            result = RestTransactionResult.fail("Failed to add office hour. Cause: " + e.getClass().getSimpleName());
         }
 
         return result;
     }
 
+
+    @MessageMapping("/tutor/calendar/delete")
+    @SendToUser("/queue/tutoring/calendar/notification")
+    public RestTransactionResult deleteOfficeHour(Authentication authentication, @RequestBody TutorOfficeHourDelete transaction) {
+        RestTransactionResult result = null;
+
+        try {
+            officeHourService.delete(transaction.getId(), transaction.isDeleteFuture());
+            result = RestTransactionResult.success("Office hour(s) successfully deleted.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = RestTransactionResult.fail("Failed to delete office hour. Cause: " + e.getClass().getSimpleName());
+        }
+
+        return result;
+    }
 }

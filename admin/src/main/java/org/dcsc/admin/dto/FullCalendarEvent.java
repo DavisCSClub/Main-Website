@@ -1,16 +1,26 @@
 package org.dcsc.admin.dto;
 
 public class FullCalendarEvent {
+    private long id;
     private String title;
     private String start;
     private String end;
     private String color;
 
-    public FullCalendarEvent(String title, String start, String end, String color) {
+    public FullCalendarEvent(long id, String title, String start, String end, String color) {
+        this.id = id;
         this.title = title;
         this.start = start;
         this.end = end;
         this.color = color;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
