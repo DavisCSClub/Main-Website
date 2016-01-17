@@ -6,27 +6,22 @@
 
 Because of licenses on a few of our HTML templates, the resources directory has not been included into this repository. The resources directory has been converted into a git submodule with a private repository in Bitbucket. Contact any of the repository owners for access.
 
-## How to contribute
-### Features and Bug Fixes
-1. Create a branch off of `production` with an appropriate title related to the task you are going to do
-  * in case you need a reminder, start on `production` branch:  
-```
-    $ git pull
-    $ git checkout -b name_your_branch
-```
-2. Do the task (have fun while doing it!)
-3. Don't be afraid to ask questions. Reach out to any of the contributors.
-4. When you are done, **make sure to `git fetch && git rebase origin/production` on your branch before next step** (to ensure that we keep a clean git history) and fix any conflicts that may arise
-5. Run `git push origin HEAD` and create a Pull Request in Github - someone will review your code and suggest changes as necessary.
-6. Relax, you just helped us become a little better :)
+## Terminologies
+- Root Repository: This is the repository that holds the other repositories as submodules. It is also the root directory of the overall project. This code is held in Github. 
+- Resource Repository: This is the repository that holds all the resources. HTML, CSS, JS, properties, etc. It is a submodule of the root repository. It is the `src/main/resources` directory.
 
-## How to run on local
-We're using Gradle as our build script. The commands are as follows:
+## Setup
+1. Have a Github account and a Bitbucket account ready with your ssh keys registered to each.
+2. Contact one of the webdev team members to have your account added to both the main code repository and the resource repository.
+3. Once you have both, perform `git clone --recursive git@github.com:DavisCSClub/Main-Website.git`.
+4. Check that the resource directory `<root>/src/main/resources/` was also cloned. We will refer to this as the resource repository and the overall repository as the root repository.
+5. Checkout branch `integration` for the root repository and check that it is tracking the remote `integration` branch.
+6. The resource repository only has one branch - `production`. Its state is tracked by root repository as a submodule. 
 
-- `gradle build` (It's like `make` - compiles and tests the system)
-- `gradle test` (Run all tests)
-- `gradle bootRun` (boots the war file up and runs it on localhost:8080)
+## Running Locally
+- `gradlew bootRun` (Compiles and runs the build on `localhost:8080`)
 
-### To use with your favorite IDEs
-- `gradle eclipse` (creates all eclipse config files so you can import it)
-- `gradle idea` (creates all idea config files so you can import it)
+## Committing Changes
+1. Commit changes to the resource repository first. Commit messages into the resource repository only need a number sign (#) followed by the github issue number. Example: `#123`
+2. After committing changes to resource repository, commit all changes to the root repository. If there were changes to resource repository, one of the changes in root repsitory committed should be a subproject commit `src/main/resources`.
+3. Commit messages to the root repository should start with a number sign (#) followed by the github issue number and then a summary of the changes. Example: `#123 Made a change here and there`
