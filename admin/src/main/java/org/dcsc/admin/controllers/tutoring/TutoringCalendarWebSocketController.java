@@ -17,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -98,9 +99,35 @@ public class TutoringCalendarWebSocketController {
         RestTransactionResult result;
 
         if (transaction.isRepeat()) {
+            LocalDateTime transactionStart = transaction.getStart();
+            LocalDateTime transactionEnd = transaction.getEnd();
+            DayOfWeek newStartDayOfWeek = transactionStart.getDayOfWeek();
+            DayOfWeek newEndDayOfWeek = transactionEnd.getDayOfWeek();
+
             for (OfficeHour officeHour = officeHourService.getOfficeHour(transaction.getId()); officeHour != null; officeHour = officeHour.getChildOfficeHour()) {
-                officeHour.setStartDateTime(transaction.getStart());
-                officeHour.setEndDateTime(transaction.getEnd());
+                LocalDateTime startDateTime = officeHour.getStartDateTime();
+                LocalDateTime endDateTime = officeHour.getEndDateTime();
+
+                int startDayDifference = newStartDayOfWeek.getValue() - startDateTime.getDayOfWeek().getValue();
+                int endDayDifference = newEndDayOfWeek.getValue() - endDateTime.getDayOfWeek().getValue();
+
+                if (newStartDayOfWeek == DayOfWeek.SUNDAY) {
+                    startDayDifference -= 7;
+                } else if (startDateTime.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                    startDayDifference += 7;
+                }
+
+                if (newEndDayOfWeek == DayOfWeek.SUNDAY) {
+                    startDayDifference -= 7;
+                } else if (endDateTime.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                    startDayDifference += 7;
+                }
+
+                LocalDate newStartDate = startDateTime.plusDays(startDayDifference).toLocalDate();
+                LocalDate newEndDate = endDateTime.plusDays(endDayDifference).toLocalDate();
+
+                officeHour.setStartDateTime(LocalDateTime.of(newStartDate, transactionStart.toLocalTime()));
+                officeHour.setEndDateTime(LocalDateTime.of(newEndDate, transactionEnd.toLocalTime()));
 
                 officeHourService.save(officeHour);
             }
@@ -113,7 +140,7 @@ public class TutoringCalendarWebSocketController {
             officeHourService.save(officeHour);
         }
 
-        result = RestTransactionResult.success("Office hour(s) successfully moved.");
+        result = RestTransactionResult.success("Office hour(s) changes successfully saved.");
 
         return result;
     }
