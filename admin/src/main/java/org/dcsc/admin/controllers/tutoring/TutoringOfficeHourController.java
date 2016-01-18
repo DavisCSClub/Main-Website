@@ -35,7 +35,7 @@ public class TutoringOfficeHourController {
 
         // Demo code
         List<QueueSummary> summaries = new ArrayList<>();
-        List<AcademicCourse> courses = tutor.getCourses(academicTermService.getCurrentTerm().getCode());
+        List<AcademicCourse> courses = tutor.getCurrentTermCourses();
         for (AcademicCourse course : courses) {
             QueueSummary summary = new QueueSummary(course.getCode(), ThreadLocalRandom.current().nextInt(0, 19));
             summaries.add(summary);

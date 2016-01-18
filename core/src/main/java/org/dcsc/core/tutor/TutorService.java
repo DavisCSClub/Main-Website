@@ -82,29 +82,42 @@ public class TutorService {
         updateCoursesTutored(tutor, courses);
     }
 
+    @Transactional
     public void updateCoursesTutored(Tutor tutor, List<AcademicCourse> newTutoredCourses) throws Exception {
         AcademicTerm currentTerm = academicTermService.getCurrentTerm();
 
         // Find courses that have been removed
-        List<AcademicCourse> existingCourses = tutor.getCourses(currentTerm.getCode());
-        List<AcademicCourse> coursesToRemove = existingCourses.stream()
-                .filter(course -> !newTutoredCourses.contains(course)).collect(Collectors.toList());
+        List<AcademicCourse> existingCourses = tutor.getCurrentTermCourses();
+        List<String> coursesToRemove = existingCourses.stream()
+                .filter(course -> !newTutoredCourses.contains(course))
+                .map(AcademicCourse::getCode).collect(Collectors.toList());
 
         // Remove any courses that have not changed
         newTutoredCourses.removeIf(course -> existingCourses.contains(course));
 
-        for (AcademicCourse course : coursesToRemove) {
-            tutor.removeAcademicCourse(course);
-            tutorRelationRepository.deleteByTutorAndAcademicCourseAndAcademicTerm(tutor, course, currentTerm);
-        }
+        Set<TutorRelation> relations = tutorRelationRepository.findByTutorAndAcademicTerm(tutor, currentTerm);
 
-        // Add courses to tutor
+        List<TutorRelation> toRemove = relations.stream()
+                .filter(r -> coursesToRemove.contains(r.getAcademicCourse().getCode()))
+                .collect(Collectors.toList());
+
+        List<TutorRelation> toAdd = new ArrayList<>();
         for (AcademicCourse course : newTutoredCourses) {
-            TutorRelation tutorRelation = new TutorRelation(tutor, academicCourseService.get(course.getCode()), currentTerm);
-            tutor.addTutorRelation(tutorRelation);
+            TutorRelation relation = new TutorRelation();
+            relation.setTutor(tutor);
+            relation.setAcademicTerm(currentTerm);
+            relation.setAcademicCourse(course);
+
+            toAdd.add(relation);
         }
 
-        save(tutor);
+        if (!toRemove.isEmpty()) {
+            tutorRelationRepository.delete(toRemove);
+        }
+
+        if (!toAdd.isEmpty()) {
+            tutorRelationRepository.save(toAdd);
+        }
     }
 
     public void addUserToTutoring(DcscUser dcscUser, boolean isAdmin) throws Exception {
@@ -116,6 +129,7 @@ public class TutorService {
         userGroupService.removeUserGroup(dcscUser, "Tutoring Committee");
     }
 
+    @Transactional
     public void save(Tutor tutor) {
         tutorRepository.save(tutor);
     }

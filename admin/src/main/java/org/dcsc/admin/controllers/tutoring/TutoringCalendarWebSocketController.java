@@ -2,6 +2,7 @@ package org.dcsc.admin.controllers.tutoring;
 
 import org.dcsc.admin.dto.RestTransactionResult;
 import org.dcsc.admin.dto.TutorOfficeHourDelete;
+import org.dcsc.admin.dto.TutorOfficeHourEdit;
 import org.dcsc.admin.dto.TutorOfficeHourTransaction;
 import org.dcsc.core.time.AcademicTerm;
 import org.dcsc.core.time.AcademicTermService;
@@ -77,8 +78,8 @@ public class TutoringCalendarWebSocketController {
 
     @MessageMapping("/tutor/calendar/delete")
     @SendToUser("/queue/tutoring/calendar/notification")
-    public RestTransactionResult deleteOfficeHour(Authentication authentication, @RequestBody TutorOfficeHourDelete transaction) {
-        RestTransactionResult result = null;
+    public RestTransactionResult deleteOfficeHour(@RequestBody TutorOfficeHourDelete transaction) {
+        RestTransactionResult result;
 
         try {
             officeHourService.delete(transaction.getId(), transaction.isDeleteFuture());
@@ -87,6 +88,32 @@ public class TutoringCalendarWebSocketController {
             e.printStackTrace();
             result = RestTransactionResult.fail("Failed to delete office hour. Cause: " + e.getClass().getSimpleName());
         }
+
+        return result;
+    }
+
+    @MessageMapping("/tutor/calendar/edit")
+    @SendToUser("/queue/tutoring/calendar/notification")
+    public RestTransactionResult editOfficeHour(@RequestBody TutorOfficeHourEdit transaction) {
+        RestTransactionResult result;
+
+        if (transaction.isRepeat()) {
+            for (OfficeHour officeHour = officeHourService.getOfficeHour(transaction.getId()); officeHour != null; officeHour = officeHour.getChildOfficeHour()) {
+                officeHour.setStartDateTime(transaction.getStart());
+                officeHour.setEndDateTime(transaction.getEnd());
+
+                officeHourService.save(officeHour);
+            }
+        } else {
+            OfficeHour officeHour = officeHourService.getOfficeHour(transaction.getId());
+            officeHour.setStartDateTime(transaction.getStart());
+            officeHour.setEndDateTime(transaction.getEnd());
+            officeHour.setChildOfficeHour(null);
+
+            officeHourService.save(officeHour);
+        }
+
+        result = RestTransactionResult.success("Office hour(s) successfully moved.");
 
         return result;
     }

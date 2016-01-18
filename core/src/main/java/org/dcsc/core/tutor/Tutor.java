@@ -5,7 +5,6 @@ import org.dcsc.core.user.DcscUser;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "dcsc_tutors", schema = "dcsc_tutoring")
@@ -18,12 +17,9 @@ public class Tutor {
     @Column(name = "is_active")
     private boolean isActive;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "common_id")
     private DcscUser dcscUser;
-
-    @OneToMany(mappedBy = "tutor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    List<TutorRelation> tutorRelations;
 
     @Transient
     private List<AcademicCourse> currentTermCourses;
@@ -56,14 +52,6 @@ public class Tutor {
         this.dcscUser = dcscUser;
     }
 
-    public List<TutorRelation> getTutorRelations() {
-        return tutorRelations;
-    }
-
-    public void setTutorRelations(List<TutorRelation> tutorRelations) {
-        this.tutorRelations = tutorRelations;
-    }
-
     public boolean isActive() {
         return isActive;
     }
@@ -86,34 +74,5 @@ public class Tutor {
 
     public void setCurrentOfficeHours(List<OfficeHour> currentOfficeHours) {
         this.currentOfficeHours = currentOfficeHours;
-    }
-
-    public void addTutorRelation(TutorRelation tutorRelation) {
-        tutorRelations.add(tutorRelation);
-    }
-
-    public List<AcademicCourse> getCourses(String academicTermCode) {
-        List<AcademicCourse> courses = null;
-
-        if (academicTermCode != null) {
-            List<TutorRelation> termedTutorRelations = getTutorRelations(academicTermCode);
-            courses = termedTutorRelations.stream().filter(r -> academicTermCode.equals(r.getAcademicTerm().getCode()))
-                    .map(r -> r.getAcademicCourse()).collect(Collectors.toList());
-        }
-
-        return courses;
-    }
-
-    public void removeAcademicCourse(AcademicCourse course) {
-        tutorRelations.removeIf(relation -> relation.getAcademicCourse().getCode().equals(course.getCode()));
-    }
-
-    public void removeTutorRelations(String academicTermCode) {
-        tutorRelations.removeAll(getTutorRelations(academicTermCode));
-    }
-
-    public List<TutorRelation> getTutorRelations(String academicTermCode) {
-        return tutorRelations.stream().filter(tutorRelation -> academicTermCode.equals(tutorRelation.getAcademicTerm().getCode()))
-                .collect(Collectors.toList());
     }
 }
