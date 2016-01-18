@@ -89,6 +89,9 @@ dependencies {
     compile project(":dcsc-web")
     compile project(":athena")
     compile project(":utilities")
+
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    providedRuntime 'javax.websocket:javax.websocket-api:1.1'
 }
 
 task wrapper(type: Wrapper) {
