@@ -94,6 +94,11 @@ dependencies {
     providedRuntime 'javax.websocket:javax.websocket-api:1.1'
 }
 
+sourceSets.main.resources.srcDirs = []
+jar {
+    from "src/main/resources"
+}
+
 task wrapper(type: Wrapper) {
     gradleVersion = '2.10'
 }
