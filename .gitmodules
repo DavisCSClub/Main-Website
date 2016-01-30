@@ -1,3 +1,0 @@
-[submodule "src/main/resources"]
-	path = src/main/resources
-	url = git@bitbucket.org:tktong/resources.git

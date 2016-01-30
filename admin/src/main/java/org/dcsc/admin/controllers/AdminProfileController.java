@@ -65,7 +65,6 @@ public class AdminProfileController {
     }
 
     @RequestMapping(value = "/admin/user/edit", method = RequestMethod.GET)
-    @PreAuthorize("hasPermission('user','update')")
     public String profileEdit(Model model) {
         model.addAttribute("profileForm", new ProfileForm());
 
