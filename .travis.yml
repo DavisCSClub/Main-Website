@@ -5,6 +5,8 @@ before_install:
 - chmod +x gradlew
 git:
   submodules: false
+before_deploy:
+  - export TRAVIS_TAG="$TRAVIS_BRANCH-$TRAVIS_BUILD_NUMBER"
 deploy:
   provider: releases
   file: "build/libs/ROOT.war"
@@ -14,6 +16,3 @@ deploy:
     all_branches: true
   api-key:
     secure: aualosn9wo20gshzeNZjhhTHHiL2lRD1Av0olo9uncgepTqYeMeuJMx5xoDlugpHO36eROOB3CFV99sSWvQC17tY59YadcbMA1oIRXB+ASYJGldieprimXWPe0K2tik35IyqMmoWTslK4cRXqkF/RRH1S1idJPZKBhQLeR52QnpVTaDQRPsBIeeBERS3sb69KQu3IyyeVrM5fzyDUfqdKktNg/NFFFDUdRz90UsXqeTfZdYruYv41skPTThxpxPzbMdt6XEtJlE4HWsMW4UsBeWyaur2z1V5T0j9BC2y7hput2+aX6raiO1l5JSik1jQ46+U6vGA+jXEqNSOeCrCgJpFtJFJ5O+tpdOg46lVD9eosJsmQgYz8tgmnu8I40JYLnX1T34QCr+wBqp+WBlrnWiEMVsHBbrsN8VTTFCRlT2Oe9FXWia2DkA50N54dw9I8oPXZaaYkVtzvQFl+keuyvLmJ3mVkLU0dGNp0JOoNMJpEJ+GPwAkqhWK3QQ4K3kGWj6oLm8Zwb97OnE/zyapaC7ZlVCQjdzMvD/ASgviwvruqefswlMraUDl4tDIzKAnM2ofdSh/cbJviFYD2aj/Pv5OU10A+UpABms3Dq5KwVD4+LLBefpm38Fmun6rfxuvDDt+6dGuBmG/BlyTOyO0OItJ79MgRen9S8ygGfEZOwg=
-branches:
-  except:
-    - /^*-v[0-9]/
