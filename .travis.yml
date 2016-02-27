@@ -10,7 +10,7 @@ before_deploy:
   - git config --global user.name "Travis CI"
   - export GIT_TAG=$TRAVIS_BRANCH-$TRAVIS_BUILD_NUMBER
   - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
-  - git push -q https://$TAGPERM@github.com/DavisCSClub/Main-Website --tags
+  - git push origin --tags
 deploy:
   provider: releases
   file: "/build/libs/ROOT.war"
