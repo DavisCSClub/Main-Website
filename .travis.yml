@@ -7,7 +7,7 @@ git:
   submodules: false
 deploy:
   provider: releases
-  file: "/build/libs/ROOT.war"
+  file: "build/libs/ROOT.war"
   skip_cleanup: true
   on:
     tags: false
