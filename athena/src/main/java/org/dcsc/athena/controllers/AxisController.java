@@ -12,6 +12,13 @@ import org.dcsc.athena.objects.TutorExtension;
 import org.dcsc.athena.objects.Tutee;
 import org.dcsc.athena.objects.TuteeForTutor;
 
+import org.dcsc.core.tutor.Tutor;
+import org.dcsc.core.tutor.TutorService;
+import org.dcsc.core.user.DcscUser;
+import org.dcsc.core.user.DcscUserService;
+import org.dcsc.core.user.details.DcscUserDetails;
+import org.springframework.security.core.Authentication;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.annotation.SendToUser;
@@ -30,6 +37,11 @@ public class AxisController {
 
 	@Autowired
 	private AxisQueue axisQueue;
+
+    @Autowired
+    private TutorService tutorService;
+    @Autowired
+    private DcscUserService dcscUserService;
 
     @MessageMapping("/tuteeRegistration")
     public void registerTutor(SimpMessageHeaderAccessor headerAccessor, TuteeRegistration message) throws Exception {
@@ -52,11 +64,17 @@ public class AxisController {
         // TuteeForTutor
     }
 
-    @MessageMapping("/requestSetup")
+
+    @MessageMapping("/requestSetupTutor")
     @SendToUser("/queue/setup")
-    public SetupResponse simpleSetup(SimpMessageHeaderAccessor headerAccessor, DummyRequest message) throws Exception {
+    public SetupResponse simpleSetupTutor(Authentication authentication, SimpMessageHeaderAccessor headerAccessor, DummyRequest message) throws Exception {
     	TreeSet<String> subs = new TreeSet<String>();
     	if (message.getType().equals("auth")) {
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n\n\n\n\n\n\n\n\n\n\n\n\nAAAAAAAAAAAAAAAA");
+
+            Tutor tutor = tutorService.getTutor(authentication);
+
+            
     		subs.add("30");
     		TutorExtension t = new TutorExtension("Alex Fu", "aafu@ucdavis.edu", subs, headerAccessor.getSessionId());	
     		axisQueue.addPersonMapping(t, headerAccessor.getSessionId());
@@ -66,7 +84,12 @@ public class AxisController {
         return new SetupResponse(axisQueue.getTutorList(), axisQueue.getQueueData(), headerAccessor.getSessionId());
     }
 
-
+    @MessageMapping("/requestSetupTutee")
+    @SendToUser("/queue/setup")
+    public SetupResponse simpleSetupTutee(SimpMessageHeaderAccessor headerAccessor, DummyRequest message) throws Exception {        
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZA\n\n\n\n\n\n\n\n\n\n\n\n\nAAAAAAAAAAAAAAAA");
+        return new SetupResponse(axisQueue.getTutorList(), axisQueue.getQueueData(), headerAccessor.getSessionId());
+    }
 
     @MessageMapping("/disconnectPairing")
     public void disconnect(SimpMessageHeaderAccessor headerAccessor, DummyRequest message) throws Exception {

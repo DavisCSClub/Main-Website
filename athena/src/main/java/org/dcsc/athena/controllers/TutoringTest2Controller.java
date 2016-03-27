@@ -22,10 +22,10 @@ public class TutoringTest2Controller {
       	String name = auth.getName(); //get logged in username
       	
       	if (name.equals("anonymousUser")) {
-  			// model.addAttribute("loggedIn", false);  
-  			// model.addAttribute("notLoggedIn", true);
-  		    model.addAttribute("loggedIn", true);
-  			model.addAttribute("notLoggedIn", false);  
+  			model.addAttribute("loggedIn", false);  
+  			model.addAttribute("notLoggedIn", true);
+  		 //    model.addAttribute("loggedIn", true);
+  			// model.addAttribute("notLoggedIn", false);  
 
       	} else {
   			model.addAttribute("loggedIn", true);
