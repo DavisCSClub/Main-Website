@@ -1,6 +1,6 @@
 | Production | Preview | Integration |
 | ---------- | ------- | ----------- |
-| [![Build Status](https://semaphoreci.com/api/v1/timmehtong/main-website/branches/production/badge.svg)](https://semaphoreci.com/timmehtong/main-website) | [![Build Status](https://semaphoreci.com/api/v1/timmehtong/main-website/branches/preview/badge.svg)](https://semaphoreci.com/timmehtong/main-website) | [![Build Status](https://semaphoreci.com/api/v1/timmehtong/main-website/branches/integration/badge.svg)](https://semaphoreci.com/timmehtong/main-website) |
+| [![Build Status](https://semaphoreci.com/api/v1/daviscsclub/main-website/branches/production/badge.svg)](https://semaphoreci.com/daviscsclub/main-website) | [![Build Status](https://semaphoreci.com/api/v1/daviscsclub/main-website/branches/preview/badge.svg)](https://semaphoreci.com/daviscsclub/main-website) | [![Build Status](https://semaphoreci.com/api/v1/daviscsclub/main-website/branches/integration/badge.svg)](https://semaphoreci.com/daviscsclub/main-website) |
 
 # IMPORTANT
 
