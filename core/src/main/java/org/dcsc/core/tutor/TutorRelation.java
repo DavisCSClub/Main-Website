@@ -10,27 +10,64 @@ import javax.persistence.*;
 @Table(schema = "dcsc_tutoring", name = "dcsc_tutoring")
 public class TutorRelation {
     @Id
-    @ManyToOne
-    @JoinColumn(name = "tutor_id")
+    @Column(name = "tutor_id")
+    private long tutorId;
+
+    @Id
+    @Column(name = "course_id")
+    private long courseId;
+
+    @Id
+    @Column(name = "term_id")
+    private long termId;
+
+    @Transient
     private Tutor tutor;
-
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "course_id")
+    @Transient
     private AcademicCourse academicCourse;
-
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "term_id")
+    @Transient
     private AcademicTerm academicTerm;
 
     public TutorRelation() {
     }
 
-    public TutorRelation(Tutor tutor, AcademicCourse academicCourse, AcademicTerm academicTerm) {
+    public TutorRelation(long tutorId, long courseId, long termId) {
+        this.tutorId = tutorId;
+        this.courseId = courseId;
+        this.termId = termId;
+    }
+
+    public TutorRelation(long tutorId, long courseId, long termId, Tutor tutor, AcademicCourse academicCourse, AcademicTerm academicTerm) {
+        this.tutorId = tutorId;
+        this.courseId = courseId;
+        this.termId = termId;
         this.tutor = tutor;
         this.academicCourse = academicCourse;
         this.academicTerm = academicTerm;
+    }
+
+    public long getTutorId() {
+        return tutorId;
+    }
+
+    public void setTutorId(long tutorId) {
+        this.tutorId = tutorId;
+    }
+
+    public long getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(long courseId) {
+        this.courseId = courseId;
+    }
+
+    public long getTermId() {
+        return termId;
+    }
+
+    public void setTermId(long termId) {
+        this.termId = termId;
     }
 
     public Tutor getTutor() {
