@@ -11,6 +11,7 @@ public class TutorExtension extends Person{
     private HashMap<String, String> tutorMapping;
     private String imgURL;
     private Tutor tutor;
+    private String id;
 
     private Boolean valid;
 
@@ -60,17 +61,23 @@ public class TutorExtension extends Person{
         tutorMapping.put("TutorURL", imgURL);
         tutorMapping.put("StatusType", StatusType.TUTOR_FOUND.toString());
         valid = false;
+        this.id = id;
+    }
+    
+    public String getId() {
+        return this.id;
     }
     
     @Override 
     public int hashCode() {
-        System.out.println("AAAAAAAAAAAAAAAAAfdsklnmgdflakjngdfanjlghafnljkgdfnjkl;hgbnjkflgdshfgdnkjlhlnkfgshnlk;lgnfkhglnkf");
+        if (this.email == null)
+            return 0;
+
         return this.email.hashCode();
     }
 
 	@Override 
 	public boolean equals(Object other) {
-        System.out.println("ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ");
     	return (other instanceof TutorExtension && ((TutorExtension)other).getEmail().equals(this.getEmail()) && ((TutorExtension)other).getRoom().equals(this.getRoom()));
 	}
 

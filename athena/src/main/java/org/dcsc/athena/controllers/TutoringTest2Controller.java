@@ -13,9 +13,9 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 
 @Controller
 
-public class TutoringTest2Controller {
+public class TutoringIndexController {
 
-    @RequestMapping("/tutoring/test2")
+    @RequestMapping("/tutoring/athena")
     public String getTestPage(Model model, HttpServletRequest req) {
 
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -35,6 +35,6 @@ public class TutoringTest2Controller {
       	model.addAttribute("username", name);
       	model.addAttribute("requestsCompleted", 42);
 
-        return "athena/test2";
+        return "athena/index";
     }
 }

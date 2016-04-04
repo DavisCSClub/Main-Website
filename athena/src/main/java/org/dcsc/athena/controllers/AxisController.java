@@ -76,12 +76,6 @@ public class AxisController {
     	if (p != null) {
     		TutorExtension t = (TutorExtension) p;
 
-            LocalDateTime now = LocalDateTime.now();
-            TutoringSession thisSession = new TutoringSession(now, t.getTutor());
-
-            axisQueue.setSession(headerAccessor.getSessionId(), thisSession);
-            tutoringSessionService.save(thisSession);
-
     		messagingTemplate.convertAndSend("/topic/" + headerAccessor.getSessionId(), axisQueue.add(t).statusData());
     	}
 
@@ -103,12 +97,29 @@ public class AxisController {
                 if ( axisQueue.hasId(tutor.getId()) ) {
                     return new SetupResponse(axisQueue.getTutorList(), axisQueue.getQueueData(), headerAccessor.getSessionId(), 203);
                 }
+
+                subs = tutor.getCurrentTermCourseStrings();
                 
                 // TutorExtension t = new TutorExtension(tutor.getDcscUser().getUserProfile().getName(), tutor.getDcscUser().getUserProfile().getEmail(), tutor.getCurrentTermCourseStrings(), headerAccessor.getSessionId(), tutor);
                 if (subs.size() == 0)
                     return new SetupResponse(axisQueue.getTutorList(), axisQueue.getQueueData(), headerAccessor.getSessionId(), 101);
 
-                TutorExtension t = new TutorExtension(tutor.getDcscUser().getUserProfile().getName(), tutor.getDcscUser().getUserProfile().getEmail(), subs, headerAccessor.getSessionId(), tutor);
+                TutorExtension t = new TutorExtension(tutor.getDcscUser().getUserProfile().getName(), tutor.getDcscUser().getUserProfile().getEmail(), tutor.getCurrentTermCourseStrings(), headerAccessor.getSessionId(), tutor);
+
+
+                LocalDateTime now = LocalDateTime.now();
+                TutoringSession thisSession = new TutoringSession(now, t.getTutor());
+                // System.out.println(thisSession);
+                tutoringSessionService.save(thisSession);
+                // System.out.println(thisSession);
+
+                TutoringSession t1 = tutoringSessionService.findTutoringSessionById(thisSession.getId());
+
+                // System.out.println(t1);
+                // tutoringSessionService.save(t1);
+
+                axisQueue.setSession(headerAccessor.getSessionId(), t1);
+
 
                 // DebugLib.println(tutor.getCurrentTermCourseStrings().toString());
                 // TutorExtension t = new TutorExtension("Alex Fu", "aafu@ucdavis.edu", subs, headerAccessor.getSessionId(), tutor);
@@ -131,12 +142,15 @@ public class AxisController {
     @MessageMapping("/disconnectPairing")
     public void disconnect(SimpMessageHeaderAccessor headerAccessor, DummyRequest message) throws Exception {
 
-        TutoringSession thisSession = axisQueue.popSession(headerAccessor.getSessionId());
+        // TutoringSession thisSession = axisQueue.popSession(headerAccessor.getSessionId());
 
-        if (thisSession != null) {
-            thisSession.setEndDateTime(LocalDateTime.now());
-            tutoringSessionService.save(thisSession);    
-        }
+        
+
+        // if (thisSession != null) {
+        //     System.out.println("AAAAAAAAAAAAAAAAAAAAAAA\n\n\n\n\n\n\n\n\nDDDDDDDDDDDDDDDDDDDDD\n\n\n\n\n\n\nDDDDDDDDDDDDDDDDDDD");
+        //     thisSession.setEndDateTime(LocalDateTime.now());
+        //     tutoringSessionService.save(thisSession);    
+        // }
         
 
     	axisQueue.removePersonAndMappingByID(headerAccessor.getSessionId());
@@ -144,6 +158,5 @@ public class AxisController {
 
         // TuteeForTutor
     }
-
 
 }

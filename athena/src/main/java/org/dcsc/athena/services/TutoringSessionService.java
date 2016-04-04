@@ -15,4 +15,8 @@ public class TutoringSessionService {
     public void save(TutoringSession s) {
     	tutoringSessionRepository.save(s);
     }
+
+    public TutoringSession findTutoringSessionById(Long id) {
+    	return tutoringSessionRepository.findTutoringSessionById(id);
+    }
 }

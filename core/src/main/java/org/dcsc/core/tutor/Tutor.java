@@ -68,9 +68,9 @@ public class Tutor {
     public TreeSet<String> getCurrentTermCourseStrings() {
         TreeSet<String> courseStrings = new TreeSet<String>();
         for (AcademicCourse a : getCurrentTermCourses()) {
+            System.out.println(a.getCode());
             courseStrings.add(a.getCode());
         }
-
         return courseStrings;
     }    
 

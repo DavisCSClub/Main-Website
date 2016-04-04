@@ -163,7 +163,7 @@ public class AxisQueue {
             HashMap<String, String> temp2 = new HashMap<String, String>();
             temp2.put("subjects", "10, 20, 30");
             temp2.put("tutorID", "5124");
-            temp2.put("name", "Alexander Fu");
+            temp2.put("name", "WORK IN PROGRESS");
             temp2.put("location", "PC 31");
             temp.add(temp2);
             return temp;
@@ -177,6 +177,9 @@ public class AxisQueue {
     	}
 
     	currentTutors.remove(tr);
+        System.out.println("TUTOR QUITTTT\n\n\n\n\n\n\n\n");
+        
+        removeCurrentTutor(tr.getTutor().getId());
 
     	return new Status(StatusType.TUTOR_QUIT, tr);
     }
