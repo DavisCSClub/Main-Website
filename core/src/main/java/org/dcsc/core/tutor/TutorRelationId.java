@@ -1,38 +1,35 @@
 package org.dcsc.core.tutor;
 
-import org.dcsc.core.course.AcademicCourse;
-import org.dcsc.core.time.AcademicTerm;
-
 import java.io.Serializable;
 
 public class TutorRelationId implements Serializable {
     private static final long serialVersionUID = -6347097393703895888L;
+
+    private long tutorId;
+    private long courseId;
+    private long termId;
     
-    private Tutor tutor;
-    private AcademicCourse academicCourse;
-    private AcademicTerm academicTerm;
-
-    public Tutor getTutor() {
-        return tutor;
+    public long getTutorId() {
+        return tutorId;
     }
 
-    public void setTutor(Tutor tutor) {
-        this.tutor = tutor;
+    public void setTutorId(long tutorId) {
+        this.tutorId = tutorId;
     }
 
-    public AcademicCourse getAcademicCourse() {
-        return academicCourse;
+    public long getCourseId() {
+        return courseId;
     }
 
-    public void setAcademicCourse(AcademicCourse academicCourse) {
-        this.academicCourse = academicCourse;
+    public void setCourseId(long courseId) {
+        this.courseId = courseId;
     }
 
-    public AcademicTerm getAcademicTerm() {
-        return academicTerm;
+    public long getTermId() {
+        return termId;
     }
 
-    public void setAcademicTerm(AcademicTerm academicTerm) {
-        this.academicTerm = academicTerm;
+    public void setTermId(long termId) {
+        this.termId = termId;
     }
 }
