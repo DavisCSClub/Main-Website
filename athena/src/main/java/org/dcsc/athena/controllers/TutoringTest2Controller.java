@@ -24,8 +24,6 @@ public class TutoringTest2Controller {
       	if (name.equals("anonymousUser")) {
   			model.addAttribute("loggedIn", false);  
   			model.addAttribute("notLoggedIn", true);
-  		 //    model.addAttribute("loggedIn", true);
-  			// model.addAttribute("notLoggedIn", false);  
 
       	} else {
   			model.addAttribute("loggedIn", true);
@@ -35,7 +33,7 @@ public class TutoringTest2Controller {
 
       	model.addAttribute("hostname", req.getRemoteHost());
       	model.addAttribute("username", name);
-      	model.addAttribute("requestsCompleted", 16);
+      	model.addAttribute("requestsCompleted", 42);
 
         return "athena/test2";
     }

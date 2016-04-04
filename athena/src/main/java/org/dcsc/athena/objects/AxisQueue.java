@@ -1,5 +1,7 @@
 package org.dcsc.athena.objects;
 
+import org.dcsc.athena.objects.TutoringSession;
+
 import java.util.concurrent.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +22,10 @@ public class AxisQueue {
 
     private ConcurrentHashMap<String, Person>  idToPerson;
 	
+    private ConcurrentHashMap<String, TutoringSession> tutorSessions;
+
+    private ConcurrentHashMap<Long, Boolean> currentIdTutors;
+
     private final boolean DEBUG_MODE = true;
 
     @Autowired
@@ -36,13 +42,36 @@ public class AxisQueue {
         currentTutees = new ConcurrentHashMap<Tutee, Boolean>();
         personToId = new ConcurrentHashMap<Person, String> ();
         idToPerson = new ConcurrentHashMap<String, Person> ();
+        tutorSessions = new ConcurrentHashMap<String, TutoringSession> ();
+        currentIdTutors = new ConcurrentHashMap<Long, Boolean>();
     }
+
 
     private void addClass(String className) {
     	tutoredSubjects.put(className, new Subject(className));
     }
 
+    public boolean hasId(long id) {
+        return currentIdTutors.containsKey(id);
+    }
 
+    public void setSession(String id, TutoringSession s) {
+        // currentIdTutors.put(s.getTutor().getId(), true);
+        tutorSessions.put(id, s);
+    }
+
+    public TutoringSession getSession(String id) {
+        return tutorSessions.get(id);
+    }
+
+    public TutoringSession popSession(String id) {
+        TutoringSession s = tutorSessions.get(id);
+
+        if(s != null) {
+            tutorSessions.remove(id);
+        }
+        return s;
+    }
 
     private void addTutorToClass(TutorExtension tr, String subject) {
     	tutoredSubjects.get(subject).addTutor(tr);
@@ -85,6 +114,7 @@ public class AxisQueue {
         Status currentStatus = tutoredSubjects.get(tr.getTutorSubject()).processTutor(tr);
         if (currentStatus.getType().equals(StatusType.TUTEE_FOUND)) {
             currentTutees.remove(currentStatus.getTutee());
+            removeCurrentTutor(tr.getTutor().getId());
             messagingTemplate.convertAndSend("/topic/" + currentStatus.getTutee().getRoom(), tr.getPairingData());
         }
         
@@ -105,6 +135,7 @@ public class AxisQueue {
     		for (String  subject : pairedTutor.getSubjects()) {
     			removeTutor(pairedTutor, subject);
     		}
+            removeCurrentTutor(pairedTutor.getTutor().getId());
     	}
     	
     	return currentStatus;
@@ -150,12 +181,17 @@ public class AxisQueue {
     	return new Status(StatusType.TUTOR_QUIT, tr);
     }
 
+    public synchronized void removeCurrentTutor(Long id) {
+        currentIdTutors.remove(id);
+    }
 
     public synchronized Status removePersonAndMappingByID(String id) {
         Person p = idToPerson.get(id);
         if (p != null) {
             if (p instanceof TutorExtension) {
                 TutorExtension tr = (TutorExtension) p;
+                if (tr.getValid())
+                    removeCurrentTutor(tr.getTutor().getId());
                 tutorQuit(tr);
             } else {
                 Tutee te = (Tutee) p;
@@ -182,11 +218,14 @@ public class AxisQueue {
     	if (p instanceof TutorExtension) {
 
     		TutorExtension tr = (TutorExtension) p;
-            if (currentTutors.containsKey(tr))
-                return new Status(StatusType.ERROR, "Duplicate Tutor");
+            if (currentTutors.containsKey(tr) || hasId(tr.getTutor().getId())) {
+                return new Status(StatusType.DUPE_ERROR, "Duplicate Tutor");
+            }
+
+            currentIdTutors.put(tr.getTutor().getId(), true);
+            tr.setValid(true);
 
     		if(canTutor(tr)) {
-             
     			return processTutor(tr);
     		} else {
                 currentTutors.put(tr, true);
@@ -203,7 +242,7 @@ public class AxisQueue {
     		String classRequested = te.getRequestedClass();
 
             if (currentTutees.containsKey(te))
-                return new Status(StatusType.ERROR, "Duplicate Tutee");
+                return new Status(StatusType.DUPE_ERROR, "Duplicate Tutee");
     		if(canBeTutored(classRequested)) {
     			return processTutee(te, classRequested);
     		} else {

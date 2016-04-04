@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Controller
+// @Controller
 public class AdminTutoringDirectoryController {
     @Autowired
     private TutorService tutorService;

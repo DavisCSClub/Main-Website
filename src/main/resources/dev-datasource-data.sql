@@ -44,6 +44,7 @@ INSERT INTO dcsc_tutoring.dcsc_courses VALUES (5, 'ECS30');
 
 INSERT INTO dcsc_time.dcsc_academic_term VALUES (1, 'FQ', 2015, '2015-09-21', '2015-12-11');
 INSERT INTO dcsc_time.dcsc_academic_term VALUES (2, 'WQ', 2016, '2016-01-04', '2016-03-19');
+INSERT INTO dcsc_time.dcsc_academic_term VALUES (3, 'SQ', 2016, '2016-03-20', '2018-03-19');
 
 INSERT INTO dcsc_tutoring.dcsc_tutoring VALUES (1, 1, 1);
 INSERT INTO dcsc_tutoring.dcsc_tutoring VALUES (1, 2, 1);
