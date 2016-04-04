@@ -18,8 +18,11 @@ public class Tutor {
     @Column(name = "is_active")
     private boolean isActive;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "common_id")
+    
+    @Column(name = "common_id")
+    private long dcscId;
+
+    @Transient
     private DcscUser dcscUser;
 
     @Transient
@@ -68,7 +71,6 @@ public class Tutor {
     public TreeSet<String> getCurrentTermCourseStrings() {
         TreeSet<String> courseStrings = new TreeSet<String>();
         for (AcademicCourse a : getCurrentTermCourses()) {
-            System.out.println(a.getCode());
             courseStrings.add(a.getCode());
         }
         return courseStrings;

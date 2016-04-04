@@ -49,7 +49,6 @@ public class TutoringSession {
 
     @Override
     public boolean equals(Object obj) {
-    	System.out.println("COMPARISONNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN");
     	if (obj == null) 
             return false;
         final TutoringSession other = (TutoringSession) obj;
@@ -57,7 +56,6 @@ public class TutoringSession {
         	return false;
         return other.id == this.id;
     }
-
 
     public long getId() {
         return id;
@@ -71,14 +69,6 @@ public class TutoringSession {
         return startDateTime;
     }
 
-    public String toString() {
-        System.out.println(id);
-        System.out.println(startDateTime);
-        System.out.println(endDateTime);
-        System.out.println(tutor);
-    	return startDateTime.toString();
-    }
-
     public void setStartDateTime(LocalDateTime startDateTime) {
         this.startDateTime = startDateTime;
     }
@@ -89,8 +79,6 @@ public class TutoringSession {
 
     public void setEndDateTime(LocalDateTime endDateTime) {
         this.endDateTime = endDateTime;
-
-
     }
 
     public Tutor getTutor() {

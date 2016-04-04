@@ -51,7 +51,7 @@ public class TutorService {
 
     @Transactional(readOnly = true)
     public Tutor getTutor(DcscUser dcscUser) {
-        Tutor tutor = tutorRepository.findByDcscUser(dcscUser);
+        Tutor tutor = tutorRepository.findByDcscId(dcscUser.getId());
 
         try {
             AcademicTerm currentTerm = academicTermService.getCurrentTerm();

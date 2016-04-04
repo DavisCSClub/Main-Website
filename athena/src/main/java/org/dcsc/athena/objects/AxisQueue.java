@@ -177,7 +177,7 @@ public class AxisQueue {
     	}
 
     	currentTutors.remove(tr);
-        System.out.println("TUTOR QUITTTT\n\n\n\n\n\n\n\n");
+
         
         removeCurrentTutor(tr.getTutor().getId());
 

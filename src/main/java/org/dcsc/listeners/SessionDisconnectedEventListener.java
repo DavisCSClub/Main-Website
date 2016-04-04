@@ -33,7 +33,6 @@ public class SessionDisconnectedEventListener implements ApplicationListener<Ses
         if (thisSession != null) {
             thisSession.setEndDateTime(LocalDateTime.now());
             tutoringSessionService.save(thisSession);
-        	System.out.println(thisSession.getId());
         }
 
 		axisQueue.removePersonAndMappingByID(headerAccessor.getSessionId());
