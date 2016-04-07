@@ -40,6 +40,12 @@ public class Tutor {
         this.isActive = true;
     }
 
+    public Tutor(long dcscId) {
+        this.id = 0;
+        this.dcscId = dcscId;
+        this.isActive = true;
+    }
+
     public long getId() {
         return id;
     }
@@ -75,7 +81,7 @@ public class Tutor {
     public TreeSet<String> getCurrentTermCourseStrings() {
         TreeSet<String> courseStrings = new TreeSet<String>();
         for (AcademicCourse a : getCurrentTermCourses()) {
-            courseStrings.add(a.getCode());
+            courseStrings.add(a.getCode().replaceAll("\\s+",""));
         }
         return courseStrings;
     }    
