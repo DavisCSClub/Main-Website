@@ -6,8 +6,8 @@ import org.dcsc.core.tutor.Tutor;
 
 public class TutorExtension extends Person{
 
-	private TreeSet<String> subjects;
-	private String tutoredSubject;
+    private TreeSet<String> subjects;
+    private String tutoredSubject;
     private HashMap<String, String> tutorMapping;
     private String imgURL;
     private Tutor tutor;
@@ -28,15 +28,15 @@ public class TutorExtension extends Person{
     }
 
     public TreeSet<String> getSubjects() {
-    	return subjects;
+        return subjects;
     }
     
     public void setTutorSubject(String subject) {
-    	tutoredSubject = subject;
+        tutoredSubject = subject;
     }
 
-	public String getTutorSubject() {
-    	return tutoredSubject;
+    public String getTutorSubject() {
+        return tutoredSubject;
     }
 
     public String getURL() {
@@ -48,10 +48,10 @@ public class TutorExtension extends Person{
     }
 
     public TutorExtension(String name, String email, TreeSet<String> subjects, String id, Tutor tu) {
-    	this.name = name;
-    	this.email = email;
-    	this.subjects = subjects;
-        this.location = "N/A";
+        this.name = name;
+        this.email = email;
+        this.subjects = subjects;
+        this.location = "Tutor will arrive shortly.";
         this.tutor = tu;
         this.imgURL = "http://placehold.it/150x150";
         setRoom(id);
@@ -76,10 +76,10 @@ public class TutorExtension extends Person{
         return this.email.hashCode();
     }
 
-	@Override 
-	public boolean equals(Object other) {
-    	return (other instanceof TutorExtension && ((TutorExtension)other).getEmail().equals(this.getEmail()) && ((TutorExtension)other).getRoom().equals(this.getRoom()));
-	}
+    @Override 
+    public boolean equals(Object other) {
+        return (other instanceof TutorExtension && ((TutorExtension)other).getEmail().equals(this.getEmail()) && ((TutorExtension)other).getRoom().equals(this.getRoom()));
+    }
 
     @Override
     public String toString() {
