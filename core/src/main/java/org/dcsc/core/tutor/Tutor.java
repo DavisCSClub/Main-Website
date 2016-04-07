@@ -52,6 +52,10 @@ public class Tutor {
         return dcscUser;
     }
 
+    public long getDcscUserId() {
+        return dcscId;
+    }
+
     public void setDcscUser(DcscUser dcscUser) {
         this.dcscUser = dcscUser;
     }

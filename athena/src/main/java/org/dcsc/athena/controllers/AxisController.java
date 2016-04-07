@@ -38,7 +38,7 @@ import org.dcsc.athena.objects.Person;
 import java.util.*;
 import java.util.concurrent.*;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-
+import java.util.Optional;
 
 @Controller
 public class AxisController {
@@ -104,7 +104,8 @@ public class AxisController {
                 if (subs.size() == 0)
                     return new SetupResponse(axisQueue.getTutorList(), axisQueue.getQueueData(), headerAccessor.getSessionId(), 101);
 
-                TutorExtension t = new TutorExtension(tutor.getDcscUser().getUserProfile().getName(), tutor.getDcscUser().getUserProfile().getEmail(), tutor.getCurrentTermCourseStrings(), headerAccessor.getSessionId(), tutor);
+                DcscUser d = (dcscUserService.getUserById(tutor.getDcscUserId())).get();
+                TutorExtension t = new TutorExtension(d.getUserProfile().getName(), d.getUserProfile().getEmail(), tutor.getCurrentTermCourseStrings(), headerAccessor.getSessionId(), tutor);
 
 
                 LocalDateTime now = LocalDateTime.now();
