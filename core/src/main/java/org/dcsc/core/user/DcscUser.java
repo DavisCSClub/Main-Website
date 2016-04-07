@@ -31,7 +31,7 @@ public class DcscUser {
     private long roleId;
 
     @JoinColumn(name = "profile_id")
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private UserProfile userProfile;
 
     @OneToMany(mappedBy = "dcscUser", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

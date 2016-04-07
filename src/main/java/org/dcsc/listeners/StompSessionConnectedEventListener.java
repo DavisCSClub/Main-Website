@@ -17,6 +17,5 @@ public class StompSessionConnectedEventListener implements ApplicationListener<S
 		StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(sessionConnectedEvent.getMessage());
 		logger.info(headerAccessor.toString());
 		System.out.println(headerAccessor.getSessionId());
-		System.out.println("AAAAAAAAAAAAAAAAAAAA\n\n\n\n\n\n" + (headerAccessor.toString()) + " \n\n\n\n\nAAAAAAAAAAAAAAAAAAAAAAAAAA");
 	}
 }

@@ -1,9 +1,6 @@
 package org.dcsc.core.course;
 
-import org.dcsc.core.tutor.TutorRelation;
-
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "dcsc_courses", schema = "dcsc_tutoring")
@@ -16,9 +13,6 @@ public class AcademicCourse {
     // Example: "ECS30"
     @Column(name = "code")
     private String code;
-
-    @OneToMany(mappedBy = "academicCourse", fetch = FetchType.EAGER)
-    List<TutorRelation> tutorRelations;
 
     public long getId() {
         return id;
@@ -34,13 +28,5 @@ public class AcademicCourse {
 
     public void setCode(String code) {
         this.code = code;
-    }
-
-    public List<TutorRelation> getTutorRelations() {
-        return tutorRelations;
-    }
-
-    public void setTutorRelations(List<TutorRelation> tutorRelations) {
-        this.tutorRelations = tutorRelations;
     }
 }

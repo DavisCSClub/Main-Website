@@ -13,19 +13,17 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 
 @Controller
 
-public class TutoringTest2Controller {
+public class TutoringIndexController {
 
-    @RequestMapping("/tutoring/test2")
+    @RequestMapping("/tutoring/athena")
     public String getTestPage(Model model, HttpServletRequest req) {
 
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
       	String name = auth.getName(); //get logged in username
       	
       	if (name.equals("anonymousUser")) {
-  			// model.addAttribute("loggedIn", false);  
-  			// model.addAttribute("notLoggedIn", true);
-  		    model.addAttribute("loggedIn", true);
-  			model.addAttribute("notLoggedIn", false);  
+  			model.addAttribute("loggedIn", false);  
+  			model.addAttribute("notLoggedIn", true);
 
       	} else {
   			model.addAttribute("loggedIn", true);
@@ -35,8 +33,8 @@ public class TutoringTest2Controller {
 
       	model.addAttribute("hostname", req.getRemoteHost());
       	model.addAttribute("username", name);
-      	model.addAttribute("requestsCompleted", 16);
+      	model.addAttribute("requestsCompleted", 42);
 
-        return "athena/test2";
+        return "athena/index";
     }
 }

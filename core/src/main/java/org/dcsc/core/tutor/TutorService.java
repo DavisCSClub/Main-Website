@@ -24,6 +24,8 @@ public class TutorService {
     @Autowired
     private TutorRepository tutorRepository;
     @Autowired
+    private TutorRelationService tutorRelationService;
+    @Autowired
     private TutorRelationRepository tutorRelationRepository;
 
     @Autowired
@@ -49,11 +51,11 @@ public class TutorService {
 
     @Transactional(readOnly = true)
     public Tutor getTutor(DcscUser dcscUser) {
-        Tutor tutor = tutorRepository.findByDcscUser(dcscUser);
+        Tutor tutor = tutorRepository.findByDcscId(dcscUser.getId());
 
         try {
             AcademicTerm currentTerm = academicTermService.getCurrentTerm();
-            Set<TutorRelation> relations = tutorRelationRepository.findByTutorAndAcademicTerm(tutor, currentTerm);
+            Set<TutorRelation> relations = (Set<TutorRelation>) tutorRelationService.get(tutor.getId(), currentTerm.getId());
 
             List courses = relations.stream().map(TutorRelation::getAcademicCourse).collect(Collectors.toList());
             List officeHours = officeHourService.getOfficeHours(tutor, currentTerm);
@@ -95,7 +97,7 @@ public class TutorService {
         // Remove any courses that have not changed
         newTutoredCourses.removeIf(course -> existingCourses.contains(course));
 
-        Set<TutorRelation> relations = tutorRelationRepository.findByTutorAndAcademicTerm(tutor, currentTerm);
+        Set<TutorRelation> relations = (Set<TutorRelation>) tutorRelationService.get(tutor.getId(), currentTerm.getId());
 
         List<TutorRelation> toRemove = relations.stream()
                 .filter(r -> coursesToRemove.contains(r.getAcademicCourse().getCode()))
@@ -103,10 +105,7 @@ public class TutorService {
 
         List<TutorRelation> toAdd = new ArrayList<>();
         for (AcademicCourse course : newTutoredCourses) {
-            TutorRelation relation = new TutorRelation();
-            relation.setTutor(tutor);
-            relation.setAcademicTerm(currentTerm);
-            relation.setAcademicCourse(course);
+            TutorRelation relation = new TutorRelation(tutor.getId(), course.getId(), currentTerm.getId());
 
             toAdd.add(relation);
         }

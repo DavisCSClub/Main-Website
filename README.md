@@ -1,6 +1,6 @@
 | Production | Preview | Integration |
 | ---------- | ------- | ----------- |
-| [![Build Status](https://travis-ci.org/DavisCSClub/Main-Website.svg?branch=production)](https://travis-ci.org/DavisCSClub/Main-Website) | [![Build Status](https://travis-ci.org/DavisCSClub/Main-Website.svg?branch=preview)](https://travis-ci.org/DavisCSClub/Main-Website) | [![Build Status](https://travis-ci.org/DavisCSClub/Main-Website.svg?branch=integration)](https://travis-ci.org/DavisCSClub/Main-Website) |
+| [![Build Status](https://semaphoreci.com/api/v1/daviscsclub/main-website/branches/production/badge.svg)](https://semaphoreci.com/daviscsclub/main-website) | [![Build Status](https://semaphoreci.com/api/v1/daviscsclub/main-website/branches/preview/badge.svg)](https://semaphoreci.com/daviscsclub/main-website) | [![Build Status](https://semaphoreci.com/api/v1/daviscsclub/main-website/branches/integration/badge.svg)](https://semaphoreci.com/daviscsclub/main-website) |
 
 # IMPORTANT
 

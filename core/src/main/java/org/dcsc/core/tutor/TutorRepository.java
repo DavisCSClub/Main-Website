@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TutorRepository extends JpaRepository<Tutor, Long> {
-    Tutor findByDcscUser(DcscUser dcscUser);
+    Tutor findByDcscId(Long id);
 }
