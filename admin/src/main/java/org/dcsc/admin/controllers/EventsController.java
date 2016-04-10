@@ -12,8 +12,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.HtmlUtils;
 
 import javax.servlet.http.HttpServletResponse;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RequestMapping("/admin/r/events")
 @RestController("adminEventsController")
@@ -30,20 +33,34 @@ public class EventsController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void createEvent(HttpServletResponse response) {
-        //eventService.saveEvent()
-        response.setHeader(HttpHeaders.LOCATION, "");
+    public void createEvent(HttpServletResponse response, @RequestBody Event event) {
+        event.setDescription(HtmlUtils.htmlEscape(event.getDescription()));
+        Event persistedEvent = eventService.saveEvent(event);
+
+        response.setHeader(HttpHeaders.LOCATION, linkTo(EventsController.class).slash(persistedEvent.getId()).toUri().toString());
+    }
+
+    @RequestMapping(value = "/template", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Event getEventTemplate() {
+        return new Event();
     }
 
     @RequestMapping(value = "/{eventId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Resource<Event> getEvent(@PathVariable("eventId") int eventId) {
-        return resourceAssembler.toResource(eventService.getEventById(eventId).get());
+        Event event = eventService.getEventById(eventId).get();
+        event.setDescription(HtmlUtils.htmlUnescape(event.getDescription()));
+        return resourceAssembler.toResource(event);
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @RequestMapping(value = "/{eventId}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void updateEvent(@PathVariable("eventId") int eventId) {
-
+    @RequestMapping(value = "/{eventId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void updateEvent(HttpServletResponse response, @PathVariable("eventId") int eventId, @RequestBody Event event) {
+        if (event.getId() != eventId) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        } else {
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            event.setDescription(HtmlUtils.htmlEscape(event.getDescription()));
+            eventService.saveEvent(event);
+        }
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
