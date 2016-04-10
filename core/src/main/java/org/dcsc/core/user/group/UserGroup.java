@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "dcsc_user_groups", schema = "dcsc_accounts")
 public class UserGroup {
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private DcscUser dcscUser;
 

@@ -136,3 +136,11 @@ CREATE TABLE IF NOT EXISTS dcsc_tutoring.has_office_hours (
   CONSTRAINT dcsc_oh_tutor_fk FOREIGN KEY (tutor_id) REFERENCES dcsc_tutoring.dcsc_tutors (id),
   CONSTRAINT dcsc_oh_office_hour_fk FOREIGN KEY (office_hour_id) REFERENCES dcsc_tutoring.dcsc_office_hours (id)
 );
+
+CREATE TABLE IF NOT EXISTS dcsc_tutoring.tutoring_sessions (
+  id              INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+  tutor_id        INT                            NOT NULL,
+  start_timestamp TIMESTAMP                      NOT NULL,
+  end_timestamp   TIMESTAMP,
+  CONSTRAINT dcsc_tutor_session_tutor_fk FOREIGN KEY (tutor_id) REFERENCES dcsc_tutoring.dcsc_tutors (id)
+);

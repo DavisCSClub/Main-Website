@@ -53,7 +53,7 @@ public class AdminEventRestController {
         String message = null;
 
         if (!bindingResult.hasErrors()) {
-            eventForm.setDescription(HtmlUtils.htmlEscape(eventForm.getDescription()));
+            eventForm.setDescription(eventForm.getDescription());
             eventService.saveEvent(eventForm);
 
             message = String.format("Event %s successfully updated.", eventId);
