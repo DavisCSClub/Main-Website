@@ -1,6 +1,7 @@
 package org.dcsc.admin.constants;
 
 public class ViewNames {
+    public static final String ADMIN_ALTAIR_BASE = "admin/altair_base";
     public static final String ADMIN_CAROUSEL = "admin/carousel";
     public static final String ADMIN_DASHBOARD = "admin/dashboard";
     public static final String ADMIN_DIRECTORY = "admin/directory";

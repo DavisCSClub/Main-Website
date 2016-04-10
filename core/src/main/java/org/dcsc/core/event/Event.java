@@ -1,5 +1,6 @@
 package org.dcsc.core.event;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.dcsc.utilities.converter.LocalDateTimeConverter;
 import org.dcsc.utilities.image.Image;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "dcsc_events", schema = "public")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

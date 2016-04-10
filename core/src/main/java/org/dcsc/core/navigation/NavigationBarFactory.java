@@ -11,23 +11,23 @@ import java.util.*;
 
 @Component
 public class NavigationBarFactory {
-    public static final NavigationLink DASHBOARD = new StandardNavigationLink("Dashboard", "/admin", "&#xE871;");
-    public static final NavigationLink DIRECTORY = new StandardNavigationLink("Directory", "/admin/directory", "&#xE7FB;");
+    public static final NavigationLink DASHBOARD = new NavigationLink("Dashboard", "/admin/", "&#xE871;");
+    public static final NavigationLink DIRECTORY = new NavigationLink("Directory", "/admin/directory", "&#xE7FB;");
 
-    public static final NavigationLink TUTORING_DASHBOARD = new StandardNavigationLink("Dashboard", "/admin/tutoring", "&#xE7FB;");
-    public static final NavigationLink TUTORING_EDIT = new StandardNavigationLink("Edit Courses", "/admin/tutoring/tutor/edit", "&#xE7FB;");
-    public static final NavigationLink TUTORING_DIRECTORY = new StandardNavigationLink("Directory", "/admin/tutoring/directory", "&#xE7FB;");
-    public static final NavigationLink TUTORING_CALENDAR = new StandardNavigationLink("Office Hour", "/admin/tutoring/calendar", "&#xE7FB;");
-    public static final NavigationLink TUTORING = new NestedNavigationLink("Tutoring", "&#xE54B;",
-            ImmutableList.of(TUTORING_DASHBOARD, TUTORING_DIRECTORY, TUTORING_CALENDAR, TUTORING_EDIT));
+    public static final NavigationLink TUTORING_DASHBOARD = new NavigationLink("Dashboard", "/admin/tutoring", "&#xE7FB;");
+    public static final NavigationLink TUTORING_EDIT = new NavigationLink("Edit Courses", "/admin/tutoring/tutor/edit", "&#xE7FB;");
+    public static final NavigationLink TUTORING_DIRECTORY = new NavigationLink("Directory", "/admin/directory", "&#xE7FB;");
+    public static final NavigationLink TUTORING_CALENDAR = new NavigationLink("Office Hour", "/admin/tutoring/calendar", "&#xE7FB;");
+    public static final NavigationLink TUTORING = new NavigationLink("Tutoring", "&#xE54B;",
+            ImmutableList.of(TUTORING_DASHBOARD, TUTORING_CALENDAR, TUTORING_EDIT));
 
     private static final List<NavigationLink> MEMBER_LEVEL_LINKS = ImmutableList.of(DASHBOARD, DIRECTORY);
     private static final Map<String, NavigationLink> OFFICER_LINKS = new HashMap();
 
     @PostConstruct
     private void initialize() {
-        OFFICER_LINKS.put("CAROUSEL", new StandardNavigationLink("Carousel", "/admin/carousel", "&#xE41B;"));
-        OFFICER_LINKS.put("EVENT", new StandardNavigationLink("Events", "/admin/events", "&#xE878;"));
+        OFFICER_LINKS.put("CAROUSEL", new NavigationLink("Carousel", "/admin/carousel", "&#xE41B;"));
+        OFFICER_LINKS.put("EVENT", new NavigationLink("Events", "/admin/events", "&#xE878;"));
     }
 
     public NavigationBar getNavigationBar(DcscUser dcscUser, Map<String, Integer> permissionMap) {
