@@ -1,12 +1,10 @@
 package org.dcsc.admin.controllers;
 
 import org.dcsc.admin.dto.RestTransactionResult;
-import org.dcsc.core.event.Event;
 import org.dcsc.core.event.EventForm;
 import org.dcsc.core.event.EventFormValidator;
 import org.dcsc.core.event.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -26,21 +24,7 @@ public class AdminEventRestController {
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(eventFormValidator);
     }
-
-    @RequestMapping(value = "/admin/r/events/{pageId}", method = RequestMethod.GET)
-    @PreAuthorize("hasPermission('event','read')")
-    public Page<Event> getEventsByPage(@PathVariable("pageId") String pageId) {
-        int pageIndex = 0;
-
-        try {
-            pageIndex = Integer.parseInt(pageId);
-        } catch (Exception e) {
-            // swallow exception
-        }
-
-        return eventService.getPagedEvents(pageIndex, EVENT_PAGE_SIZE);
-    }
-
+    
     @RequestMapping(value = "/admin/r/event/{eventId}", method = RequestMethod.DELETE)
     @PreAuthorize("hasPermission('event','delete')")
     public RestTransactionResult deleteEventById(@PathVariable("eventId") String eventId) {
@@ -69,7 +53,7 @@ public class AdminEventRestController {
         String message = null;
 
         if (!bindingResult.hasErrors()) {
-            eventForm.setDescription(HtmlUtils.htmlEscape(eventForm.getDescription()));
+            eventForm.setDescription(eventForm.getDescription());
             eventService.saveEvent(eventForm);
 
             message = String.format("Event %s successfully updated.", eventId);

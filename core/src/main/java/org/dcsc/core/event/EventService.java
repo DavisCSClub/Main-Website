@@ -6,6 +6,7 @@ import org.joda.time.DateTimeZone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +42,11 @@ public class EventService {
         return eventRepository.findEventById(id);
     }
 
+
+    @Transactional(readOnly = true)
+    public Page<Event> getEvents(Pageable pageable) {
+        return eventRepository.findAll(pageable);
+    }
 
     @Transactional(readOnly = true)
     public Page<Event> getPagedEvents(int index, int size) {
