@@ -18,22 +18,13 @@ public class TutoringIndexController {
     @RequestMapping("/tutoring/athena")
     public String getTestPage(Model model, HttpServletRequest req) {
 
-    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-      	String name = auth.getName(); //get logged in username
-      	
-      	if (name.equals("anonymousUser")) {
-  			model.addAttribute("loggedIn", false);  
-  			model.addAttribute("notLoggedIn", true);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName(); //get logged in username
 
-      	} else {
-  			model.addAttribute("loggedIn", true);
-  			model.addAttribute("notLoggedIn", false);  
-
-      	}
-
-      	model.addAttribute("hostname", req.getRemoteHost());
-      	model.addAttribute("username", name);
-      	model.addAttribute("requestsCompleted", 42);
+        model.addAttribute("loggedIn", !name.equals("anonymousUser"));
+        model.addAttribute("hostname", req.getRemoteHost());
+        model.addAttribute("username", name);
+        model.addAttribute("requestsCompleted", 42);
 
         return "athena/index";
     }
