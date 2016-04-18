@@ -1,11 +1,32 @@
 package org.dcsc.core.user.group;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.sql.ResultSet;
 
 @Repository
-public interface GroupRepository extends JpaRepository<Group, Long> {
-    Optional<Group> findGroupByName(String name);
+public class GroupRepository {
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    public Group get(int id) {
+        final String QUERY = "SELECT * FROM dcsc_accounts.dcsc_groups WHERE id = " + id;
+        return query(QUERY);
+    }
+
+    public Group get(String name) {
+        final String QUERY = "SELECT * FROM dcsc_accounts.dcsc_groups WHERE name = " + name;
+        return query(QUERY);
+    }
+
+    private Group query(String query) {
+        return jdbcTemplate.queryForObject(query, (ResultSet result, int rowNum) -> {
+            Group group = new Group();
+            group.setId(result.getInt("id"));
+            group.setName(result.getString("name"));
+            return group;
+        });
+    }
 }

@@ -9,10 +9,8 @@ public class GroupService {
     @Autowired
     private GroupRepository groupRepository;
 
-    // TODO: Use a more appropriate exception
     @Transactional(readOnly = true)
     public Group getGroup(String groupName) throws Exception {
-        return groupRepository.findGroupByName(groupName)
-                .orElseThrow(() -> new Exception(String.format("Could not find group with name - %s", groupName)));
+        return groupRepository.get(groupName);
     }
 }
