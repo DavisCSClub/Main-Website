@@ -10,7 +10,7 @@ INSERT INTO dcsc_accounts.dcsc_role_privileges VALUES (1, 2, 15);
 INSERT INTO dcsc_accounts.dcsc_role_privileges VALUES (1, 3, 15);
 
 INSERT INTO dcsc_accounts.dcsc_role_privileges VALUES (2, 1, 1);
-INSERT INTO dcsc_accounts.dcsc_role_privileges VALUES (2, 2, 1);
+INSERT INTO dcsc_accounts.dcsc_role_privileges VALUES (2, 2, 15);
 INSERT INTO dcsc_accounts.dcsc_role_privileges VALUES (2, 3, 1);
 
 INSERT INTO dcsc_accounts.dcsc_profiles VALUES (1, 'Root', 'johnDoe@nowhere.org', 'President', 'Sample Profile');
