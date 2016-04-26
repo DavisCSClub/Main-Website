@@ -7,6 +7,9 @@ import org.dcsc.core.user.DcscUser;
 import org.dcsc.core.user.DcscUserService;
 import org.dcsc.core.user.details.DcscUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,6 +31,11 @@ public class UsersController {
     private UserFormBinder formBinder;
     @Autowired
     private UserResourceAssembler resourceAssembler;
+
+    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public PagedResources<UserViewModel> getUsers(Pageable pageable, PagedResourcesAssembler assembler) {
+        return assembler.toResource(userService.getUsers(pageable), resourceAssembler);
+    }
 
     @RequestMapping(value = "/me", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public void getMe(Authentication authentication, HttpServletResponse response) throws IOException {

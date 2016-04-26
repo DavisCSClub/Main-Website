@@ -15,10 +15,32 @@ INSERT INTO dcsc_accounts.dcsc_role_privileges VALUES (2, 3, 1);
 
 INSERT INTO dcsc_accounts.dcsc_profiles VALUES (1, 'Root', 'johnDoe@nowhere.org', 'President', 'Sample Profile');
 INSERT INTO dcsc_accounts.dcsc_profiles VALUES (2, 'John Doe', 'johnDoe@nowhere.org', 'Title', 'Sample Profile');
+INSERT INTO dcsc_accounts.dcsc_profiles VALUES (3, 'Jane Doe', 'janeDoe@nowhere.org', 'Title', 'Sample Profile');
+INSERT INTO dcsc_accounts.dcsc_profiles VALUES (4, 'User 4', 'user4@nowhere.org', 'Title', 'Sample Profile');
+INSERT INTO dcsc_accounts.dcsc_profiles VALUES (5, 'User 5', 'user5@nowhere.org', 'Title', 'Sample Profile');
+INSERT INTO dcsc_accounts.dcsc_profiles VALUES (6, 'User 6', 'user6@nowhere.org', 'Title', 'Sample Profile');
+INSERT INTO dcsc_accounts.dcsc_profiles VALUES (7, 'User 7', 'user7@nowhere.org', 'Title', 'Sample Profile');
+INSERT INTO dcsc_accounts.dcsc_profiles VALUES (8, 'User 8', 'user8@nowhere.org', 'Title', 'Sample Profile');
+INSERT INTO dcsc_accounts.dcsc_profiles VALUES (9, 'User 9', 'user9@nowhere.org', 'Title', 'Sample Profile');
+INSERT INTO dcsc_accounts.dcsc_profiles VALUES (10, 'User 10', 'user10@nowhere.org', 'Title', 'Sample Profile');
+INSERT INTO dcsc_accounts.dcsc_profiles VALUES (11, 'User 11', 'user11@nowhere.org', 'Title', 'Sample Profile');
+INSERT INTO dcsc_accounts.dcsc_profiles VALUES (12, 'User 12', 'user12@nowhere.org', 'Title', 'Sample Profile');
+INSERT INTO dcsc_accounts.dcsc_profiles VALUES (13, 'User 13', 'user13@nowhere.org', 'Title', 'Sample Profile');
 
 -- local development password for these users is "password"
 INSERT INTO dcsc_accounts.dcsc_users VALUES (1, 'dcsc', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,1,1 );
 INSERT INTO dcsc_accounts.dcsc_users VALUES (2, 'john.doe', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,2);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (3, 'jane.doe', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,3);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (4, 'user4', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,4);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (5, 'user5', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,5);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (6, 'user6', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,6);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (7, 'user7', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,7);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (8, 'user8', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,8);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (9, 'user9', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,9);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (10, 'user10', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,10);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (11, 'user11', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,11);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (12, 'user12', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,12);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (13, 'user13', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,13);
 
 INSERT INTO dcsc_accounts.dcsc_groups VALUES (1, 'My Group');
 INSERT INTO dcsc_accounts.dcsc_groups VALUES (2, 'Tutoring Committee');

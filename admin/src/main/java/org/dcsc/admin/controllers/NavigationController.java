@@ -26,6 +26,8 @@ public class NavigationController {
 
             if ("/admin/events".equals(uri)) {
                 link.setLink("restricted.events");
+            } else if ("/admin/directory".equals(uri)) {
+                link.setLink("restricted.directory");
             } else if ("/admin/".equals(uri)) {
                 link.setLink("restricted.dashboard");
             }
