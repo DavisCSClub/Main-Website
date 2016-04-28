@@ -2,6 +2,7 @@ package org.dcsc.athena.objects;
 
 import java.util.TreeSet;
 import java.util.HashMap;
+import java.util.*;
 import org.dcsc.core.tutor.Tutor;
 
 public class TutorExtension extends Person{
@@ -9,6 +10,7 @@ public class TutorExtension extends Person{
     private TreeSet<String> subjects;
     private String tutoredSubject;
     private HashMap<String, String> tutorMapping;
+    private String subjectList;
     private String imgURL;
     private Tutor tutor;
     private String id;
@@ -53,7 +55,7 @@ public class TutorExtension extends Person{
         this.subjects = subjects;
         this.location = "Tutor will arrive shortly.";
         this.tutor = tu;
-        this.imgURL = "http://placehold.it/150x150";
+        this.imgURL = "https://placehold.it/150x150";
         setRoom(id);
         tutorMapping = new HashMap<String, String>();
         tutorMapping.put("TutorName", name);
@@ -62,8 +64,18 @@ public class TutorExtension extends Person{
         tutorMapping.put("StatusType", StatusType.TUTOR_FOUND.toString());
         valid = false;
         this.id = id;
+
+        ArrayList<String> temp = new ArrayList<>(subjects);
+        this.subjectList = temp.toString();
     }
     
+    public String getSubjectListString() {
+            return subjectList;
+    }
+    public String getName() {
+        return name;
+    }
+
     public String getId() {
         return this.id;
     }
@@ -75,6 +87,12 @@ public class TutorExtension extends Person{
 
         return this.email.hashCode();
     }
+
+
+    public int compare(TutorExtension o1, TutorExtension o2) {
+        return o1.getName().compareTo(o2.getName());
+    }
+
 
     @Override 
     public boolean equals(Object other) {

@@ -13,6 +13,22 @@ import org.dcsc.athena.services.TutoringSessionService;
 import org.dcsc.athena.objects.TutoringSession;
 import java.time.LocalDateTime;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationListener;
+import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
+import org.springframework.stereotype.Component;
+import org.springframework.web.socket.messaging.SessionConnectedEvent;
+import org.springframework.messaging.support.GenericMessage;
+import org.springframework.messaging.support.MessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor; 
+import org.springframework.messaging.support.NativeMessageHeaderAccessor;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.simp.SimpMessageType;
+
+
 @Component
 public class SessionDisconnectedEventListener implements ApplicationListener<SessionDisconnectEvent> {
 
@@ -28,14 +44,26 @@ public class SessionDisconnectedEventListener implements ApplicationListener<Ses
 	public void onApplicationEvent(SessionDisconnectEvent sessionDisconnectEvent) {
 		StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(sessionDisconnectEvent.getMessage());
 
-		TutoringSession thisSession = axisQueue.popSession(headerAccessor.getSessionId());
 
+		MessageHeaderAccessor accessor = NativeMessageHeaderAccessor.getAccessor(sessionDisconnectEvent.getMessage(), SimpMessageHeaderAccessor.class);
+		accessor.getMessageHeaders();
+		Object header = accessor.getHeader("simpConnectMessage");
+
+		MessageHeaders headers = accessor.getMessageHeaders();
+    	SimpMessageType type = (SimpMessageType) headers.get("simpMessageType");
+    	String simpSessionId = (String) headers.get("simpSessionId");
+
+
+
+		TutoringSession thisSession = axisQueue.popSession(simpSessionId);
+		System.out.println("AAAAfdsfsdfsadgfdsfdsdsfdsAAAAAAAAAAAAAAAAAAA\n\n\n\n\n\n\n\n\nDDDDDDDDDDDDDDDDDDDDD\n\n\n\n\n\n\nDDDDDDDDDDDDDDDDDDD");
         if (thisSession != null) {
             thisSession.setEndDateTime(LocalDateTime.now());
             tutoringSessionService.save(thisSession);
+        	DebugLib.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAA"    );
         }
 
-		axisQueue.removePersonAndMappingByID(headerAccessor.getSessionId());
+		axisQueue.removePersonAndMappingByID(simpSessionId);
 		DebugLib.println(axisQueue.queueStatus());
 		
 	}
