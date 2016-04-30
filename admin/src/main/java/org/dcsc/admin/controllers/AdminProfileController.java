@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 import java.util.Optional;
 
+@Deprecated
 @Controller
 public class AdminProfileController {
     @Autowired

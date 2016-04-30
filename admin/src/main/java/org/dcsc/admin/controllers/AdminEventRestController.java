@@ -9,8 +9,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.HtmlUtils;
 
+@Deprecated
 @RestController
 public class AdminEventRestController {
     private static final int EVENT_PAGE_SIZE = 10;
@@ -24,7 +24,7 @@ public class AdminEventRestController {
     public void initBinder(WebDataBinder binder) {
         binder.addValidators(eventFormValidator);
     }
-    
+
     @RequestMapping(value = "/admin/r/event/{eventId}", method = RequestMethod.DELETE)
     @PreAuthorize("hasPermission('event','delete')")
     public RestTransactionResult deleteEventById(@PathVariable("eventId") String eventId) {

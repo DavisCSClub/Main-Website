@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+@Deprecated
 @RestController
 public class AdminUserRestController {
     @Autowired
@@ -76,7 +77,7 @@ public class AdminUserRestController {
             dcscUser.setRoleId(role.getId());
             dcscUser.setEnabled(accountUpdateForm.isActive());
             dcscUser.setLocked(accountUpdateForm.isLocked());
-            
+
             dcscUserService.save(dcscUser);
 
             transactionResult = RestTransactionResult.success(String.format("User %d successfully updated.", id));

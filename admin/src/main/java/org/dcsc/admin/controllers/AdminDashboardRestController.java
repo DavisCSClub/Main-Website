@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Set;
 
+@Deprecated
 @RestController
 public class AdminDashboardRestController {
     private static final int DEFAULT_NUM_DAYS = 30;

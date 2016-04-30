@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.sql.Time;
 import java.util.Date;
 
+@Deprecated
 @Controller
 public class AdminEventController {
     @Autowired

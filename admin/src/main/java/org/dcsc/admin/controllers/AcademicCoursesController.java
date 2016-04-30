@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collection;
 import java.util.List;
 
-@RestController
 @RequestMapping("/admin/r/courses")
+@RestController("adminCoursesController")
 public class AcademicCoursesController {
     @Autowired
     private AcademicCourseService academicCourseService;
