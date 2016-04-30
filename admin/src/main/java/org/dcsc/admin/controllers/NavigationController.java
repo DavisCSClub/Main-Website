@@ -1,8 +1,10 @@
 package org.dcsc.admin.controllers;
 
 import org.dcsc.core.navigation.NavigationBar;
+import org.dcsc.core.navigation.NavigationBarFactory;
 import org.dcsc.core.navigation.NavigationLink;
 import org.dcsc.core.user.details.DcscUserDetails;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,19 +24,23 @@ import java.util.Optional;
 public class NavigationController {
     private static final Map<String, String> angularLinkMap = new HashMap<>();
 
+    @Autowired
+    private NavigationBarFactory navigationBarFactory;
+
     @PostConstruct
     private void initialize() {
         angularLinkMap.put("/admin/events", "restricted.events");
         angularLinkMap.put("/admin/directory", "restricted.directory");
         angularLinkMap.put("/admin/carousel", "restricted.carousel");
         angularLinkMap.put("/admin/tutoring/tutor/edit", "restricted.tutoringCourses");
+        angularLinkMap.put("/admin/tutoring/calendar", "restricted.tutoringCalendar");
         angularLinkMap.put("/admin/", "restricted.dashboard");
     }
 
     @RequestMapping(value = "/admin/r", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Collection<NavigationLink> getNavigation(Authentication authentication) {
         DcscUserDetails dcscUserDetails = (DcscUserDetails) authentication.getPrincipal();
-        NavigationBar navigationBar = dcscUserDetails.getNavigationBar();
+        NavigationBar navigationBar = navigationBarFactory.getNavigationBar(dcscUserDetails.getUser(), dcscUserDetails.getPermissions());
 
         for (NavigationLink link : navigationBar.getNavigationLinks()) {
             String uri = link.getLink();

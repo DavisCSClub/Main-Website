@@ -6,7 +6,6 @@ import org.dcsc.core.user.DcscUser;
 import org.dcsc.core.user.DcscUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Deprecated
 // @Controller
 public class AdminTutoringDirectoryController {
     @Autowired
