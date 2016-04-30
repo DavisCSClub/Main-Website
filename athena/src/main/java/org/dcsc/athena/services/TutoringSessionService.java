@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.dcsc.athena.objects.TutoringSession;
 import org.dcsc.athena.objects.TutoringSessionRepository;
+import java.util.List;
+
 
 @Service
 public class TutoringSessionService {
@@ -19,4 +21,11 @@ public class TutoringSessionService {
     public TutoringSession findTutoringSessionById(Long id) {
     	return tutoringSessionRepository.findTutoringSessionById(id);
     }
+
+    public List<TutoringSession> findOpenTutoringSessionByTutorId(Long id) {
+    	return tutoringSessionRepository.findOpenTutoringSessionByTutorId(id);
+    }
+
+    
+
 }
