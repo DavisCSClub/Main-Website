@@ -2,6 +2,7 @@ package org.dcsc.utilities.upload;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedOutputStream;
@@ -20,6 +21,8 @@ public class DevFileUploader implements FileUploader {
     }
 
     private void upload(MultipartFile file) throws IOException {
+        Assert.notNull(file);
+        
         String tempDir = System.getProperty(TEMP_DIRECTORY_PROPERTY);
 
         if (!tempDir.endsWith(File.separator)) {

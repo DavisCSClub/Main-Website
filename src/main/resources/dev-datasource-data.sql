@@ -73,6 +73,7 @@ INSERT INTO public.dcsc_events VALUES (20, 'Sample Event 20', 'Sample Descriptio
 INSERT INTO public.dcsc_images VALUES (1, 'Sample Image', NULL, '/static/img/placeholder/placeholder-1920-700.jpg', 'Sample Image Description');
 
 INSERT INTO public.dcsc_carousel VALUES (1, 'Sample Caption', 1, 1);
+INSERT INTO public.dcsc_carousel VALUES (2, 'Sample Caption', 1, 2);
 
 INSERT INTO dcsc_tutoring.dcsc_tutors VALUES (1,1,TRUE);
 INSERT INTO dcsc_tutoring.dcsc_tutors VALUES (2,2,TRUE);
