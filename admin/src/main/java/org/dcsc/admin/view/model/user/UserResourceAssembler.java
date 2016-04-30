@@ -46,9 +46,6 @@ public class UserResourceAssembler extends ResourceAssemblerSupport<DcscUser, Re
         UserViewModel viewModel = new UserViewModel(user.getUserProfile());
 
         List<Map<String, Object>> groups = new ArrayList<>();
-
-        Map<String, Object> userGroups = new HashMap<>();
-
         for (UserGroup userGroup : user.getUserGroups()) {
             Map<String, Object> group = new HashMap<>();
             group.put("name", userGroup.getGroup().getName());

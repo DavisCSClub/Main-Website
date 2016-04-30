@@ -27,6 +27,7 @@ public class NavigationController {
         angularLinkMap.put("/admin/events", "restricted.events");
         angularLinkMap.put("/admin/directory", "restricted.directory");
         angularLinkMap.put("/admin/carousel", "restricted.carousel");
+        angularLinkMap.put("/admin/tutoring/tutor/edit", "restricted.tutoringCourses");
         angularLinkMap.put("/admin/", "restricted.dashboard");
     }
 
@@ -38,6 +39,14 @@ public class NavigationController {
         for (NavigationLink link : navigationBar.getNavigationLinks()) {
             String uri = link.getLink();
             Optional.ofNullable(angularLinkMap.get(uri)).ifPresent(link::setLink);
+
+            Collection<NavigationLink> subMenu = link.getSubmenu();
+            if (subMenu != null) {
+                for (NavigationLink subLink : subMenu) {
+                    uri = subLink.getLink();
+                    Optional.ofNullable(angularLinkMap.get(uri)).ifPresent(subLink::setLink);
+                }
+            }
         }
 
         return navigationBar.getNavigationLinks();
