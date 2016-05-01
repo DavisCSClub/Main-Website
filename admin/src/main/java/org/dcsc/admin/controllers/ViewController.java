@@ -33,7 +33,7 @@ public class ViewController {
 
     @RequestMapping(value = "/admin/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public String getApplicationShell() {
-        return ViewNames.ADMIN_ALTAIR_BASE;
+        return ViewNames.ALTAIR_APPLICATION_SHELL;
     }
 
     @RequestMapping(value = "/admin/view/{viewId}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
