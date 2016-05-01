@@ -1,5 +1,6 @@
 package org.dcsc.admin.controllers;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.dcsc.core.navigation.NavigationBar;
 import org.dcsc.core.navigation.NavigationBarFactory;
 import org.dcsc.core.navigation.NavigationLink;
@@ -28,7 +29,8 @@ public class NavigationController {
     private NavigationBarFactory navigationBarFactory;
 
     @PostConstruct
-    private void initialize() {
+    @VisibleForTesting
+    public void initialize() {
         angularLinkMap.put("/admin/events", "restricted.events");
         angularLinkMap.put("/admin/directory", "restricted.directory");
         angularLinkMap.put("/admin/carousel", "restricted.carousel");
