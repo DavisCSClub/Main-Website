@@ -44,6 +44,7 @@ public class UserResourceAssembler extends ResourceAssemblerSupport<DcscUser, Re
     @Override
     public Resource toResource(DcscUser user) {
         UserViewModel viewModel = new UserViewModel(user.getUserProfile());
+        viewModel.put("id", user.getId());
 
         List<Map<String, Object>> groups = new ArrayList<>();
         for (UserGroup userGroup : user.getUserGroups()) {
