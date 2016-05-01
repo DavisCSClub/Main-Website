@@ -1,6 +1,6 @@
-package org.dcsc.admin.view.model.carousel;
+package org.dcsc.admin.carousel;
 
-import org.dcsc.admin.controllers.CarouselController;
+import org.dcsc.admin.carousel.CarouselController;
 import org.dcsc.core.carousel.CarouselBanner;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
