@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
 
 /**
@@ -25,7 +26,12 @@ public class ViewController {
         return ViewNames.LOGIN;
     }
 
-    @RequestMapping(value = {"/admin/ng", "/admin/ng/"}, method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    @RequestMapping(value = "/admin", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public void redirectToApplicationShell(HttpServletResponse response) throws Exception {
+        response.sendRedirect("/admin/");
+    }
+
+    @RequestMapping(value = "/admin/", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public String getApplicationShell() {
         return ViewNames.ADMIN_ALTAIR_BASE;
     }
