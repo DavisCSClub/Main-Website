@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Deprecated
 @Controller
 public class TutoringCalendarController {
     @Autowired
@@ -28,7 +29,7 @@ public class TutoringCalendarController {
     @RequestMapping("/admin/r/tutoring/calendar")
     @ResponseBody
     public List<FullCalendarEvent> getOfficeHours(Authentication authentication, @RequestParam("start") String start, @RequestParam("end") String end) {
-            Tutor tutor = tutorService.getTutor(authentication);
+        Tutor tutor = tutorService.getTutor(authentication);
 
         List<OfficeHour> officeHours = tutor.getCurrentOfficeHours();
 

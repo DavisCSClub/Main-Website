@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+@Deprecated
 @Controller
 public class TutoringOfficeHourController {
     @Autowired

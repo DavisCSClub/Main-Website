@@ -15,11 +15,10 @@ public class NavigationBarFactory {
     public static final NavigationLink DIRECTORY = new NavigationLink("Directory", "/admin/directory", "&#xE7FB;");
 
     public static final NavigationLink TUTORING_DASHBOARD = new NavigationLink("Dashboard", "/admin/tutoring", "&#xE7FB;");
-    public static final NavigationLink TUTORING_EDIT = new NavigationLink("Edit Courses", "/admin/tutoring/tutor/edit", "&#xE7FB;");
     public static final NavigationLink TUTORING_DIRECTORY = new NavigationLink("Directory", "/admin/directory", "&#xE7FB;");
+    public static final NavigationLink TUTORING_EDIT = new NavigationLink("Edit Courses", "/admin/tutoring/tutor/edit", "&#xE7FB;");
     public static final NavigationLink TUTORING_CALENDAR = new NavigationLink("Office Hour", "/admin/tutoring/calendar", "&#xE7FB;");
-    public static final NavigationLink TUTORING = new NavigationLink("Tutoring", "&#xE54B;",
-            ImmutableList.of(TUTORING_DASHBOARD, TUTORING_CALENDAR, TUTORING_EDIT));
+    public static final NavigationLink TUTORING = new NavigationLink("Tutoring", "&#xE54B;", ImmutableList.of(TUTORING_CALENDAR, TUTORING_EDIT));
 
     private static final List<NavigationLink> MEMBER_LEVEL_LINKS = ImmutableList.of(DASHBOARD, DIRECTORY);
     private static final Map<String, NavigationLink> OFFICER_LINKS = new HashMap();
