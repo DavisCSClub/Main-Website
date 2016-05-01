@@ -2,6 +2,8 @@ package org.dcsc.athena.objects;
 
 import org.dcsc.athena.objects.TutoringSession;
 
+import java.util.*;
+
 import java.util.concurrent.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,9 +16,9 @@ public class AxisQueue {
 
 	private ConcurrentHashMap<String, Subject> tutoredSubjects;
 
-	private ConcurrentHashMap<TutorExtension, Boolean>  currentTutors;
+	private ConcurrentHashMap<TutorExtension, Boolean>  currentTutorsInQueue;
 
-    private ConcurrentHashMap<Tutee, Boolean>  currentTutees;
+    private ConcurrentHashMap<Tutee, Boolean>  currentTuteesInQueue;
 
     private ConcurrentHashMap<Person, String>  personToId;
 
@@ -38,8 +40,8 @@ public class AxisQueue {
 
     public AxisQueue() {
     	tutoredSubjects = new ConcurrentHashMap<String, Subject>();
-        currentTutors = new ConcurrentHashMap<TutorExtension, Boolean>();
-        currentTutees = new ConcurrentHashMap<Tutee, Boolean>();
+        currentTutorsInQueue = new ConcurrentHashMap<TutorExtension, Boolean>();
+        currentTuteesInQueue = new ConcurrentHashMap<Tutee, Boolean>();
         personToId = new ConcurrentHashMap<Person, String> ();
         idToPerson = new ConcurrentHashMap<String, Person> ();
         tutorSessions = new ConcurrentHashMap<String, TutoringSession> ();
@@ -52,11 +54,14 @@ public class AxisQueue {
     }
 
     public boolean hasId(long id) {
-        return currentIdTutors.containsKey(id);
+        //Depreciated
+        // return currentIdTutors.containsKey(id);
+        return false;
     }
 
     public void setSession(String id, TutoringSession s) {
         // currentIdTutors.put(s.getTutor().getId(), true);
+        
         tutorSessions.put(id, s);
     }
 
@@ -113,7 +118,7 @@ public class AxisQueue {
     private Status processTutor(TutorExtension tr) {
         Status currentStatus = tutoredSubjects.get(tr.getTutorSubject()).processTutor(tr);
         if (currentStatus.getType().equals(StatusType.TUTEE_FOUND)) {
-            currentTutees.remove(currentStatus.getTutee());
+            currentTuteesInQueue.remove(currentStatus.getTutee());
             removeCurrentTutor(tr.getTutor().getId());
             messagingTemplate.convertAndSend("/topic/" + currentStatus.getTutee().getRoom(), tr.getPairingData());
         }
@@ -127,7 +132,7 @@ public class AxisQueue {
     	TutorExtension pairedTutor = currentStatus.getTutor();
 
         if (currentStatus.getType().equals(StatusType.TUTOR_FOUND)) {
-            currentTutors.remove(currentStatus.getTutor());
+            currentTutorsInQueue.remove(currentStatus.getTutor());
             messagingTemplate.convertAndSend("/topic/" + currentStatus.getTutor().getRoom(), te.getPairingData());
         }
 
@@ -159,14 +164,23 @@ public class AxisQueue {
 
     public synchronized ArrayList<HashMap<String, String>> getTutorList() {
         if (DEBUG_MODE) {
-    	    ArrayList<HashMap<String, String>> temp = new ArrayList<HashMap<String, String>>();
-            HashMap<String, String> temp2 = new HashMap<String, String>();
-            temp2.put("subjects", "10, 20, 30");
-            temp2.put("tutorID", "5124");
-            temp2.put("name", "WORK IN PROGRESS");
-            temp2.put("location", "PC 31");
-            temp.add(temp2);
-            return temp;
+    	    ArrayList<HashMap<String, String>> finalList = new ArrayList<HashMap<String, String>>();
+            List sortedKeys = new ArrayList<TutorExtension>(currentTutorsInQueue.keySet());
+            Collections.sort(sortedKeys);
+
+
+            for (Object t : sortedKeys) {
+                TutorExtension te = (TutorExtension)t;
+
+                HashMap<String, String> currentIteration = new HashMap<String, String>();
+                currentIteration.put("subjects", te.getSubjectListString());
+                currentIteration.put("tutorID", "5124");
+                currentIteration.put("name", te.getName());
+                currentIteration.put("location", "Kemper");
+                finalList.add(currentIteration);
+            }
+            
+            return finalList;
         }
         return new ArrayList<HashMap<String, String>>();
     }
@@ -176,7 +190,7 @@ public class AxisQueue {
     		removeTutor(tr, subject);
     	}
 
-    	currentTutors.remove(tr);
+    	currentTutorsInQueue.remove(tr);
 
         
         removeCurrentTutor(tr.getTutor().getId());
@@ -185,7 +199,8 @@ public class AxisQueue {
     }
 
     public synchronized void removeCurrentTutor(Long id) {
-        currentIdTutors.remove(id);
+        //Depreciated
+        // currentIdTutors.remove(id);
     }
 
     public synchronized Status removePersonAndMappingByID(String id) {
@@ -206,13 +221,13 @@ public class AxisQueue {
     }
 
     public synchronized Status tuteeQuit(Tutee te) {
-        currentTutees.remove(te);
+        currentTuteesInQueue.remove(te);
     	removeTutee(te, te.getRequestedClass());
     	return new Status(StatusType.TUTEE_QUIT, te);
     }
 
     // public synchronized Status tutorPresent(Tutor tr) {
-    // 	currentTutors.put(tr, true);
+    // 	currentTutorsInQueue.put(tr, true);
     // 	return new Status(StatusType.TUTOR_REGISTERED, tr);
     // }
 
@@ -221,17 +236,18 @@ public class AxisQueue {
     	if (p instanceof TutorExtension) {
 
     		TutorExtension tr = (TutorExtension) p;
-            if (currentTutors.containsKey(tr) || hasId(tr.getTutor().getId())) {
+            if (currentTutorsInQueue.containsKey(tr) || hasId(tr.getTutor().getId())) {
                 return new Status(StatusType.DUPE_ERROR, "Duplicate Tutor");
             }
 
-            currentIdTutors.put(tr.getTutor().getId(), true);
+            //Depreciated
+            // currentIdTutors.put(tr.getTutor().getId(), true);
             tr.setValid(true);
 
     		if(canTutor(tr)) {
     			return processTutor(tr);
     		} else {
-                currentTutors.put(tr, true);
+                currentTutorsInQueue.put(tr, true);
     			for (String subject : tr.getSubjects()) {
     				if (!tutoredSubjects.containsKey(subject)) {
     					addClass(subject);
@@ -244,12 +260,12 @@ public class AxisQueue {
     		Tutee te = (Tutee) p;
     		String classRequested = te.getRequestedClass();
 
-            if (currentTutees.containsKey(te))
+            if (currentTuteesInQueue.containsKey(te))
                 return new Status(StatusType.DUPE_ERROR, "Duplicate Tutee");
     		if(canBeTutored(classRequested)) {
     			return processTutee(te, classRequested);
     		} else {
-                currentTutees.put(te, true);
+                currentTuteesInQueue.put(te, true);
     			if (!tutoredSubjects.containsKey(classRequested)) {
     				addClass(classRequested);
     			}
