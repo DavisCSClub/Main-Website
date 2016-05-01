@@ -1,6 +1,8 @@
 package org.dcsc.admin.view.model;
 
-import java.util.HashMap;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.ui.ModelMap;
 
-public abstract class ViewModel extends HashMap<String, Object> {
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public abstract class ViewModel extends ModelMap {
 }

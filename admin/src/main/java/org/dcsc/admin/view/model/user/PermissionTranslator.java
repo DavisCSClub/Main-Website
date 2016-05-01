@@ -32,18 +32,18 @@ public class PermissionTranslator {
     }
 
     private boolean hasRead(int permission) {
-        return ((permission & 1) == 1);
+        return ((permission & 1) > 0);
     }
 
     private boolean hasCreate(int permission) {
-        return ((permission & 2) == 1);
+        return ((permission & 2) > 0);
     }
 
     private boolean hasUpdate(int permission) {
-        return ((permission & 4) == 1);
+        return ((permission & 4) > 0);
     }
 
     private boolean hasDelete(int permission) {
-        return ((permission & 8) == 1);
+        return ((permission & 8) > 0);
     }
 }
