@@ -42,19 +42,16 @@ public class NavigationController {
         DcscUserDetails dcscUserDetails = (DcscUserDetails) authentication.getPrincipal();
         NavigationBar navigationBar = navigationBarFactory.getNavigationBar(dcscUserDetails.getUser(), dcscUserDetails.getPermissions());
 
-        for (NavigationLink link : navigationBar.getNavigationLinks()) {
-            String uri = link.getLink();
-            Optional.ofNullable(angularLinkMap.get(uri)).ifPresent(link::setLink);
-
-            Collection<NavigationLink> subMenu = link.getSubmenu();
-            if (subMenu != null) {
-                for (NavigationLink subLink : subMenu) {
-                    uri = subLink.getLink();
-                    Optional.ofNullable(angularLinkMap.get(uri)).ifPresent(subLink::setLink);
-                }
-            }
-        }
+        translateLinks(navigationBar.getNavigationLinks());
 
         return navigationBar.getNavigationLinks();
+    }
+
+    private void translateLinks(Collection<NavigationLink> navigationLinks) {
+        for (NavigationLink link : navigationLinks) {
+            String uri = link.getLink();
+            Optional.ofNullable(angularLinkMap.get(uri)).ifPresent(link::setLink);
+            Optional.ofNullable(link.getSubmenu()).ifPresent(this::translateLinks);
+        }
     }
 }
