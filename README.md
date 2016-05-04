@@ -31,3 +31,6 @@ org.dcsc.resource.directory=D:/Projects/dcsc/resources/static/
 
 ## Committing Changes
 Commit messages should start with a number sign (#) followed by the github issue number and then a summary of the changes. Example: `#123 Made a change here and there`
+
+## Pipeline
+Even though we have three branches, we deploy nightly at 1:00 a.m. PST. Any commits to integration branch will run through the build. If the build passes, it will be promoted to preview (This branch acts as our release candidate). Every day at 12:30 a.m., our resource repository's preview/release candidate branch is merged into the production branch. Every day at 1:00 a.m. PST, our codebase repository's preview branch is merged into the production branch and deployed. 
