@@ -1,6 +1,7 @@
 package org.dcsc.admin.controllers;
 
-import org.dcsc.admin.view.model.carousel.CarouselResourceAssembler;
+import org.dcsc.admin.carousel.CarouselController;
+import org.dcsc.admin.carousel.CarouselResourceAssembler;
 import org.dcsc.core.carousel.CarouselBanner;
 import org.dcsc.core.carousel.CarouselBannerService;
 import org.junit.Test;

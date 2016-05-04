@@ -1,6 +1,7 @@
 package org.dcsc.admin.controllers;
 
-import org.dcsc.admin.view.model.event.EventResourceAssembler;
+import org.dcsc.admin.events.EventsController;
+import org.dcsc.admin.events.EventResourceAssembler;
 import org.dcsc.core.event.Event;
 import org.dcsc.core.event.EventService;
 import org.junit.Test;
