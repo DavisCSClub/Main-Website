@@ -1,6 +1,5 @@
-package org.dcsc.admin.controllers;
+package org.dcsc.admin.events;
 
-import org.dcsc.admin.view.model.event.EventResourceAssembler;
 import org.dcsc.core.event.Event;
 import org.dcsc.core.event.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.hateoas.PagedResources;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
 
@@ -23,11 +23,13 @@ public class EventsController {
     @Autowired
     private EventResourceAssembler resourceAssembler;
 
+    @PreAuthorize("hasPermission('event', 'read')")
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public PagedResources<Event> getEvents(Pageable pageable, PagedResourcesAssembler assembler) {
         return assembler.toResource(eventService.getEvents(pageable), resourceAssembler);
     }
 
+    @PreAuthorize("hasPermission('event', 'create')")
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public void createEvent(@RequestBody Event event) {
@@ -35,11 +37,13 @@ public class EventsController {
         eventService.saveEvent(event);
     }
 
+    @PreAuthorize("hasPermission('event', 'read')")
     @RequestMapping(value = "/template", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Event getEventTemplate() {
         return new Event();
     }
 
+    @PreAuthorize("hasPermission('event', 'read')")
     @RequestMapping(value = "/{eventId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Resource<Event> getEvent(@PathVariable("eventId") int eventId) {
         Event event = eventService.getEventById(eventId).get();
@@ -47,6 +51,7 @@ public class EventsController {
         return resourceAssembler.toResource(event);
     }
 
+    @PreAuthorize("hasPermission('event', 'update')")
     @RequestMapping(value = "/{eventId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void updateEvent(HttpServletResponse response, @PathVariable("eventId") int eventId, @RequestBody Event event) {
         if (event.getId() != eventId) {
@@ -58,6 +63,7 @@ public class EventsController {
         }
     }
 
+    @PreAuthorize("hasPermission('event', 'delete')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @RequestMapping(value = "/{eventId}", method = RequestMethod.DELETE)
     public void deleteEvent(@PathVariable("eventId") int eventId) {
