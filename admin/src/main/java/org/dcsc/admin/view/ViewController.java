@@ -1,7 +1,6 @@
 package org.dcsc.admin.view;
 
 import com.google.common.collect.Sets;
-import org.dcsc.admin.constants.ViewNames;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,10 +49,5 @@ public class ViewController {
     @RequestMapping(value = "/admin/view/{viewId}/edit", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
     public String getEdit(@PathVariable("viewId") String viewId) {
         return String.format(EDIT_VIEW_FORMAT, viewId);
-    }
-
-    @RequestMapping(value = "/admin/view/org/{org_id}/{page_id}", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public String getOrganizationPage(@PathVariable("org_id") long orgId, @PathVariable("page_id") long pageId) {
-        return null;
     }
 }
