@@ -1,4 +1,4 @@
-package org.dcsc.admin.dto;
+package org.dcsc.admin.calendar;
 
 public class FullCalendarEvent {
     private long id;

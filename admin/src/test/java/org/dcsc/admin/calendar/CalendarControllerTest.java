@@ -1,7 +1,5 @@
 package org.dcsc.admin.calendar;
 
-import org.dcsc.admin.dto.FullCalendarEvent;
-import org.dcsc.admin.dto.TutorOfficeHourTransaction;
 import org.dcsc.core.time.AcademicTerm;
 import org.dcsc.core.time.AcademicTermService;
 import org.dcsc.core.tutor.OfficeHour;
