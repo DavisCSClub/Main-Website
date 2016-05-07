@@ -1,7 +1,5 @@
 package org.dcsc.admin.view;
 
-import org.dcsc.admin.constants.ViewNames;
-import org.dcsc.admin.view.ViewController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;

@@ -1,4 +1,4 @@
-package org.dcsc.admin.constants;
+package org.dcsc.admin.view;
 
 public class ViewNames {
     public static final String ALTAIR_APPLICATION_SHELL = "admin/altair_base";
