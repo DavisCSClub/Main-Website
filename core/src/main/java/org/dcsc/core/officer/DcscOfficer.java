@@ -2,9 +2,7 @@ package org.dcsc.core.officer;
 
 import javax.persistence.*;
 
-/**
- * Created by tktong on 8/3/2015.
- */
+
 @Entity
 @Table(name = "dcsc_officers", schema = "public")
 public class DcscOfficer {
