@@ -1,0 +1,22 @@
+dependencies {
+    compile "com.h2database:h2:$h2Version"
+    compile "nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:$thymeleafLayoutVersion"
+    compile "org.aspectj:aspectjrt:$aspectjVersion"
+    compile "org.aspectj:aspectjweaver:$aspectjVersion"
+    compile "org.postgresql:postgresql:$postgresVersion"
+    compile "org.springframework:spring-aop:$springVersion"
+    compile "org.springframework:spring-messaging:$springVersion"
+    compile "org.springframework:spring-web:$springVersion"
+    compile "org.springframework:spring-webmvc:$springVersion"
+    compile "org.springframework:spring-websocket:$springVersion"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
+    compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    compile "org.springframework.security:spring-security-config:$springSecurityVersion"
+    compile "org.springframework.security:spring-security-core:$springSecurityVersion"
+    compile "org.springframework.security:spring-security-web:$springSecurityVersion"
+    compile "org.thymeleaf:thymeleaf:$thymeleafVersion"
+    compile "org.thymeleaf:thymeleaf-spring4:$thymeleafVersion"
+    compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:$thymeleafVersion"
+
+    compile project(":core")
+}

@@ -1,4 +1,4 @@
-package org.dcsc.configuration;
+package org.dcsc.config.datasource;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;

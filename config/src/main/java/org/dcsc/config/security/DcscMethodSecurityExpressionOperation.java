@@ -1,4 +1,4 @@
-package org.dcsc.configuration;
+package org.dcsc.config.security;
 
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.access.expression.SecurityExpressionRoot;

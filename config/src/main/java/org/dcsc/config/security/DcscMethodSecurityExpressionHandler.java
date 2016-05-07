@@ -1,4 +1,4 @@
-package org.dcsc.configuration;
+package org.dcsc.config.security;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.beans.factory.annotation.Autowired;
