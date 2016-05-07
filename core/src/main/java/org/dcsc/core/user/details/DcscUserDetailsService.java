@@ -1,7 +1,5 @@
 package org.dcsc.core.user.details;
 
-import org.dcsc.core.navigation.NavigationBar;
-import org.dcsc.core.navigation.NavigationBarFactory;
 import org.dcsc.core.user.DcscUser;
 import org.dcsc.core.user.DcscUserService;
 import org.dcsc.core.user.permission.RolePermissionService;
@@ -28,8 +26,6 @@ public class DcscUserDetailsService implements UserDetailsService {
     private DcscRoleService roleService;
     @Autowired
     private RolePermissionService rolePermissionService;
-    @Autowired
-    private NavigationBarFactory navigationBarFactory;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, LockedException, DisabledException {
@@ -52,8 +48,7 @@ public class DcscUserDetailsService implements UserDetailsService {
 
         Collection<GrantedAuthority> authorities = roleService.getRoleAuthorities(role);
         Map<String, Integer> permissionMap = rolePermissionService.getPermissionMap(roleId);
-        NavigationBar navbar = navigationBarFactory.getNavigationBar(dcscUser, permissionMap);
 
-        return new DcscUserDetails(dcscUser, authorities, role, permissionMap, navbar);
+        return new DcscUserDetails(dcscUser, authorities, permissionMap);
     }
 }
