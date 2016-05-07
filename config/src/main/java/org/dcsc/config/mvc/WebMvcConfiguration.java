@@ -1,4 +1,4 @@
-package org.dcsc.configuration;
+package org.dcsc.config.mvc;
 
 import com.google.common.collect.ImmutableSet;
 import nz.net.ultraq.thymeleaf.LayoutDialect;

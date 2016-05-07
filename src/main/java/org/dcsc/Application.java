@@ -5,13 +5,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
-@EnableAspectJAutoProxy
-@EnableSpringDataWebSupport
-@Configuration
 @ComponentScan
 @EnableAutoConfiguration(exclude = {org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration.class})
 public class Application extends SpringBootServletInitializer {
