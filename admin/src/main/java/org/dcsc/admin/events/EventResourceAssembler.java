@@ -1,7 +1,6 @@
 package org.dcsc.admin.events;
 
-import org.dcsc.admin.events.EventsController;
-import org.dcsc.admin.controllers.ViewController;
+import org.dcsc.admin.view.ViewController;
 import org.dcsc.core.event.Event;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
