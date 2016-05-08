@@ -1,6 +1,5 @@
-package org.dcsc.configuration;
+package org.dcsc.config.datasource;
 
-import org.dcsc.core.user.DcscUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -25,10 +24,5 @@ public class DevDataSourceConfig {
     @Bean
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
-    }
-
-    @Bean
-    public DevEntityLoader devEntityLoader(DcscUserService userService) {
-        return new DevEntityLoader(userService);
     }
 }

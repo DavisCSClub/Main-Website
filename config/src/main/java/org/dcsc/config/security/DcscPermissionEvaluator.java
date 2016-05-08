@@ -1,4 +1,4 @@
-package org.dcsc.configuration;
+package org.dcsc.config.security;
 
 import org.dcsc.core.user.DcscUser;
 import org.dcsc.core.user.details.DcscUserDetails;

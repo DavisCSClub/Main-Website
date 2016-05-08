@@ -1,4 +1,4 @@
-package org.dcsc.admin.dto;
+package org.dcsc.admin.calendar;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.dcsc.utilities.serializer.LocalDateTimeJsonDeserializer;
