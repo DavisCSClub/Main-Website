@@ -19,7 +19,8 @@ public class NavigationProvider {
     public static final NavigationLink DIRECTORY = new NavigationLink("Directory", "restricted.directory", "&#xE7FB;");
     public static final NavigationLink TUTORING_EDIT = new NavigationLink("Edit Courses", "restricted.tutoringCourses", "&#xE7FB;");
     public static final NavigationLink TUTORING_CALENDAR = new NavigationLink("Office Hour", "restricted.tutoringCalendar", "&#xE7FB;");
-    public static final NavigationLink TUTORING = new NavigationLink("Tutoring", "&#xE54B;", ImmutableList.of(TUTORING_CALENDAR, TUTORING_EDIT));
+    public static final NavigationLink TUTORING_MAIN = new NavigationLink("Find Tutee", "findTutee", "&#xE7FB;");
+    public static final NavigationLink TUTORING = new NavigationLink("Tutoring", "&#xE54B;", ImmutableList.of(TUTORING_MAIN, TUTORING_CALENDAR, TUTORING_EDIT));
     public static final NavigationLink CAROUSEL = new NavigationLink("Carousel", "restricted.carousel", "&#xE41B;");
     public static final NavigationLink EVENT = new NavigationLink("Events", "restricted.events", "&#xE878;");
 
