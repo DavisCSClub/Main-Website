@@ -21,10 +21,17 @@ public class TutoringIndexController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName(); //get logged in username
 
+        String ipAddress = req.getHeader("X-FORWARDED-FOR");
+        if (ipAddress == null) {
+            ipAddress = req.getRemoteAddr();
+        }
+        if (ipAddress == null)
+            ipAddress = " ";
         model.addAttribute("loggedIn", !name.equals("anonymousUser"));
         model.addAttribute("hostname", req.getRemoteHost());
         model.addAttribute("username", name);
         model.addAttribute("requestsCompleted", 42);
+        model.addAttribute("ip", ipAddress);
 
         return "athena/index";
     }
