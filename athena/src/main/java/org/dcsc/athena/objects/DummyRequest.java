@@ -8,6 +8,6 @@ public class DummyRequest {
         return type;
     }
     public String getLocation() {
-        return type;
+        return location;
     }
 }
