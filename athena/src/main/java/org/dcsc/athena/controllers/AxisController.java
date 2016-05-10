@@ -92,9 +92,9 @@ public class AxisController {
     @MessageMapping("/requestTutee")
     public void requestTutee(SimpMessageHeaderAccessor headerAccessor, DummyRequest message) throws Exception {
 
-                    MessageHeaders headers = headerAccessor.getMessageHeaders();
-            SimpMessageType type = (SimpMessageType) headers.get("simpMessageType");
-            String simpSessionId = (String) headers.get("simpSessionId");
+        MessageHeaders headers = headerAccessor.getMessageHeaders();
+        SimpMessageType type = (SimpMessageType) headers.get("simpMessageType");
+        String simpSessionId = (String) headers.get("simpSessionId");
 
     	Person p = axisQueue.getPersonFromID(simpSessionId);
     	if (p != null) {
@@ -143,7 +143,7 @@ public class AxisController {
 
 
                 LocalDateTime now = LocalDateTime.now();
-                TutoringSession thisSession = new TutoringSession(now, t.getTutor());
+                TutoringSession thisSession = new TutoringSession(now, t.getTutor(), message.getLocation());
                 // System.out.println(thisSession);
                 tutoringSessionService.save(thisSession);
                 // System.out.println(thisSession);

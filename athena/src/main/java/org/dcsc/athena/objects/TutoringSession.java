@@ -25,18 +25,22 @@ public class TutoringSession {
 	@Column(name = "tutor_id")
 	private long tutorId;
 
+    @Column(name = "location")
+    private String location;
+
 	@Transient
     private Tutor tutor;
 
     public TutoringSession() {
     }
 
-    public TutoringSession(LocalDateTime startDateTime, Tutor tutor) {
+    public TutoringSession(LocalDateTime startDateTime, Tutor tutor, String location) {
     	this.id = 0;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
         this.tutorId = tutor.getId();
         this.tutor = tutor;
+        this.location = location;
     }
 
     public TutoringSession(LocalDateTime startDateTime, LocalDateTime endDateTime, Tutor tutor) {
