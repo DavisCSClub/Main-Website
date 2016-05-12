@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class TutoringHomeController {
     @RequestMapping("/tutoring")
     public String getAthenaPage() {
-        return "athena/index";
+        return "athena/home";
     }
 }
