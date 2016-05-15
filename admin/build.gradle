@@ -1,11 +1,9 @@
 dependencies {
-    compile "joda-time:joda-time:$jodaTimeVersion"
+    compile "javax.servlet:javax.servlet-api:$javaxServletVersion"
     compile "org.springframework:spring-messaging:$springVersion"
     compile "org.springframework:spring-websocket:$springVersion"
     compile "org.springframework:spring-webmvc:$springVersion"
-    compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
     compile "org.springframework.hateoas:spring-hateoas:$springHateoasVersion"
-    compile "org.thymeleaf:thymeleaf-spring4:$thymeleafVersion"
 
     compile project(":core")
 }
