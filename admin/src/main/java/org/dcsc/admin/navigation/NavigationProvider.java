@@ -8,10 +8,12 @@ import org.dcsc.core.user.group.Group;
 import org.dcsc.core.user.group.UserGroup;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.PostConstruct;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class NavigationProvider {
@@ -53,7 +55,7 @@ public class NavigationProvider {
         Map<String, Integer> permissions = userDetails.getPermissions();
 
         for (Map.Entry<String, Integer> entrySet : permissions.entrySet()) {
-            String category = StringUtils.toUpperCase(entrySet.getKey(), Locale.ENGLISH);
+            String category = entrySet.getKey().toUpperCase();
             Integer accessLevel = entrySet.getValue();
 
             NavigationLink navLink = OFFICER_LINKS.get(category);
