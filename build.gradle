@@ -17,9 +17,16 @@ apply plugin: 'war'
 apply plugin: 'spring-boot'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
+plugins {
+    id "org.standardout.versioneye" version "1.4.0"
+}
 
 war {
     baseName = 'ROOT'
+}
+
+versioneye {
+    includeSubProjects = true
 }
 
 allprojects {
