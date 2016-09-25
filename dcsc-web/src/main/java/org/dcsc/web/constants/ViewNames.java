@@ -4,6 +4,7 @@ public class ViewNames {
     public static final String HOME = "main/home";
     public static final String ABOUT = "main/about";
     public static final String COMMITTEE = "main/committee";
+    public static final String BIT_BYTE = "main/bit-byte";
     public static final String EVENT = "main/event";
     public static final String ERROR = "main/error";
     public static final String FAQ = "main/faq";
