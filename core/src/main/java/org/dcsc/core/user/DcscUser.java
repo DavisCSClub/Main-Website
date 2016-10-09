@@ -4,7 +4,17 @@ import org.dcsc.core.user.group.Group;
 import org.dcsc.core.user.group.UserGroup;
 import org.dcsc.core.user.profile.UserProfile;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.util.List;
 
 @Entity
@@ -30,6 +40,9 @@ public class DcscUser {
     @Column(name = "role_id", nullable = false)
     private long roleId;
 
+    @Column(name = "oidc_id")
+    private String oidcId;
+
     @JoinColumn(name = "profile_id")
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private UserProfile userProfile;
@@ -51,6 +64,14 @@ public class DcscUser {
 
     public void setEmail(String email) {
         //nop
+    }
+
+    public String getOidcId() {
+        return oidcId;
+    }
+
+    public void setOidcId(String oidcId) {
+        this.oidcId = oidcId;
     }
 
     public long getId() {
