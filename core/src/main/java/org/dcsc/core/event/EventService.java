@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,7 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
+    @PreAuthorize("hasPermission('event', 'create')")
     public Event saveEvent(Event event) {
         return eventRepository.save(event);
     }

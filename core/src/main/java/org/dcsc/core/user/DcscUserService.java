@@ -49,4 +49,9 @@ public class DcscUserService {
     public Optional<DcscUser> getUserByUsername(String username) {
         return userRepository.findUserByUsername(username);
     }
+
+    @Transactional(readOnly = true)
+    public DcscUser getUserByOidcId(String oidcId) {
+        return userRepository.findUserByOidcId(oidcId);
+    }
 }

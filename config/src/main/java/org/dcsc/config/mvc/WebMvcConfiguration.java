@@ -5,6 +5,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -30,7 +31,7 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     private String templateDirectory;
     @Value("${dcsc.resource.directory}")
     private String resourceDirectory;
-
+    
     @Bean
     public ViewResolver viewResolver() {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
@@ -58,5 +59,10 @@ public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**").addResourceLocations("file:" + resourceDirectory);
+    }
+
+    @Bean
+    public RequestContextListener requestContextListener() {
+        return new RequestContextListener();
     }
 }
