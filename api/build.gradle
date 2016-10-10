@@ -1,0 +1,6 @@
+dependencies {
+    compile project(":core")
+
+    compile "org.springframework:spring-webmvc:$springVersion"
+    compile "org.springframework.hateoas:spring-hateoas:$springHateoasVersion"
+}

@@ -4,4 +4,5 @@ include 'core'
 include 'dcsc-web'
 include 'utilities'
 include 'config'
+include 'api'
 

@@ -1,6 +1,7 @@
-| Production | Preview | Integration |
-| ---------- | ------- | ----------- |
-| [![Build Status](https://semaphoreci.com/api/v1/daviscsclub/main-website/branches/production/badge.svg)](https://semaphoreci.com/daviscsclub/main-website) | [![Build Status](https://semaphoreci.com/api/v1/daviscsclub/main-website/branches/preview/badge.svg)](https://semaphoreci.com/daviscsclub/main-website) | [![Build Status](https://semaphoreci.com/api/v1/daviscsclub/main-website/branches/integration/badge.svg)](https://semaphoreci.com/daviscsclub/main-website) |
+[![Build Status](https://semaphoreci.com/api/v1/daviscsclub/main-website/branches/production/shields_badge.svg)](https://semaphoreci.com/daviscsclub/main-website) 
+[![Build Status](https://semaphoreci.com/api/v1/daviscsclub/main-website/branches/preview/shields_badge.svg)](https://semaphoreci.com/daviscsclub/main-website)
+[![Build Status](https://semaphoreci.com/api/v1/daviscsclub/main-website/branches/integration/shields_badge.svg)](https://semaphoreci.com/daviscsclub/main-website)
+[![codebeat badge](https://codebeat.co/badges/c8a41af8-bad4-4c94-a3ef-cb9bcff8286b)](https://codebeat.co/projects/github-com-daviscsclub-main-website)
 
 # IMPORTANT
 
