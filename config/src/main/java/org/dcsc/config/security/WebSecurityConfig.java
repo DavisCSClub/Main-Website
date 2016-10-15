@@ -26,8 +26,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private OAuth2ClientContextFilter oAuth2ClientContextFilter;
     @Autowired
-    private OpenIdConnectAuthenticationSuccessHandler authenticationSuccessHandler;
-    @Autowired
     private UserDetailsService userDetailsService;
 
     @Override
@@ -53,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public OpenIdConnectAuthenticationFilter openIdConnectAuthenticationFilter() {
-        return new OpenIdConnectAuthenticationFilter("/login-oidc", authenticationSuccessHandler);
+        return new OpenIdConnectAuthenticationFilter("/login-oidc");
     }
 
     @Bean

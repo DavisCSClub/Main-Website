@@ -40,7 +40,7 @@ public class DcscUser {
     @Column(name = "role_id", nullable = false)
     private long roleId;
 
-    @Column(name = "oidc_id")
+    @Column(name = "oidc_id", unique = true)
     private String oidcId;
 
     @JoinColumn(name = "profile_id")
