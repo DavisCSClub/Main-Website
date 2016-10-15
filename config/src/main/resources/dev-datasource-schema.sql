@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS dcsc_accounts.dcsc_users (
   is_locked  BOOLEAN,
   role_id    INT,
   profile_id INT,
-  oidc_id    VARCHAR(255),
+  oidc_id    VARCHAR(255) UNIQUE,
   CONSTRAINT user_role_fk FOREIGN KEY (role_id) REFERENCES dcsc_accounts.dcsc_roles (id),
   CONSTRAINT user_profile_fk FOREIGN KEY (profile_id) REFERENCES dcsc_accounts.dcsc_profiles (id)
 );

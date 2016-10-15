@@ -6,6 +6,7 @@ import org.dcsc.core.user.DcscUser;
 import javax.persistence.*;
 import java.util.List;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "dcsc_tutors", schema = "dcsc_tutoring")
@@ -79,10 +80,8 @@ public class Tutor {
     }
 
     public TreeSet<String> getCurrentTermCourseStrings() {
-        TreeSet<String> courseStrings = new TreeSet<String>();
-        for (AcademicCourse a : getCurrentTermCourses()) {
-            courseStrings.add(a.getCode().replaceAll("\\s+",""));
-        }
+        TreeSet<String> courseStrings = getCurrentTermCourses().stream().map(
+                a -> a.getCode().replaceAll("\\s+", "")).collect(Collectors.toCollection(TreeSet::new));
         return courseStrings;
     }    
 

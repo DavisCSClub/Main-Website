@@ -73,7 +73,7 @@ public class NavigationProvider {
         boolean isTutoring = user.getUserGroups().stream()
                 .map(UserGroup::getGroup)
                 .map(Group::getName)
-                .anyMatch(group -> "Tutoring Committee".equals(group));
+                .anyMatch("Tutoring Committee"::equals);
 
         if (isTutoring) {
             navigationLinks.add(TUTORING);
