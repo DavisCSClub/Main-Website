@@ -10,16 +10,21 @@ import org.dcsc.core.user.permission.RolePermissionService;
 import org.dcsc.core.user.role.DcscRole;
 import org.dcsc.core.user.role.DcscRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.common.util.OAuth2Utils;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +36,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class OpenIdConnectAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
+class OpenIdConnectAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
     private static final String GOOGLE_USER_INFO_URL = "https://www.googleapis.com/oauth2/v2/userinfo";
     @Autowired
     private OAuth2RestTemplate restTemplate;
@@ -42,38 +47,61 @@ public class OpenIdConnectAuthenticationFilter extends AbstractAuthenticationPro
     @Autowired
     private RolePermissionService rolePermissionService;
 
-    public OpenIdConnectAuthenticationFilter(String defaultFilterProcessesUrl) {
+    OpenIdConnectAuthenticationFilter(String defaultFilterProcessesUrl) {
         super(defaultFilterProcessesUrl);
-        setAuthenticationManager(authentication -> authentication);
-    }
 
-    public OpenIdConnectAuthenticationFilter(String defaultFilterProcessUrl,
-                                             AuthenticationSuccessHandler authenticationSuccessHandler) {
-        this(defaultFilterProcessUrl);
-        setAuthenticationSuccessHandler(authenticationSuccessHandler);
+        SimpleUrlAuthenticationSuccessHandler successHandler = new SavedRequestAwareAuthenticationSuccessHandler();
+        successHandler.setDefaultTargetUrl("/admin");
+
+        setAuthenticationSuccessHandler(successHandler);
+        setAuthenticationManager(authentication -> authentication);
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
         UserInfo userInfo = restTemplate.getForEntity(GOOGLE_USER_INFO_URL, UserInfo.class).getBody();
-        DcscUser user = userService.getUserByOidcId(userInfo.getId());
+
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Authentication authentication = securityContext.getAuthentication();
         Collection<GrantedAuthority> authorities;
-        Authentication authentication;
 
-        if (user != null) {
-            long roleId = user.getRoleId();
-            DcscRole role = roleService.getRole(roleId);
+        if (authentication != null) {
+            DcscUserDetails userDetails = (DcscUserDetails) authentication.getPrincipal();
+            DcscUser user = userDetails.getUser();
+            String userOidcId = user.getOidcId();
+            String userInfoOidcId = userInfo.getId();
 
-            authorities = roleService.getRoleAuthorities(role);
-            Map<String, Integer> permissions = rolePermissionService.getPermissionMap(roleId);
-            DcscUserDetails userDetails = new DcscUserDetails(user, authorities, permissions);
-            authentication = new UsernamePasswordAuthenticationToken(userDetails, userInfo, authorities);
+            if (userOidcId == null) {
+                user.setOidcId(userInfoOidcId);
+                try {
+                    userService.save(user);
+                } catch (DataIntegrityViolationException e) {
+                    throw new BadCredentialsException(
+                            "Authenticated Google account already linked to another DCSC account");
+                }
+            } else if (!userOidcId.equals(userInfoOidcId)) {
+                throw new BadCredentialsException("Authenticated Google account does not match linked account");
+            }
         } else {
-            throw new NoLinkedAccountException("Could not find correpsonding DCSC user account.");
+            DcscUser user = userService.getUserByOidcId(userInfo.getId());
+
+            if (user != null) {
+                long roleId = user.getRoleId();
+                DcscRole role = roleService.getRole(roleId);
+
+                authorities = roleService.getRoleAuthorities(role);
+                Map<String, Integer> permissions = rolePermissionService.getPermissionMap(roleId);
+                DcscUserDetails userDetails = new DcscUserDetails(user, authorities, permissions);
+                authentication = new UsernamePasswordAuthenticationToken(userDetails, userInfo, authorities);
+
+                authentication = createAuthentication(request, authentication, authorities);
+            } else {
+                throw new NoLinkedAccountException("Could not find linked DCSC user account.");
+            }
         }
 
-        return createAuthentication(request, authentication, authorities);
+        return authentication;
     }
 
     private OAuth2Authentication createAuthentication(HttpServletRequest request, Authentication authentication,

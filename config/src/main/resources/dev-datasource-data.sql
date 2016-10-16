@@ -28,19 +28,19 @@ INSERT INTO dcsc_accounts.dcsc_profiles VALUES (12, 'User 12', 'user12@nowhere.o
 INSERT INTO dcsc_accounts.dcsc_profiles VALUES (13, 'User 13', 'user13@nowhere.org', 'Title', 'Sample Profile');
 
 -- local development password for these users is 'password'
-INSERT INTO dcsc_accounts.dcsc_users VALUES (1, 'dcsc', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,1,1,'102673277263181595391');
-INSERT INTO dcsc_accounts.dcsc_users VALUES (2, 'john.doe', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,2,'0');
-INSERT INTO dcsc_accounts.dcsc_users VALUES (3, 'jane.doe', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,3,'0');
-INSERT INTO dcsc_accounts.dcsc_users VALUES (4, 'user4', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,4,'0');
-INSERT INTO dcsc_accounts.dcsc_users VALUES (5, 'user5', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,5,'0');
-INSERT INTO dcsc_accounts.dcsc_users VALUES (6, 'user6', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,6,'0');
-INSERT INTO dcsc_accounts.dcsc_users VALUES (7, 'user7', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,7,'0');
-INSERT INTO dcsc_accounts.dcsc_users VALUES (8, 'user8', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,8,'0');
-INSERT INTO dcsc_accounts.dcsc_users VALUES (9, 'user9', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,9,'0');
-INSERT INTO dcsc_accounts.dcsc_users VALUES (10, 'user10', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,10,'0');
-INSERT INTO dcsc_accounts.dcsc_users VALUES (11, 'user11', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,11,'0');
-INSERT INTO dcsc_accounts.dcsc_users VALUES (12, 'user12', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,12,'0');
-INSERT INTO dcsc_accounts.dcsc_users VALUES (13, 'user13', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,13,'0');
+INSERT INTO dcsc_accounts.dcsc_users VALUES (1, 'dcsc', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,1,1,NULL);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (2, 'john.doe', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,2,NULL);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (3, 'jane.doe', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,3,NULL);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (4, 'user4', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,4,NULL);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (5, 'user5', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,5,NULL);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (6, 'user6', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,6,NULL);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (7, 'user7', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,7,NULL);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (8, 'user8', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,8,NULL);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (9, 'user9', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,9,NULL);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (10, 'user10', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,10,NULL);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (11, 'user11', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,11,NULL);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (12, 'user12', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,12,NULL);
+INSERT INTO dcsc_accounts.dcsc_users VALUES (13, 'user13', '$2a$10$LLExsv.PneZ4I.iT6C3ZyO45g4xRYLDZmtIkaYj.qRkd2bwrCTnDC', TRUE,FALSE,2,13,NULL);
 
 INSERT INTO dcsc_accounts.dcsc_groups VALUES (1, 'My Group');
 INSERT INTO dcsc_accounts.dcsc_groups VALUES (2, 'Tutoring Committee');

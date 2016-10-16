@@ -95,7 +95,7 @@ public class TutorService {
                 .map(AcademicCourse::getCode).collect(Collectors.toList());
 
         // Remove any courses that have not changed
-        newTutoredCourses.removeIf(course -> existingCourses.contains(course));
+        newTutoredCourses.removeIf(existingCourses::contains);
 
         Set<TutorRelation> relations = (Set<TutorRelation>) tutorRelationService.get(tutor.getId(), currentTerm.getId());
 
