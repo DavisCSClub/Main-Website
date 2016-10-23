@@ -1,42 +1,45 @@
 package org.dcsc.web.controller;
 
-import org.dcsc.core.event.Event;
-import org.dcsc.web.constants.ModelAttributeNames;
 import org.dcsc.web.constants.ViewNames;
-import org.dcsc.core.event.EventService;
-import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.ResourceNotFoundException;
+import org.springframework.social.facebook.api.Event;
+import org.springframework.social.facebook.api.Facebook;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.Optional;
 
-/**
- * Created by tktong on 7/9/2015.
- */
 @Controller
 public class EventController {
-    @Autowired
-    private EventService eventService;
+    @Autowired(required = false)
+    private Facebook facebook;
 
-    @RequestMapping(value = "/event/{eventId}")
-    public String event(@PathVariable("eventId") long eventId, Model model) {
-        Optional<Event> event = eventService.getEventById(eventId);
+    @RequestMapping(value = "/event/{id}")
+    public ModelAndView event(@PathVariable("id") String id) {
+        ModelAndView modelView;
 
-        if(!event.isPresent()) {
-            return "redirect:/error/404";
+        if (facebook != null) {
+            try {
+                Event event = retrieveEventFromFacebook(id);
+                modelView = new ModelAndView(ViewNames.EVENT, "event", event);
+            } catch (ResourceNotFoundException e) {
+                modelView = new ModelAndView(new RedirectView("/timeline"));
+            }
+        } else {
+            modelView = new ModelAndView(new RedirectView("/timeline"));
         }
 
-        model.addAttribute(ModelAttributeNames.EVENT, event.get());
-
-        return ViewNames.EVENT;
+        return modelView;
     }
 
-    @ExceptionHandler(TypeMismatchException.class)
-    public String handleTypeMismatchException(TypeMismatchException e) {
-        return "redirect:/timeline";
+    private Event retrieveEventFromFacebook(String id) throws ResourceNotFoundException {
+        MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
+        parameters.set("fields", "id,name,cover,start_time,end_time,description,place");
+        return facebook.fetchObject(id, Event.class, parameters);
     }
 }

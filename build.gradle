@@ -64,6 +64,8 @@ allprojects {
         springJpaVersion = '1.9.1.RELEASE'
         springSecurityVersion = '4.1.0.RELEASE'
         springSecurityOAuthVersion = '2.0.11.RELEASE'
+        springSocialVersion = '1.1.4.RELEASE'
+        springSocialFacebookVersion = '2.0.3.RELEASE'
         thymeleafVersion = '2.1.2.RELEASE'
         thymeleafLayoutVersion = '1.3.1'
     }
