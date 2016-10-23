@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.thymeleaf.dialect.IDialect;
+import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
@@ -24,14 +25,15 @@ import java.util.Set;
 @EnableWebMvc
 @Configuration
 public class WebMvcConfiguration extends WebMvcConfigurerAdapter {
-    private static final Set<IDialect> DIALECTS = ImmutableSet.of(new LayoutDialect(), new SpringSecurityDialect());
+    private static final Set<IDialect> DIALECTS = ImmutableSet.of(new LayoutDialect(), new SpringSecurityDialect(),
+                                                                  new Java8TimeDialect());
     private static final String UTF8 = "UTF-8";
 
     @Value("${dcsc.template.directory}")
     private String templateDirectory;
     @Value("${dcsc.resource.directory}")
     private String resourceDirectory;
-    
+
     @Bean
     public ViewResolver viewResolver() {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
