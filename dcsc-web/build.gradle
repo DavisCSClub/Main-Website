@@ -1,7 +1,9 @@
 dependencies {
     compile "joda-time:joda-time:$jodaTimeVersion"
-    compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
     compile "org.springframework:spring-webmvc:$springVersion"
+    compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    compile "org.springframework.social:spring-social-web:$springSocialVersion"
+    compile "org.springframework.social:spring-social-facebook:$springSocialFacebookVersion"
 
     compile project(":core")
 }
