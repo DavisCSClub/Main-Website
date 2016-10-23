@@ -63,25 +63,6 @@ CREATE TABLE IF NOT EXISTS public.dcsc_images (
   description   TEXT
 );
 
-CREATE TABLE IF NOT EXISTS public.dcsc_events (
-  id              INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  name            VARCHAR(70),
-  description     TEXT,
-  tag             VARCHAR(30),
-  date            DATE,
-  starttime       TIME,
-  endtime         TIME,
-  image           VARCHAR(100),
-  location        VARCHAR(50),
-  published       BOOLEAN,
-  thumbnail_id    INT,
-  banner_id       INT,
-  start_date_time TIMESTAMP,
-  end_date_time   TIMESTAMP,
-  CONSTRAINT thumbnail_fk FOREIGN KEY (thumbnail_id) REFERENCES public.dcsc_images (id),
-  CONSTRAINT banner_fk FOREIGN KEY (banner_id) REFERENCES public.dcsc_images (id)
-);
-
 CREATE TABLE IF NOT EXISTS public.dcsc_carousel (
   id         INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   caption    VARCHAR(255),

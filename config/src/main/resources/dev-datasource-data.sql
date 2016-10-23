@@ -49,27 +49,6 @@ INSERT INTO dcsc_accounts.dcsc_user_groups VALUES (1,1, TRUE);
 INSERT INTO dcsc_accounts.dcsc_user_groups VALUES (1,2, TRUE);
 INSERT INTO dcsc_accounts.dcsc_user_groups VALUES (2,2, FALSE);
 
-INSERT INTO public.dcsc_events VALUES (1, 'Sample Event 1', 'Sample Description', 'tag', '2016-01-02', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (2, 'Sample Event 2', 'Sample Description', 'tag', '2016-01-03', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (3, 'Sample Event 3', 'Sample Description', 'tag', '2016-01-04', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (4, 'Sample Event 4', 'Sample Description', 'tag', '2016-01-05', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (5, 'Sample Event 5', 'Sample Description', 'tag', '2016-01-06', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (6, 'Sample Event 6', 'Sample Description', 'tag', '2016-01-07', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (7, 'Sample Event 7', 'Sample Description', 'tag', '2016-01-08', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (8, 'Sample Event 8', 'Sample Description', 'tag', '2016-01-09', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (9, 'Sample Event 9', 'Sample Description', 'tag', '2016-01-10', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (10, 'Sample Event 10', 'Sample Description', 'tag', '2016-01-11', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (11, 'Sample Event 11', 'Sample Description', 'tag', '2016-01-12', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (12, 'Sample Event 12', 'Sample Description', 'tag', '2016-01-13', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (13, 'Sample Event 13', 'Sample Description', 'tag', '2016-01-14', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (14, 'Sample Event 14', 'Sample Description', 'tag', '2016-01-15', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (15, 'Sample Event 15', 'Sample Description', 'tag', '2016-01-16', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (16, 'Sample Event 16', 'Sample Description', 'tag', '2016-01-17', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (17, 'Sample Event 17', 'Sample Description', 'tag', '2016-01-18', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (18, 'Sample Event 18', 'Sample Description', 'tag', '2016-01-19', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (19, 'Sample Event 19', 'Sample Description', 'tag', '2016-01-20', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-INSERT INTO public.dcsc_events VALUES (20, 'Sample Event 20', 'Sample Description', 'tag', '2016-01-21', '11:30:00', '15:46:00', NULL, 'somewhere',TRUE, NULL, NULL, NULL,NULL);
-
 INSERT INTO public.dcsc_images VALUES (1, 'Sample Image', NULL, '/static/img/placeholder/placeholder-1920-700.jpg', 'Sample Image Description');
 
 INSERT INTO public.dcsc_carousel VALUES (1, 'Sample Caption', 1, 1);
