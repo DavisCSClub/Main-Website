@@ -1,6 +1,7 @@
 package org.dcsc.web.controller;
 
 import org.dcsc.web.constants.ViewNames;
+import org.dcsc.web.events.FacebookEvent;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.facebook.api.Event;
@@ -34,7 +35,8 @@ public class TimelineController {
 
         if (facebook != null) {
             MultiValueMap<String, String> parameters = buildParametersMap(size, before, after);
-            PagedList<Event> events = facebook.fetchConnections(FACEBOOOK_PAGE_ID, "events", Event.class, parameters);
+            PagedList<FacebookEvent> events = facebook.fetchConnections(FACEBOOOK_PAGE_ID, "events",
+                                                                        FacebookEvent.class, parameters);
 
             modelView.addObject("events", events);
 

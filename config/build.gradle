@@ -18,6 +18,7 @@ dependencies {
     compile "org.thymeleaf:thymeleaf:$thymeleafVersion"
     compile "org.thymeleaf:thymeleaf-spring4:$thymeleafVersion"
     compile "org.thymeleaf.extras:thymeleaf-extras-springsecurity4:$thymeleafVersion"
+    compile "org.thymeleaf.extras:thymeleaf-extras-java8time:$thymeleafExtrasJava8TimeVersion"
 
     compile project(":core")
 }

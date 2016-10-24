@@ -1,9 +1,9 @@
 package org.dcsc.web.controller;
 
 import org.dcsc.web.constants.ViewNames;
+import org.dcsc.web.events.FacebookEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.ResourceNotFoundException;
-import org.springframework.social.facebook.api.Event;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
@@ -25,7 +25,7 @@ public class EventController {
 
         if (facebook != null) {
             try {
-                Event event = retrieveEventFromFacebook(id);
+                FacebookEvent event = retrieveEventFromFacebook(id);
                 modelView = new ModelAndView(ViewNames.EVENT, "event", event);
             } catch (ResourceNotFoundException e) {
                 modelView = new ModelAndView(new RedirectView("/timeline"));
@@ -37,9 +37,9 @@ public class EventController {
         return modelView;
     }
 
-    private Event retrieveEventFromFacebook(String id) throws ResourceNotFoundException {
+    private FacebookEvent retrieveEventFromFacebook(String id) throws ResourceNotFoundException {
         MultiValueMap<String, String> parameters = new LinkedMultiValueMap<>();
         parameters.set("fields", "id,name,cover,start_time,end_time,description,place");
-        return facebook.fetchObject(id, Event.class, parameters);
+        return facebook.fetchObject(id, FacebookEvent.class, parameters);
     }
 }

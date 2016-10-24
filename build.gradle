@@ -67,6 +67,7 @@ allprojects {
         springSocialVersion = '1.1.4.RELEASE'
         springSocialFacebookVersion = '2.0.3.RELEASE'
         thymeleafVersion = '2.1.2.RELEASE'
+        thymeleafExtrasJava8TimeVersion = '2.1.0.RELEASE'
         thymeleafLayoutVersion = '1.3.1'
     }
 
