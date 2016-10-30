@@ -2,6 +2,53 @@ CREATE SCHEMA IF NOT EXISTS administration;
 CREATE SCHEMA IF NOT EXISTS dcsc_accounts;
 CREATE SCHEMA IF NOT EXISTS dcsc_tutoring;
 CREATE SCHEMA IF NOT EXISTS dcsc_time;
+CREATE SCHEMA IF NOT EXISTS authentication;
+
+
+CREATE TABLE IF NOT EXISTS authentication.users (
+  id         INT PRIMARY KEY AUTO_INCREMENT,
+  oidc_id    VARCHAR(255) UNIQUE,
+  email      VARCHAR(255) UNIQUE,
+  name       VARCHAR(255),
+  is_enabled BOOLEAN,
+  is_locked  BOOLEAN
+);
+
+CREATE TABLE IF NOT EXISTS authentication.groups (
+  id   INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS authentication.authorities (
+  id    INT PRIMARY KEY AUTO_INCREMENT,
+  scope VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS authentication.memberships (
+  id         INT PRIMARY KEY AUTO_INCREMENT,
+  group_id   INT          NOT NULL,
+  user_id    INT          NOT NULL,
+  start_date TIMESTAMP    NOT NULL,
+  end_date   TIMESTAMP    NOT NULL,
+  title      VARCHAR(255) NOT NULL,
+  is_leader  BOOLEAN,
+  CONSTRAINT group_membership_fk FOREIGN KEY (group_id) REFERENCES authentication.groups (id),
+  CONSTRAINT group_user_fk FOREIGN KEY (user_id) REFERENCES authentication.users (id)
+);
+
+CREATE TABLE IF NOT EXISTS authentication.user_applications (
+  id    INT PRIMARY KEY AUTO_INCREMENT,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  name  VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS authentication.group_authorities (
+  group_id     INT NOT NULL,
+  authority_id INT NOT NULL,
+  CONSTRAINT group_fk FOREIGN KEY (group_id) REFERENCES authentication.groups (id),
+  CONSTRAINT authority_fk FOREIGN KEY (authority_id) REFERENCES authorities (id)
+);
+
 
 CREATE TABLE IF NOT EXISTS dcsc_accounts.dcsc_roles (
   id   INT PRIMARY KEY AUTO_INCREMENT NOT NULL,

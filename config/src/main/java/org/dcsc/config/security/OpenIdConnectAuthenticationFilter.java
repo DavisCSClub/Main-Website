@@ -2,22 +2,18 @@ package org.dcsc.config.security;
 
 
 import com.google.common.collect.ImmutableSet;
-import org.dcsc.core.user.DcscUser;
-import org.dcsc.core.user.DcscUserService;
+import org.dcsc.core.authentication.user.User;
+import org.dcsc.core.authentication.user.UserDetails;
+import org.dcsc.core.authentication.user.UserDetailsFactory;
+import org.dcsc.core.authentication.user.UserService;
 import org.dcsc.core.user.NoLinkedAccountException;
-import org.dcsc.core.user.details.DcscUserDetails;
-import org.dcsc.core.user.permission.RolePermissionService;
-import org.dcsc.core.user.role.DcscRole;
-import org.dcsc.core.user.role.DcscRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.common.util.OAuth2Utils;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -41,11 +37,9 @@ class OpenIdConnectAuthenticationFilter extends AbstractAuthenticationProcessing
     @Autowired
     private OAuth2RestTemplate restTemplate;
     @Autowired
-    private DcscUserService userService;
+    private UserDetailsFactory userDetailsFactory;
     @Autowired
-    private DcscRoleService roleService;
-    @Autowired
-    private RolePermissionService rolePermissionService;
+    private UserService userService;
 
     OpenIdConnectAuthenticationFilter(String defaultFilterProcessesUrl) {
         super(defaultFilterProcessesUrl);
@@ -61,51 +55,28 @@ class OpenIdConnectAuthenticationFilter extends AbstractAuthenticationProcessing
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
         UserInfo userInfo = restTemplate.getForEntity(GOOGLE_USER_INFO_URL, UserInfo.class).getBody();
+        User user = userService.getByEmail(userInfo.getEmail());
 
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        Authentication authentication = securityContext.getAuthentication();
-        Collection<GrantedAuthority> authorities;
-
-        if (authentication != null) {
-            DcscUserDetails userDetails = (DcscUserDetails) authentication.getPrincipal();
-            DcscUser user = userDetails.getUser();
-            String userOidcId = user.getOidcId();
-            String userInfoOidcId = userInfo.getId();
-
-            if (userOidcId == null) {
-                user.setOidcId(userInfoOidcId);
-                try {
-                    userService.save(user);
-                } catch (DataIntegrityViolationException e) {
-                    throw new BadCredentialsException(
-                            "Authenticated Google account already linked to another DCSC account");
-                }
-            } else if (!userOidcId.equals(userInfoOidcId)) {
-                throw new BadCredentialsException("Authenticated Google account does not match linked account");
-            }
-        } else {
-            DcscUser user = userService.getUserByOidcId(userInfo.getId());
-
-            if (user != null) {
-                long roleId = user.getRoleId();
-                DcscRole role = roleService.getRole(roleId);
-
-                authorities = roleService.getRoleAuthorities(role);
-                Map<String, Integer> permissions = rolePermissionService.getPermissionMap(roleId);
-                DcscUserDetails userDetails = new DcscUserDetails(user, authorities, permissions);
-                authentication = new UsernamePasswordAuthenticationToken(userDetails, userInfo, authorities);
-
-                authentication = createAuthentication(request, authentication, authorities);
-            } else {
-                throw new NoLinkedAccountException("Could not find linked DCSC user account.");
-            }
+        if (user == null) {
+            throw new NoLinkedAccountException("Could not find a DCSC account associated with email");
+        } else if (user.isLocked()) {
+            throw new LockedException("Account locked");
+        } else if (!user.isEnabled()) {
+            throw new DisabledException("Account disabled");
+        } else if (user.getOpenIdIdentifier() == null) {
+            user.setName(userInfo.getName());
+            user.setOpenIdIdentifier(userInfo.getId());
+            userService.update(user);
         }
 
-        return authentication;
+        UserDetails userDetails = userDetailsFactory.create(user);
+        return createAuthentication(request, userDetails, userInfo, userDetails.getAuthorities());
     }
 
-    private OAuth2Authentication createAuthentication(HttpServletRequest request, Authentication authentication,
-                                                      Collection<GrantedAuthority> authorities) {
+    private Authentication createAuthentication(HttpServletRequest request, Object userDetails, Object credentials,
+                                                Collection<GrantedAuthority> authorities) {
+        Authentication userAuth = new UsernamePasswordAuthenticationToken(userDetails, credentials, authorities);
+
         String clientId = restTemplate.getResource().getClientId();
         String redirectUri = constructRedirectUri(request);
         Set<String> scope = restTemplate.getResource().getScope().stream().collect(Collectors.toSet());
@@ -119,7 +90,7 @@ class OpenIdConnectAuthenticationFilter extends AbstractAuthenticationProcessing
 
         OAuth2Request oauthRequest = new OAuth2Request(requestParameters, clientId, authorities, true, scope, null,
                                                        redirectUri, responseTypes, null);
-        return new OAuth2Authentication(oauthRequest, authentication);
+        return new OAuth2Authentication(oauthRequest, userAuth);
     }
 
     private String constructRedirectUri(HttpServletRequest request) {

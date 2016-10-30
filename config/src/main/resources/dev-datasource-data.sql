@@ -1,3 +1,26 @@
+INSERT INTO authentication.groups VALUES (1, 'Davis Computer Science Club');
+INSERT INTO authentication.groups VALUES (2, 'Officer Board');
+INSERT INTO authentication.groups VALUES (3, 'Advisory Committee');
+INSERT INTO authentication.groups VALUES (4, 'Tutoring Committee');
+
+INSERT INTO authentication.users VALUES (1, NULL, 'officers@daviscsclub.org','DCSC Officers', true, false);
+
+INSERT INTO authentication.memberships VALUES (1, 1, 1, '2016-01-16 02:30:00+00','2020-01-16 02:30:00+00', 'President', true);
+INSERT INTO authentication.memberships VALUES (2, 2, 1, '2016-01-16 02:30:00+00','2020-01-16 02:30:00+00', 'President', true);
+INSERT INTO authentication.memberships VALUES (3, 3, 1, '2016-01-16 02:30:00+00','2020-01-16 02:30:00+00', 'President', true);
+INSERT INTO authentication.memberships VALUES (4, 4, 1, '2016-01-16 02:30:00+00','2020-01-16 02:30:00+00', 'President', true);
+
+INSERT INTO authentication.authorities VALUES (1, 'AUTHORITIES');
+INSERT INTO authentication.authorities VALUES (2, 'USERS');
+INSERT INTO authentication.authorities VALUES (3, 'EVENTS');
+INSERT INTO authentication.authorities VALUES (4, 'TUTORING');
+
+INSERT INTO authentication.group_authorities VALUES (2,1);
+INSERT INTO authentication.group_authorities VALUES (2,2);
+INSERT INTO authentication.group_authorities VALUES (2,3);
+INSERT INTO authentication.group_authorities VALUES (2,4);
+INSERT INTO authentication.group_authorities VALUES (4,4);
+
 INSERT INTO dcsc_accounts.dcsc_roles VALUES (1, 'SUPER');
 INSERT INTO dcsc_accounts.dcsc_roles VALUES (2, 'BASIC');
 

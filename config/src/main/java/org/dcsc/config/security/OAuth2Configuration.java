@@ -20,7 +20,7 @@ import java.util.List;
 @Configuration
 @EnableOAuth2Client
 public class OAuth2Configuration {
-    private static final List<String> OAUTH2_SCOPES = Arrays.asList("openid", "profile");
+    private static final List<String> OAUTH2_SCOPES = Arrays.asList("openid", "profile", "email");
 
     @Value("${google.oauth2.clientId:clientId}")
     private String clientId;
