@@ -21,8 +21,6 @@ INSERT INTO authentication.group_authorities VALUES (2,3);
 INSERT INTO authentication.group_authorities VALUES (2,4);
 INSERT INTO authentication.group_authorities VALUES (4,4);
 
-INSERT INTO authentication.user_applications VALUES (1, 'tktong418@gmail.com','Timothy Tong');
-
 INSERT INTO dcsc_accounts.dcsc_roles VALUES (1, 'SUPER');
 INSERT INTO dcsc_accounts.dcsc_roles VALUES (2, 'BASIC');
 
