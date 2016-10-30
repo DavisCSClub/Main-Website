@@ -1,5 +1,6 @@
 package org.dcsc.admin.navigation;
 
+import org.dcsc.core.authentication.user.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,6 @@ public class NavigationController {
 
     @RequestMapping(value = "/admin/r", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Collection<NavigationLink> getNavigation(Authentication authentication) {
-        return navigationProvider.getNavigation(authentication);
+        return navigationProvider.getNavigation((UserDetails) authentication.getPrincipal());
     }
 }
