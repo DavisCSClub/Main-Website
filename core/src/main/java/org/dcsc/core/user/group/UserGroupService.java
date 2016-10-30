@@ -5,6 +5,7 @@ import org.dcsc.core.user.DcscUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Deprecated
 @Service
 public class UserGroupService {
     @Autowired
@@ -14,7 +15,7 @@ public class UserGroupService {
     private GroupService groupService;
     @Autowired
     private DcscUserService dcscUserService;
-    
+
     public void removeUserGroup(DcscUser dcscUser, Group group) {
         dcscUser.removeGroup(group.getName());
         userGroupRepository.deleteByDcscUserAndGroup(dcscUser, group);

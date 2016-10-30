@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.List;
 
+@Deprecated
 @Entity
 @Table(name = "dcsc_users", schema = "dcsc_accounts")
 public class DcscUser {

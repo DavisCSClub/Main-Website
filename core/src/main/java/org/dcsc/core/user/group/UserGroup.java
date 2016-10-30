@@ -2,8 +2,16 @@ package org.dcsc.core.user.group;
 
 import org.dcsc.core.user.DcscUser;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@Deprecated
 @Entity
 @IdClass(UserGroupId.class)
 @Table(name = "dcsc_user_groups", schema = "dcsc_accounts")
@@ -22,7 +30,7 @@ public class UserGroup {
     private boolean isAdmin;
 
     public UserGroup() {
-        
+
     }
 
     public UserGroup(DcscUser dcscUser, Group group, boolean isAdmin) {

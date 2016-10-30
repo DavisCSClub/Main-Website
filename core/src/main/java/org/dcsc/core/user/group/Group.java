@@ -1,8 +1,16 @@
 package org.dcsc.core.user.group;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.List;
 
+@Deprecated
 @Entity
 @Table(name = "dcsc_groups", schema = "dcsc_accounts")
 public class Group {

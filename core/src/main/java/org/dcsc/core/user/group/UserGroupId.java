@@ -4,6 +4,7 @@ import org.dcsc.core.user.DcscUser;
 
 import java.io.Serializable;
 
+@Deprecated
 public class UserGroupId implements Serializable {
     private DcscUser dcscUser;
     private Group group;

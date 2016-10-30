@@ -3,7 +3,7 @@ INSERT INTO authentication.groups VALUES (2, 'Officer Board');
 INSERT INTO authentication.groups VALUES (3, 'Advisory Committee');
 INSERT INTO authentication.groups VALUES (4, 'Tutoring Committee');
 
-INSERT INTO authentication.users VALUES (1, NULL, 'officers@daviscsclub.org','DCSC Officers', true, false);
+INSERT INTO authentication.users VALUES (1, NULL, 'officers@daviscsclub.org','DCSC Officers', NULL, true, false);
 
 INSERT INTO authentication.memberships VALUES (1, 1, 1, '2016-01-16 02:30:00+00','2020-01-16 02:30:00+00', 'President', true);
 INSERT INTO authentication.memberships VALUES (2, 2, 1, '2016-01-16 02:30:00+00','2020-01-16 02:30:00+00', 'President', true);
