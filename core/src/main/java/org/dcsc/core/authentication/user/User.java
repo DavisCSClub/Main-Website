@@ -15,6 +15,7 @@ public class User {
     private String openIdIdentifier;
     private String name;
     private String email;
+    private String pictureUrl;
     private boolean isEnabled;
     private boolean isLocked;
 
@@ -54,6 +55,15 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Column(name = "picture_url")
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
     }
 
     @Column(name = "is_enabled")

@@ -2,8 +2,14 @@ package org.dcsc.core.user.permission;
 
 import org.dcsc.core.user.role.DcscRole;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@Deprecated
 @Entity
 @IdClass(RolePermissionId.class)
 @Table(name = "dcsc_role_privileges", schema = "dcsc_accounts")

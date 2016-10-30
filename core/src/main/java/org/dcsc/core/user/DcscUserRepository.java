@@ -5,11 +5,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+@Deprecated
 @Repository
 public interface DcscUserRepository extends JpaRepository<DcscUser, Long> {
     Optional<DcscUser> findUserById(long id);
-
-    Optional<DcscUser> findUserByUsername(String username);
-
-    DcscUser findUserByOidcId(String oidcId);
 }

@@ -6,12 +6,13 @@ CREATE SCHEMA IF NOT EXISTS authentication;
 
 
 CREATE TABLE IF NOT EXISTS authentication.users (
-  id         INT PRIMARY KEY AUTO_INCREMENT,
-  oidc_id    VARCHAR(255) UNIQUE,
-  email      VARCHAR(255) UNIQUE,
-  name       VARCHAR(255),
-  is_enabled BOOLEAN,
-  is_locked  BOOLEAN
+  id          INT PRIMARY KEY AUTO_INCREMENT,
+  oidc_id     VARCHAR(255) UNIQUE,
+  email       VARCHAR(255) UNIQUE,
+  name        VARCHAR(255),
+  picture_url VARCHAR(255),
+  is_enabled  BOOLEAN,
+  is_locked   BOOLEAN
 );
 
 CREATE TABLE IF NOT EXISTS authentication.groups (

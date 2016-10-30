@@ -3,6 +3,7 @@ package org.dcsc.core.user.profile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Deprecated
 @Service
 public class UserProfileService {
     @Autowired

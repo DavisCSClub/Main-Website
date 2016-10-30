@@ -2,11 +2,12 @@ package org.dcsc.config.security;
 
 
 import com.google.common.collect.ImmutableSet;
+import org.apache.commons.lang3.StringUtils;
 import org.dcsc.core.authentication.user.User;
 import org.dcsc.core.authentication.user.UserDetails;
 import org.dcsc.core.authentication.user.UserDetailsFactory;
 import org.dcsc.core.authentication.user.UserService;
-import org.dcsc.core.user.NoLinkedAccountException;
+import org.dcsc.core.authentication.user.NoLinkedAccountException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
@@ -63,14 +64,29 @@ class OpenIdConnectAuthenticationFilter extends AbstractAuthenticationProcessing
             throw new LockedException("Account locked");
         } else if (!user.isEnabled()) {
             throw new DisabledException("Account disabled");
-        } else if (user.getOpenIdIdentifier() == null) {
+        } else if (isVerifiedAccountNotLinked(user)) {
             user.setName(userInfo.getName());
             user.setOpenIdIdentifier(userInfo.getId());
+            user.setPictureUrl(userInfo.getPicture());
+            userService.update(user);
+        } else if (isUserPictureUpdated(user, userInfo)) {
+            user.setPictureUrl(userInfo.getPicture());
             userService.update(user);
         }
 
         UserDetails userDetails = userDetailsFactory.create(user);
         return createAuthentication(request, userDetails, userInfo, userDetails.getAuthorities());
+    }
+
+    private boolean isVerifiedAccountNotLinked(User user) {
+        return StringUtils.isEmpty(user.getOpenIdIdentifier());
+    }
+
+    private boolean isUserPictureUpdated(User user, UserInfo userInfo) {
+        String savedPicture = user.getPictureUrl();
+        String candidatePicture = userInfo.getPicture();
+
+        return !StringUtils.equals(savedPicture, candidatePicture);
     }
 
     private Authentication createAuthentication(HttpServletRequest request, Object userDetails, Object credentials,
