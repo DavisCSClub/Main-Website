@@ -1,8 +1,11 @@
 package org.dcsc.admin.view;
 
 import com.google.common.collect.Sets;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,8 +23,12 @@ public class ViewController {
     private static final String STANDARD_VIEW_FORMAT = "admin/view/%s::altair";
     private static final String EDIT_VIEW_FORMAT = "admin/view/edit/%s::altair";
 
+    @Autowired
+    private Environment environment;
+
     @RequestMapping(value = "/login", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public String getLogin() {
+    public String getLogin(Model model) {
+        model.addAttribute("isDevMode", environment.acceptsProfiles("dev"));
         return ViewNames.LOGIN;
     }
 

@@ -1,8 +1,8 @@
 package org.dcsc.admin.users;
 
+import org.dcsc.core.authentication.user.UserDetails;
 import org.dcsc.core.user.DcscUser;
 import org.dcsc.core.user.DcscUserService;
-import org.dcsc.core.user.details.DcscUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
@@ -11,7 +11,12 @@ import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -36,8 +41,10 @@ public class UsersController {
 
     @RequestMapping(value = "/me", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public void getMe(Authentication authentication, HttpServletResponse response) throws IOException {
-        DcscUser user = ((DcscUserDetails) authentication.getPrincipal()).getUser();
-        response.sendRedirect(linkTo(UsersController.class).slash(user.getId()).toUri().toString());
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        int id = userDetails.getId();
+        
+        response.sendRedirect(linkTo(UsersController.class).slash(id).toUri().toString());
     }
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -48,7 +55,8 @@ public class UsersController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @RequestMapping(value = "/{userId}", method = RequestMethod.PATCH)
-    public void updateUser(@PathVariable("userId") int userId, @RequestBody Map<String, Object> userForm) throws Exception {
+    public void updateUser(@PathVariable("userId") int userId,
+                           @RequestBody Map<String, Object> userForm) throws Exception {
         DcscUser user = userService.getUserById(userId).get();
         formBinder.bindToUser(user, userForm);
         userService.save(user);
