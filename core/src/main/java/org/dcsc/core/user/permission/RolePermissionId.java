@@ -4,6 +4,7 @@ import org.dcsc.core.user.role.DcscRole;
 
 import java.io.Serializable;
 
+@Deprecated
 public class RolePermissionId implements Serializable {
     private DcscRole role;
     private Permission permission;

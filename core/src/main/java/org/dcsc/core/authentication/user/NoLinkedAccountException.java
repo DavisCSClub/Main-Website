@@ -1,4 +1,4 @@
-package org.dcsc.core.user;
+package org.dcsc.core.authentication.user;
 
 
 import org.springframework.security.core.AuthenticationException;

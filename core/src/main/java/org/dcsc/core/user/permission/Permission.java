@@ -2,6 +2,7 @@ package org.dcsc.core.user.permission;
 
 import javax.persistence.*;
 
+@Deprecated
 @Entity
 @Table(name = "dcsc_class", schema = "dcsc_accounts")
 public class Permission {

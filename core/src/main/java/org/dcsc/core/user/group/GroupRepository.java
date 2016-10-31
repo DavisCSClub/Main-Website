@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 
+@Deprecated
 @Repository
 public class GroupRepository {
     @Autowired

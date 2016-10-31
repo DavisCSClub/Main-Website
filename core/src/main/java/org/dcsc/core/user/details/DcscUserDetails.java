@@ -7,6 +7,10 @@ import org.springframework.security.core.userdetails.User;
 import java.util.Collection;
 import java.util.Map;
 
+/**
+ * Use UserDetails instead
+ */
+@Deprecated
 public class DcscUserDetails extends User {
     private final DcscUser user;
     private Map<String, Integer> permissions;

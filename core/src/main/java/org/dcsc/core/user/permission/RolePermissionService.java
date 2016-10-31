@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+@Deprecated
 @Service
 public class RolePermissionService {
     @Autowired
@@ -19,7 +20,7 @@ public class RolePermissionService {
         for (RolePermission rolePermission : rolePermissionSet) {
             Permission permission = rolePermission.getPermission();
             int accessLevel = rolePermission.getAccessLevel();
-            
+
             permissionMap.put(permission.getClassName().toUpperCase(), accessLevel);
         }
 

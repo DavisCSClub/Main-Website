@@ -2,6 +2,7 @@ package org.dcsc.core.user.role;
 
 import javax.persistence.*;
 
+@Deprecated
 @Entity
 @Table(name = "dcsc_roles", schema = "dcsc_accounts")
 public class DcscRole {
