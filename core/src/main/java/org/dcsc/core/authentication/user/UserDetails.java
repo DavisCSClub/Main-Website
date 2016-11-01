@@ -9,12 +9,14 @@ public class UserDetails {
     private int id;
     private String name;
     private String email;
+    private String picture;
 
-    UserDetails(Collection<GrantedAuthority> authorities, int id, String name, String email) {
+    UserDetails(Collection<GrantedAuthority> authorities, int id, String name, String email, String picture) {
         this.id = id;
         this.authorities = authorities;
         this.name = name;
         this.email = email;
+        this.picture = picture;
     }
 
     public Collection<GrantedAuthority> getAuthorities() {
@@ -31,5 +33,9 @@ public class UserDetails {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getPicture() {
+        return picture;
     }
 }
