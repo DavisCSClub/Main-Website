@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
+import java.time.ZonedDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -25,21 +26,27 @@ public class UserDetailsFactory {
         int id = user.getId();
         String name = user.getName();
         String email = user.getEmail();
+        String picture = user.getPictureUrl();
 
-        return new UserDetails(grantedAuthorities, id, name, email);
+        return new UserDetails(grantedAuthorities, id, name, email, picture);
     }
 
     private Collection<GrantedAuthority> getAuthorities(User user) {
+        ZonedDateTime current = ZonedDateTime.now();
         Set<GrantedAuthority> authorities = new HashSet<>();
 
         List<Membership> memberships = membershipService.getByUser(user);
         for (Membership membership : memberships) {
-            Group group = membership.getGroup();
-            List<Authority> groupAuthorities = group.getAuthorities();
+            ZonedDateTime end = membership.getEndDate();
 
-            for (Authority groupAuthority : groupAuthorities) {
-                SimpleGrantedAuthority authority = new SimpleGrantedAuthority(groupAuthority.getScope());
-                authorities.add(authority);
+            if (current.isBefore(end) || current.isEqual(end)) {
+                Group group = membership.getGroup();
+                List<Authority> groupAuthorities = group.getAuthorities();
+
+                for (Authority groupAuthority : groupAuthorities) {
+                    SimpleGrantedAuthority authority = new SimpleGrantedAuthority(groupAuthority.getScope());
+                    authorities.add(authority);
+                }
             }
         }
 
