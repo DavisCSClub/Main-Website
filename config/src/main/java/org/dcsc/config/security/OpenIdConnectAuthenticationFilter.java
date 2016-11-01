@@ -3,12 +3,13 @@ package org.dcsc.config.security;
 
 import com.google.common.collect.ImmutableSet;
 import org.apache.commons.lang3.StringUtils;
+import org.dcsc.core.authentication.user.NoLinkedAccountException;
 import org.dcsc.core.authentication.user.User;
 import org.dcsc.core.authentication.user.UserDetails;
 import org.dcsc.core.authentication.user.UserDetailsFactory;
 import org.dcsc.core.authentication.user.UserService;
-import org.dcsc.core.authentication.user.NoLinkedAccountException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -56,30 +57,30 @@ class OpenIdConnectAuthenticationFilter extends AbstractAuthenticationProcessing
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
         UserInfo userInfo = restTemplate.getForEntity(GOOGLE_USER_INFO_URL, UserInfo.class).getBody();
-        User user = userService.getByEmail(userInfo.getEmail());
+        User user = userService.getByOpenIdConnectIdentifier(userInfo.getId());
 
         if (user == null) {
-            throw new NoLinkedAccountException("Could not find a DCSC account associated with email");
-        } else if (user.isLocked()) {
+            user = userService.getByEmail(userInfo.getEmail());
+
+            if (user == null) {
+                throw new NoLinkedAccountException("Could not find a DCSC account associated with email");
+            } else {
+                user = userService.update(user.getId(), userInfo.getId(), userInfo.getName(), userInfo.getPicture());
+            }
+        }
+
+        if (user.isLocked()) {
             throw new LockedException("Account locked");
         } else if (!user.isEnabled()) {
             throw new DisabledException("Account disabled");
-        } else if (isVerifiedAccountNotLinked(user)) {
-            user.setName(userInfo.getName());
-            user.setOpenIdIdentifier(userInfo.getId());
-            user.setPictureUrl(userInfo.getPicture());
-            userService.update(user);
+        } else if (!StringUtils.equals(user.getEmail(), userInfo.getEmail())) {
+            throw new BadCredentialsException("Emails do not match");
         } else if (isUserPictureUpdated(user, userInfo)) {
-            user.setPictureUrl(userInfo.getPicture());
-            userService.update(user);
+            user = userService.update(user.getId(), userInfo.getPicture());
         }
 
         UserDetails userDetails = userDetailsFactory.create(user);
         return createAuthentication(request, userDetails, userInfo, userDetails.getAuthorities());
-    }
-
-    private boolean isVerifiedAccountNotLinked(User user) {
-        return StringUtils.isEmpty(user.getOpenIdIdentifier());
     }
 
     private boolean isUserPictureUpdated(User user, UserInfo userInfo) {
