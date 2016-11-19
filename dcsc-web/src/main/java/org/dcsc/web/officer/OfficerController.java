@@ -29,7 +29,7 @@ public class OfficerController {
     public String officers(@RequestParam(value = "year", defaultValue = "0") int year, Model model) {
         year = (year == 0) ? ZonedDateTime.now().getYear() : year;
 
-        List<Membership> officers = membershipService.getByGroupAndYear(OFFICER_BOARD_GROUP_ID, year);
+        List<Membership> officers = membershipService.getByGroupAndAcademicYear(OFFICER_BOARD_GROUP_ID, year);
         List<Integer> years = membershipService.getMembershipYears(OFFICER_BOARD_GROUP_ID);
         officers.sort(TITLE_COMPARATOR);
 
