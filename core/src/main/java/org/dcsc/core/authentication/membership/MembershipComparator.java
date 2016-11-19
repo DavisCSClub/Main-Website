@@ -1,8 +1,6 @@
 package org.dcsc.core.authentication.membership;
 
 
-import org.dcsc.core.authentication.membership.Membership;
-
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;

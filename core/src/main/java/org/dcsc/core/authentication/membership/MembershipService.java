@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -20,8 +21,11 @@ public class MembershipService {
     }
 
     @Transactional(readOnly = true)
-    public List<Membership> getByGroupAndYear(int groupId, int year) {
-        return repository.getByGroupAndYear(groupId, year);
+    public List<Membership> getByGroupAndAcademicYear(int groupId, int startYear) {
+        ZonedDateTime startDate = ZonedDateTime.of(startYear, 6, 12, 0, 0, 0, 0, ZoneId.of("America/Los_Angeles"));
+        ZonedDateTime endDate = startDate.plusYears(1);
+
+        return repository.getByGroupBetweenDates(groupId, startDate, endDate);
     }
 
     @Transactional(readOnly = true)
