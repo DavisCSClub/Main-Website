@@ -24,8 +24,8 @@ public class MembershipComparator implements Comparator<Membership> {
         OFFICER_TITLES.put("Professional Development Committee Vice-Chair", 7);
         OFFICER_TITLES.put("Tutoring Committee Chair", 6);
         OFFICER_TITLES.put("Tutoring Committee Vice-Chair", 7);
-        OFFICER_TITLES.put("Web Development Chair", 6);
-        OFFICER_TITLES.put("Web Development Vice-Chair", 7);
+        OFFICER_TITLES.put("Web Development Committee Chair", 6);
+        OFFICER_TITLES.put("Web Development Committee Vice-Chair", 7);
     }
 
     @Override
