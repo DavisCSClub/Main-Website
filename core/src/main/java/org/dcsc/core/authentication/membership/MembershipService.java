@@ -19,6 +19,16 @@ public class MembershipService {
         return repository.getByUser(user);
     }
 
+    @Transactional(readOnly = true)
+    public List<Membership> getByGroupAndYear(int groupId, int year) {
+        return repository.getByGroupAndYear(groupId, year);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Integer> getMembershipYears(int groupId) {
+        return repository.getMembershipYears(groupId);
+    }
+
     @Transactional
     public Membership add(User user, Group group) {
         ZonedDateTime start = ZonedDateTime.now();
