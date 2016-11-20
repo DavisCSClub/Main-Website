@@ -1,9 +1,10 @@
-package org.dcsc.web.controller;
+package org.dcsc.web.officer;
 
-import org.dcsc.core.officer.DcscOfficer;
+import org.dcsc.core.authentication.membership.Membership;
+import org.dcsc.core.authentication.membership.MembershipComparator;
+import org.dcsc.core.authentication.membership.MembershipService;
 import org.dcsc.web.constants.ModelAttributeNames;
 import org.dcsc.web.constants.ViewNames;
-import org.dcsc.core.officer.DcscOfficerService;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,27 +13,29 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.ZonedDateTime;
+import java.util.Comparator;
 import java.util.List;
 
-/**
- * Created by tktong on 7/28/2015.
- */
 @Controller
 public class OfficerController {
+    private static final Comparator<Membership> TITLE_COMPARATOR = new MembershipComparator();
+    private static final int OFFICER_BOARD_GROUP_ID = 2;
+
     @Autowired
-    private DcscOfficerService dcscOfficerService;
+    private MembershipService membershipService;
 
     @RequestMapping(value = "/officers")
     public String officers(@RequestParam(value = "year", defaultValue = "0") int year, Model model) {
-        List<Integer> years = dcscOfficerService.getDistinctYears();
+        year = (year == 0) ? ZonedDateTime.now().getYear() : year;
 
-        if(!years.contains(year)) {
-            year = years.get(years.size()-1);
-        }
+        List<Membership> officers = membershipService.getByGroupAndAcademicYear(OFFICER_BOARD_GROUP_ID, year);
+        List<Integer> years = membershipService.getMembershipYears(OFFICER_BOARD_GROUP_ID);
+        officers.sort(TITLE_COMPARATOR);
 
-        List<DcscOfficer> officerList = dcscOfficerService.getOfficers(year);
-
-        model.addAttribute(ModelAttributeNames.OFFICERS, officerList);
+        model.addAttribute("startYear", year);
+        model.addAttribute("endYear", year + 1);
+        model.addAttribute(ModelAttributeNames.OFFICERS, officers);
         model.addAttribute(ModelAttributeNames.YEARS, years);
 
         return ViewNames.OFFICERS;

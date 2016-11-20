@@ -9,6 +9,7 @@ INSERT INTO authentication.memberships VALUES (1, 1, 1, '2016-01-16 02:30:00+00'
 INSERT INTO authentication.memberships VALUES (2, 2, 1, '2016-01-16 02:30:00+00','2020-01-16 02:30:00+00', 'President', true);
 INSERT INTO authentication.memberships VALUES (3, 3, 1, '2016-01-16 02:30:00+00','2020-01-16 02:30:00+00', 'President', true);
 INSERT INTO authentication.memberships VALUES (4, 4, 1, '2016-01-16 02:30:00+00','2020-01-16 02:30:00+00', 'President', true);
+INSERT INTO authentication.memberships VALUES (5, 2, 1, '2015-01-16 02:30:00+00','2016-01-15 02:30:00+00', 'Vice-President of External Affairs', true);
 
 INSERT INTO authentication.authorities VALUES (1, 'AUTHORITIES');
 INSERT INTO authentication.authorities VALUES (2, 'USERS');
