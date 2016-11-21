@@ -21,11 +21,21 @@ public class MembershipService {
     }
 
     @Transactional(readOnly = true)
+    public List<Membership> getByUser(int userId) {
+        return repository.getByUser(userId);
+    }
+
+    @Transactional(readOnly = true)
     public List<Membership> getByGroupAndAcademicYear(int groupId, int startYear) {
         ZonedDateTime startDate = ZonedDateTime.of(startYear, 6, 12, 0, 0, 0, 0, ZoneId.of("America/Los_Angeles"));
         ZonedDateTime endDate = startDate.plusYears(1);
 
         return repository.getByGroupBetweenDates(groupId, startDate, endDate);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Membership> getByUserAndGroup(int userId, int groupId) {
+        return repository.getByUserAndGroup(userId, groupId);
     }
 
     @Transactional(readOnly = true)
