@@ -3,6 +3,9 @@
 [![Build Status](https://semaphoreci.com/api/v1/daviscsclub/main-website/branches/integration/shields_badge.svg)](https://semaphoreci.com/daviscsclub/main-website)
 [![codebeat badge](https://codebeat.co/badges/c8a41af8-bad4-4c94-a3ef-cb9bcff8286b)](https://codebeat.co/projects/github-com-daviscsclub-main-website)
 
+# **THIS CODE IS NOT MAINTAINED ANYMORE.**
+To visit the currently version of our website, please go to [this repo](https://github.com/DavisCSClub/daviscsclub.org). Thanks!
+
 # IMPORTANT
 
 Because of licenses on a few of our HTML templates, the resources directory is made into its own private repository. Contact any of the repository owners for access.
